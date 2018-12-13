@@ -17,10 +17,11 @@ int main() {
 
 list<vector<string>> lexer(const string &fileName) {
         fstream file(fileName);
+        list<vector<string>> command;
         if (!file) {
             cout << "File doesn't exist";
         } else {
-            list<vector<string>> command;
+
             string line;
             while (!file.eof()) {
                 getline(file,line);
@@ -28,6 +29,7 @@ list<vector<string>> lexer(const string &fileName) {
                 command.push_back(vec);
             }
         }
+        return command;
 
 }
 
