@@ -7,28 +7,29 @@
 using namespace std;
 
 vector<string> splitCommand(const string &givenLine);
-
+list<vector<string>> lexer(const string &fileName);
 int main() {
-
-
-
+    list<vector<string>> list1;
+    list1 = lexer("test.txt");
     return 0;
 }
 
 
 list<vector<string>> lexer(const string &fileName) {
-        ifstream file(fileName);
-        string line;
+        fstream file(fileName);
         list<vector<string>> command;
-        if (file.fail()) {
+        if (!file) {
             cout << "File doesn't exist";
         } else {
+
+            string line;
             while (!file.eof()) {
                 getline(file,line);
+                vector<string> vec = splitCommand(line);
+                command.push_back(vec);
             }
-            vector<string> vec = splitCommand(line);
-            command.push_back(vec);
         }
+        return command;
 
 }
 
@@ -41,6 +42,9 @@ vector<string> splitCommand(const string &givenLine){
     }
     return vec;
 }
+
+
+
 
 
 
