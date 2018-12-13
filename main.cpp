@@ -3,6 +3,10 @@
 #include <list>
 #include <fstream>
 #include <sstream>
+#include <cstring>
+#include <algorithm>
+
+enum{EQUAL};
 
 using namespace std;
 
@@ -18,16 +22,13 @@ int main() {
 list<vector<string>> lexer(const string &fileName) {
         fstream file(fileName);
         list<vector<string>> command;
-        if (!file) {
-            cout << "File doesn't exist";
-        } else {
-
-            string line;
-            while (!file.eof()) {
-                getline(file,line);
-                vector<string> vec = splitCommand(line);
-                command.push_back(vec);
-            }
+        if (!file)
+            return command;
+        string line;
+        while (!file.eof()) {
+            getline(file, line);
+            vector<string> vec = splitCommand(line);
+            command.push_back(vec);
         }
         return command;
 
@@ -37,7 +38,12 @@ vector<string> splitCommand(const string &givenLine){
     vector<string> vec;
     stringstream ss(givenLine);
     string item;
+    getline(ss, item, ' ');
     while (getline(ss, item, ' ')){
+        if (strcmp(item.c_str(),"") == EQUAL) {
+            continue;
+        }
+        item.erase(std::remove(item.begin(), item.end(), '\\'), item.end());
         vec.push_back(item);
     }
     return vec;
