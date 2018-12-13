@@ -31,8 +31,7 @@ vector<string> splitCommand(const string &givenLine){
     vector<string> vec;
     stringstream ss(givenLine);
     string item;
-    string delim = " ";
-    while (getline(ss, item, delim)){
+    while (getline(ss, item, ' ')){
         vec.push_back(item);
     }
 }
