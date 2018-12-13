@@ -22,7 +22,7 @@ public:
     RunTheSimulator(){}
     void praser(string fileName);
     vector<string> splitCommand(const string &givenLine);
-    vector<string> lexer(fstream& file)
+    vector<string> lexer(fstream& file);
 };
 
 

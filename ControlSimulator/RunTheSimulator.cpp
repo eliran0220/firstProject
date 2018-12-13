@@ -12,6 +12,7 @@ void RunTheSimulator::praser(string fileName) {
         cout<< "file does not exists";
         return;
     }
+   // vector<string> command = lexer(file);
     vector<string> command = lexer(file);
     while (!command.empty()) {
         command =  lexer(file);
@@ -38,7 +39,8 @@ vector<string> RunTheSimulator::splitCommand(const string &givenLine){
         if (strcmp(item.c_str(),"") == EQUAL || strcmp(item.c_str(),"=") == EQUAL) {
             continue;
         }
-        item.erase(std::remove(item.begin(), item.end(), '\\'), item.end());
+        item.erase(std::remove(item.begin(), item.end(), '"'), item.end());
+
         vec.push_back(item);
     }
     return vec;
