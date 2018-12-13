@@ -10,9 +10,7 @@ vector<string> splitCommand(const string &givenLine);
 list<vector<string>> lexer(const string &fileName);
 int main() {
     list<vector<string>> list1;
-    list1 = lexer("abc.txt");
-
-
+    list1 = lexer("test.txt");
     return 0;
 }
 
@@ -26,9 +24,9 @@ list<vector<string>> lexer(const string &fileName) {
             string line;
             while (!file.eof()) {
                 getline(file,line);
+                vector<string> vec = splitCommand(line);
+                command.push_back(vec);
             }
-            vector<string> vec = splitCommand(line);
-            command.push_back(vec);
         }
 
 }
