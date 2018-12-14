@@ -43,9 +43,21 @@ vector<string> RunTheSimulator::splitCommand(const string &givenLine) {
     string item;
     getline(ss, item, ' ');
     while (getline(ss, item, ' ')) {
-        if (strcmp(item.c_str(), "") == EQUAL ||
-            strcmp(item.c_str(), "=") == EQUAL) {
+        if (strcmp(item.c_str(), "") == EQUAL ) {
             continue;
+        } else if (strcmp(item.c_str(), "=") == EQUAL) {
+            getline(ss, item);
+            if (strstr(item.c_str(), "bind")) {
+                stringstream temp(item);
+                getline(temp, item, ' ');
+                vec.push_back(item);
+                getline(temp, item, ' ');
+                item.erase(std::remove(item.begin(), item.end(), '"'), item.end());
+                vec.push_back(item);
+            } else {
+                vec.push_back(item);
+            }
+            break;
         }
         item.erase(std::remove(item.begin(), item.end(), '"'), item.end());
         vec.push_back(item);
