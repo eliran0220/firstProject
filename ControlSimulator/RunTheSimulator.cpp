@@ -6,13 +6,16 @@
 
 
 #include <regex>
+#include <queue>
 #include "RunTheSimulator.h"
+
 
 bool checkIfLineIsConditionCommand(const string &givenLine);
 bool checkIfCharIsOperator(char c);
 vector<string> splitExpression(string stringExpression);
+vector<string> ShuntingYardAlgorithm(vector<string> prefix);
 
-void RunTheSimulator::praser(string fileName){
+void RunTheSimulator::parser(string fileName){
     fstream file(fileName);
     if (!file) {
         cout << "file does not exists";
@@ -133,7 +136,8 @@ vector<string> splitExpression(string stringExpression) {
             split.push_back(stringNumber);
             stringNumber = "";
             flag = false;
-        } else if (temp != " ") {
+        }
+        if (temp != " ") {
             split.push_back(temp);
         }
     }
@@ -147,10 +151,54 @@ bool checkIfCharIsOperator(char c) {
     return false;
 }
 
-vector<string> ShuntingYardAlgorithm(vector<string> perfix) {
+vector<string> ShuntingYardAlgorithm(vector<string> prefix) {
     vector<string> infix;
     string temp;
-    regex letterR("[a-zA-Z]");
-    regex numberR("[0-9]");
+    regex varR("[a-zA-Z0-9]+");
+    regex numberR("[0-9]+");
+    regex operatorR("[+]||[-]||[/]||[*]");
+    stack<string> s;
+    queue<string> q;
+    bool flagOperatorInStack = false;
+    for (int i = 0; i < prefix.size(); ++i) {
+        if (regex_match(prefix[i], numberR)) {
+            q.push(prefix[i]);
+        } else if (regex_match(prefix[i], operatorR)) {
+            while ((! s.empty()) && regex_match(s.top(), operatorR)) {
+                q.push(s.top());
+                s.pop();
+                flagOperatorInStack = true;
+            }
+            if (!flagOperatorInStack) {
+                s.push(prefix[i]);
+            }
+            flagOperatorInStack = false;
+        } else if (prefix[i] == "(") {
+            s.push(prefix[i]);
+        } else if (prefix[i] == ")") {
+            while (! s.empty()) {
+                if ( s.top() != "(") {
+                    temp = s.top();
+                    s.pop();
+                } else {
+                    s.pop();
+                    break;
+                }
+            }
+        }
+    }
+    while (! s.empty()) {
+        q.push(s.top());
+        s.pop();
+    }
+    while (!q.empty()) {
+        infix.push_back(q.front());
+        q.pop();
+    }
+    return infix;
 }
 
+void RunTheSimulator::check(string s) {
+    vector<string> vec = splitExpression(s);
+    vec = ShuntingYardAlgorithm(vec);
+}

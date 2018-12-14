@@ -10,7 +10,7 @@
 int main() {
     RunTheSimulator *r = new RunTheSimulator();
     //r->parser‬‬("test.txt");
-
+    r->check("2/(1-5)");
     return 0;
 }
 

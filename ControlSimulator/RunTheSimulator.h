@@ -29,7 +29,7 @@ class RunTheSimulator {
 
 public:
     RunTheSimulator() {}
-    void praser(string fileName);
+    void parser(string fileName);
 
 
     vector<string> splitCommand(const string &givenLine);
@@ -38,6 +38,7 @@ public:
 
     vector<string> ReadConditionBLock(fstream &file,
                             const string &firstLineBlock);
+    void check(string s);
 };
 
 
