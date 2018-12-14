@@ -4,11 +4,15 @@
 
 
 
+
+#include <regex>
 #include "RunTheSimulator.h"
 
-bool checkIfLineConditionCommand(const string &givenLine);
+bool checkIfLineIsConditionCommand(const string &givenLine);
+bool checkIfCharIsOperator(char c);
+vector<string> splitExpression(string stringExpression);
 
-void RunTheSimulator::parser‬‬(string fileName) {
+void RunTheSimulator::praser(string fileName){
     fstream file(fileName);
     if (!file) {
         cout << "file does not exists";
@@ -31,7 +35,7 @@ vector<string> RunTheSimulator::lexer(fstream &file) {
     bool check;
     if (!file.eof()) {
         getline(file, line);
-        check = checkIfLineConditionCommand(line);
+        check = checkIfLineIsConditionCommand(line);
         if (check) {
             command = ReadConditionBLock(file, line);
         } else {
@@ -102,11 +106,51 @@ RunTheSimulator::ReadConditionBLock(fstream &file,
     return command;
 }
 
-bool checkIfLineConditionCommand(const string &givenLine) {
+bool checkIfLineIsConditionCommand(const string &givenLine) {
 
     return strstr(givenLine.c_str(), WHILE_LOOP) ||
            strstr(givenLine.c_str(), FOR_LOOP)
            || strstr(givenLine.c_str(), IF);
 
+}
+
+vector<string> splitExpression(string stringExpression) {
+    vector<string> split;
+    string temp;
+    string stringNumber;
+    regex letterR("[a-zA-Z]");
+    regex numberR("[0-9]");
+    bool flag = false;
+    for (int i = 0; i < stringExpression.size(); ++i) {
+        temp = stringExpression[i];
+        while (regex_match(temp, letterR) || regex_match(temp, numberR)) {
+            stringNumber = stringNumber + temp;
+            flag = true;
+            i++;
+            temp = stringExpression[i];
+        }
+        if (flag){
+            split.push_back(stringNumber);
+            stringNumber = "";
+            flag = false;
+        } else if (temp != " ") {
+            split.push_back(temp);
+        }
+    }
+    return split;
+}
+
+bool checkIfCharIsOperator(char c) {
+    if (c == '+' || c == '*' || c == '/' || c == '-') {
+        return true;
+    }
+    return false;
+}
+
+vector<string> ShuntingYardAlgorithm(vector<string> perfix) {
+    vector<string> infix;
+    string temp;
+    regex letterR("[a-zA-Z]");
+    regex numberR("[0-9]");
 }
 

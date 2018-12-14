@@ -16,6 +16,7 @@
 #include <cstring>
 #include <sstream>
 #include <algorithm>
+#include "../Expressions/Expression.h"
 
 using namespace std;
 
@@ -24,10 +25,12 @@ enum {
 };
 
 class RunTheSimulator {
+    vector<Expression*> expressions;
+
 public:
     RunTheSimulator() {}
+    void praser(string fileName);
 
-    void parser‬‬(string fileName);
 
     vector<string> splitCommand(const string &givenLine);
 
