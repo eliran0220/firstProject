@@ -33,10 +33,8 @@ public:
 
     vector<string> lexer(fstream &file);
 
-    vector<string> conditionCommand(vector<string> command, fstream &file,
-                            const string &givenLine);
-
-    bool checkIfLineCondition(const string &givenLine);
+    vector<string> ReadConditionBLock(fstream &file,
+                            const string &firstLineBlock);
 };
 
 

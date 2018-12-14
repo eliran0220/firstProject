@@ -6,6 +6,8 @@
 
 #include "RunTheSimulator.h"
 
+bool checkIfLineConditionCommand(const string &givenLine);
+
 void RunTheSimulator::praser(string fileName) {
     fstream file(fileName);
     if (!file) {
@@ -13,26 +15,28 @@ void RunTheSimulator::praser(string fileName) {
         return;
     }
     vector<string> command = lexer(file);
+    vector<string> splitCom;
     while (!command.empty()) {
         command = lexer(file);
+        for (int i = 0; i < command.size(); ++i) {
+            splitCom = splitCommand(command[i]);
+        }
     }
     file.close();
 }
 
 vector<string> RunTheSimulator::lexer(fstream &file) {
-
     vector<string> command;
     string line;
     bool check;
     if (!file.eof()) {
         getline(file, line);
-        check = checkIfLineCondition(line);
+        check = checkIfLineConditionCommand(line);
         if (check) {
-            command = conditionCommand(command, file, line);
+            command = ReadConditionBLock(file, line);
         } else {
-            command = splitCommand(line);
+            command.push_back(line);
         }
-
     }
     return command;
 }
@@ -57,10 +61,16 @@ vector<string> RunTheSimulator::splitCommand(const string &givenLine) {
             } else {
                 vec.push_back(item);
             }
-            break;
+        } else if (strstr(item.c_str(), "{") && !strstr(item.c_str(), " ")) {
+            stringstream temp(item);
+            getline(temp, item, '{');
+            vec.push_back(item);
+            getline(ss, item);
+            vec.push_back(item);
+        } else {
+            item.erase(std::remove(item.begin(), item.end(), '"'), item.end());
+            vec.push_back(item);
         }
-        item.erase(std::remove(item.begin(), item.end(), '"'), item.end());
-        vec.push_back(item);
     }
     return vec;
 }
@@ -73,21 +83,26 @@ vector<string> RunTheSimulator::splitCommand(const string &givenLine) {
 * than, we add } to the vector.
 */
 vector<string>
-RunTheSimulator::conditionCommand(vector<string> command, fstream &file,
-                                  const string &givenLine) {
-    vector<string> temp;
-    command = splitCommand(givenLine);
+RunTheSimulator::ReadConditionBLock(fstream &file,
+                                  const string &firstLineBlock) {
+    vector<string> command;
     string line;
-    do {
+    int amountBlock = 1;
+    int counter = 0;
+    command.push_back(firstLineBlock);
+    while (counter < amountBlock) {
         getline(file, line);
-        temp = splitCommand(line);
-        command.insert(command.end(), temp.begin(), temp.end());
-
-    } while (!strstr(line.c_str(), "}"));
+        command.push_back(line);
+        if (strstr(line.c_str(), "{")) {
+            amountBlock++;
+        } else if (strstr(line.c_str(), "}")) {
+            counter++;
+        }
+    }
     return command;
 }
 
-bool RunTheSimulator::checkIfLineCondition(const string &givenLine) {
+bool checkIfLineConditionCommand(const string &givenLine) {
 
     return strstr(givenLine.c_str(), WHILE_LOOP) ||
            strstr(givenLine.c_str(), FOR_LOOP)
