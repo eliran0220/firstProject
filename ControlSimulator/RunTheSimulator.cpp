@@ -28,7 +28,7 @@ vector<string> RunTheSimulator::lexer(fstream &file) {
         getline(file, line);
         check = checkIfLineCondition(line);
         if (check) {
-            conditionCommand(command, file, line);
+            command = conditionCommand(command, file, line);
         } else {
             command = splitCommand(line);
         }
@@ -73,7 +73,6 @@ RunTheSimulator::conditionCommand(vector<string> command, fstream &file,
 
     } while (!strstr(line.c_str(), "}"));
     return command;
-
 }
 
 bool RunTheSimulator::checkIfLineCondition(const string &givenLine) {
