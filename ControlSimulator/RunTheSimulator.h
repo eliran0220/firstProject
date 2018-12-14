@@ -19,15 +19,23 @@
 
 using namespace std;
 
-enum{EQUAL};
+enum {
+    EQUAL
+};
 
 class RunTheSimulator {
 public:
-    RunTheSimulator(){}
+    RunTheSimulator() {}
+
     void praser(string fileName);
+
     vector<string> splitCommand(const string &givenLine);
-    vector<string> lexer(fstream& file);
-    string conditionCommand(const string &givenLine);
+
+    vector<string> lexer(fstream &file);
+
+    vector<string> conditionCommand(vector<string> command, fstream &file,
+                            const string &givenLine);
+
     bool checkIfLineCondition(const string &givenLine);
 };
 

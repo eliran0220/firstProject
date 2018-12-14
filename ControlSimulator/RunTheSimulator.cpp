@@ -20,23 +20,18 @@ void RunTheSimulator::praser(string fileName) {
 }
 
 vector<string> RunTheSimulator::lexer(fstream &file) {
+
     vector<string> command;
     string line;
     bool check;
     if (!file.eof()) {
         getline(file, line);
-        /*
-         * Prototype algorithem for conditions:
-         * check if a line contains a condition
-         * if we see a line which contains "if,while,for" we do the split
-         * command function, and repeat the algorithem untill we see }
-         * than, we add } to the vector.
-         */
         check = checkIfLineCondition(line);
         if (check) {
-
+            conditionCommand(command, file, line);
+        } else {
+            command = splitCommand(line);
         }
-        command = splitCommand(line);
 
     }
     return command;
@@ -58,12 +53,34 @@ vector<string> RunTheSimulator::splitCommand(const string &givenLine) {
     return vec;
 }
 
-string RunTheSimulator::conditionCommand(const string &givenLine) {
+/*
+* Prototype algorithem for conditions:
+* check if a line contains a condition
+* if we see a line which contains "if,while,for" we do the split
+* command function, and repeat the algorithem untill we see }
+* than, we add } to the vector.
+*/
+vector<string>
+RunTheSimulator::conditionCommand(vector<string> command, fstream &file,
+                                  const string &givenLine) {
+    vector<string> temp;
+    command = splitCommand(givenLine);
+    string line;
+    do {
+        getline(file, line);
+        temp = splitCommand(line);
+        command.insert(command.end(), temp.begin(), temp.end());
+
+    } while (!strstr(line.c_str(), "}"));
+    return command;
 
 }
 
 bool RunTheSimulator::checkIfLineCondition(const string &givenLine) {
-    return givenLine.find(WHILE_LOOP) || givenLine.find(FOR_LOOP)
-           || givenLine.find(IF);
+
+    return strstr(givenLine.c_str(), WHILE_LOOP) ||
+           strstr(givenLine.c_str(), FOR_LOOP)
+           || strstr(givenLine.c_str(), IF);
+
 }
 
