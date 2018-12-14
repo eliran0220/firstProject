@@ -5,6 +5,10 @@
 #ifndef FIRSTPROJECT_RUNTHESIMULATOR_H
 #define FIRSTPROJECT_RUNTHESIMULATOR_H
 
+#define WHILE_LOOP "while"
+#define FOR_LOOP "for"
+#define IF "if"
+
 #include <string>
 #include <vector>
 #include <fstream>
@@ -23,6 +27,8 @@ public:
     void praser(string fileName);
     vector<string> splitCommand(const string &givenLine);
     vector<string> lexer(fstream& file);
+    string conditionCommand(const string &givenLine);
+    bool checkIfLineCondition(const string &givenLine);
 };
 
 
