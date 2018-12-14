@@ -5,6 +5,13 @@
 5.    rudder = (h0 - heading)/20
 6.    aileron = - roll / 70
 7.    elevator = pitch / 50
+      while alt < 100 {
+5.       rudder = (h0 - heading)/20
+6.       aileron = - roll / 70
+7.       elevator = pitch / 50
+8.       print alt
+9.       sleep 250
+10.   }
 8.    print alt
 9.    sleep 250
 10. }

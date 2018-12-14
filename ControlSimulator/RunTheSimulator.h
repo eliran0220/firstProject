@@ -27,7 +27,7 @@ class RunTheSimulator {
 public:
     RunTheSimulator() {}
 
-    void praser(string fileName);
+    void parser‬‬(string fileName);
 
     vector<string> splitCommand(const string &givenLine);
 

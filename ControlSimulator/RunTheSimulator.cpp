@@ -8,7 +8,7 @@
 
 bool checkIfLineConditionCommand(const string &givenLine);
 
-void RunTheSimulator::praser(string fileName) {
+void RunTheSimulator::parser‬‬(string fileName) {
     fstream file(fileName);
     if (!file) {
         cout << "file does not exists";

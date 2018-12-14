@@ -9,7 +9,7 @@
 
 int main() {
     RunTheSimulator *r = new RunTheSimulator();
-    r->praser("test.txt");
+    r->parser‬‬("test.txt");
     return 0;
 }
 
