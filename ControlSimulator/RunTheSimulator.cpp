@@ -131,7 +131,7 @@ vector<string> splitExpression(string stringExpression) {
     bool flag = false;
     for (int i = 0; i < stringExpression.size(); ++i) {
         temp = stringExpression[i];
-        while (regex_match(temp, letterR) || regex_match(temp, numberR)) {
+        while (regex_match(temp, letterR) || regex_match(temp, numberR) || temp == ".") {
             stringNumber = stringNumber + temp;
             flag = true;
             i++;
@@ -155,12 +155,12 @@ vector<string> ShuntingYardAlgorithm(vector<string> strings) {
     vector<string> infix;
     string temp;
     regex varR("[a-zA-Z0-9]+");
-    regex numberR("[0-9]+");
+    regex numberR("[0-9]+||[0-9].{0,1}[0-9]+");
     regex operatorR("[+]||[-]||[/]||[*]");
     stack<string> s;
     queue<string> q;
     for (int i = 0; i < prefix.size(); ++i) {
-        if (regex_match(prefix[i], numberR)) {
+        if (regex_match(prefix[i], numberR) || regex_match(prefix[i], varR)) {
             q.push(prefix[i]);
         } else if (regex_match(prefix[i], operatorR)) {
             while ((! s.empty()) && regex_match(s.top(), operatorR)) {
@@ -196,7 +196,7 @@ vector<string> ShuntingYardAlgorithm(vector<string> strings) {
 }
 
 Expression* createExpressionFromStrings(vector<string> strings, int position) {
-    regex numberR("[0-9]+");
+    regex numberR("[0-9]+||[0-9].{0,1}[0-9]+");
     regex operatorR("[+]||[-]||[/]||[*]");
     stack<Expression*> stackEx;
     Expression* tempEx;
@@ -205,7 +205,7 @@ Expression* createExpressionFromStrings(vector<string> strings, int position) {
     double tempNum;
     for (int i = 0; i < strings.size(); ++i) {
         if (regex_match(strings[i], numberR)) {
-            tempNum = atoi(strings[i].c_str());
+            tempNum = stod(strings[i].c_str());
             tempEx = new Number(tempNum);
             stackEx.push(tempEx);
         } else {
