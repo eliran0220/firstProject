@@ -36,11 +36,6 @@ public:
 
     vector<string> ReadConditionBLock(fstream &file, const string &firstLineBlock);
 
-    vector<string> ShuntingYardAlgorithm(vector<string> strings);
-
-    vector<string> splitExpression(string stringExpression);
-
-    Expression* createExpressionFromStrings(vector<string> strings, int position);
 };
 
 

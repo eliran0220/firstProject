@@ -122,7 +122,7 @@ bool checkIfLineIsConditionCommand(const string &givenLine) {
 
 }
 
-vector<string> RunTheSimulator::splitExpression(string stringExpression) {
+vector<string> splitExpression(string stringExpression) {
     vector<string> split;
     string temp;
     string stringNumber;
@@ -150,7 +150,7 @@ vector<string> RunTheSimulator::splitExpression(string stringExpression) {
 }
 
 
-vector<string> RunTheSimulator::ShuntingYardAlgorithm(vector<string> strings) {
+vector<string> ShuntingYardAlgorithm(vector<string> strings) {
     vector<string> prefix = strings;
     vector<string> infix;
     string temp;
@@ -195,36 +195,37 @@ vector<string> RunTheSimulator::ShuntingYardAlgorithm(vector<string> strings) {
     return infix;
 }
 
-Expression* RunTheSimulator::createExpressionFromStrings(vector<string> strings, int position) {
+Expression* createExpressionFromStrings(vector<string> strings, int position) {
     regex numberR("[0-9]+");
     regex operatorR("[+]||[-]||[/]||[*]");
-    if (position == 0) {
-        double number = atoi(strings[position].c_str());
-        return new Number(number);
-    }
-    // תנאי אם אחד הביטויים הוא משתנה שצריך למשוך
+    stack<Expression*> stackEx;
+    Expression* tempEx;
     Expression* left;
-    Expression* right = createExpressionFromStrings(strings, position - 1);
-    if (regex_match(strings[position - 1], operatorR)) {
-        left = createExpressionFromStrings(strings, position - 4);
-    } else {
-        left = createExpressionFromStrings(strings, position - 2);
+    Expression* right;
+    double tempNum;
+    for (int i = 0; i < strings.size(); ++i) {
+        if (regex_match(strings[i], numberR)) {
+            tempNum = atoi(strings[i].c_str());
+            tempEx = new Number(tempNum);
+            stackEx.push(tempEx);
+        } else {
+            right = stackEx.top();
+            stackEx.pop();
+            left = stackEx.top();
+            stackEx.pop();
+            if (strings[i] == "/") {
+                tempEx = new Div(left, right);
+            } else if (strings[i] == "*") {
+                tempEx = new Mult(left, right);
+            } else if (strings[i] == "+") {
+                tempEx = new Plus(left, right);
+            }  else if (strings[i] == "-") {
+                tempEx = new Minus(left, right);
+            }
+            stackEx.push(tempEx);
+        }
     }
-    if (regex_match(strings[position], numberR)) {
-        double number = atoi(strings[position].c_str());
-        return new Number(number);
-    }
-    // תנאי אם אחד הביטויים הוא משתנה שצריך למשוך
-    if (strings[position] == "/") {
-        return new Div(left, right);
-    }
-    if (strings[position] == "*") {
-        return new Mult(left, right);
-    }
-    if (strings[position] == "+") {
-        return new Plus(left, right);
-    }
-    if (strings[position] == "-") {
-        return new Minus(left, right);
-    }
+    tempEx = stackEx.top();
+    stackEx.pop();
+    return tempEx;
 }
