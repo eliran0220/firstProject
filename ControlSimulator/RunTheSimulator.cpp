@@ -8,12 +8,17 @@
 #include <regex>
 #include <queue>
 #include "RunTheSimulator.h"
+#include "../Expressions/Div.h"
+#include "../Expressions/Mult.h"
+#include "../Expressions/Plus.h"
+#include "../Expressions/Minus.h"
+#include "../Expressions/Number.h"
 
 
 bool checkIfLineIsConditionCommand(const string &givenLine);
-bool checkIfCharIsOperator(char c);
 vector<string> splitExpression(string stringExpression);
-vector<string> ShuntingYardAlgorithm(vector<string> prefix);
+vector<string> ShuntingYardAlgorithm(vector<string> strings);
+Expression* createExpressionFromStrings(vector<string> strings, int position);
 
 void RunTheSimulator::parser(string fileName){
     fstream file(fileName);
@@ -117,7 +122,7 @@ bool checkIfLineIsConditionCommand(const string &givenLine) {
 
 }
 
-vector<string> splitExpression(string stringExpression) {
+vector<string> RunTheSimulator::splitExpression(string stringExpression) {
     vector<string> split;
     string temp;
     string stringNumber;
@@ -144,14 +149,9 @@ vector<string> splitExpression(string stringExpression) {
     return split;
 }
 
-bool checkIfCharIsOperator(char c) {
-    if (c == '+' || c == '*' || c == '/' || c == '-') {
-        return true;
-    }
-    return false;
-}
 
-vector<string> ShuntingYardAlgorithm(vector<string> prefix) {
+vector<string> RunTheSimulator::ShuntingYardAlgorithm(vector<string> strings) {
+    vector<string> prefix = strings;
     vector<string> infix;
     string temp;
     regex varR("[a-zA-Z0-9]+");
@@ -159,7 +159,6 @@ vector<string> ShuntingYardAlgorithm(vector<string> prefix) {
     regex operatorR("[+]||[-]||[/]||[*]");
     stack<string> s;
     queue<string> q;
-    bool flagOperatorInStack = false;
     for (int i = 0; i < prefix.size(); ++i) {
         if (regex_match(prefix[i], numberR)) {
             q.push(prefix[i]);
@@ -167,18 +166,15 @@ vector<string> ShuntingYardAlgorithm(vector<string> prefix) {
             while ((! s.empty()) && regex_match(s.top(), operatorR)) {
                 q.push(s.top());
                 s.pop();
-                flagOperatorInStack = true;
             }
-            if (!flagOperatorInStack) {
-                s.push(prefix[i]);
-            }
-            flagOperatorInStack = false;
+            s.push(prefix[i]);
         } else if (prefix[i] == "(") {
             s.push(prefix[i]);
         } else if (prefix[i] == ")") {
             while (! s.empty()) {
                 if ( s.top() != "(") {
                     temp = s.top();
+                    q.push(temp);
                     s.pop();
                 } else {
                     s.pop();
@@ -192,13 +188,43 @@ vector<string> ShuntingYardAlgorithm(vector<string> prefix) {
         s.pop();
     }
     while (!q.empty()) {
-        infix.push_back(q.front());
+        temp = q.front();
+        infix.push_back(temp);
         q.pop();
     }
     return infix;
 }
 
-void RunTheSimulator::check(string s) {
-    vector<string> vec = splitExpression(s);
-    vec = ShuntingYardAlgorithm(vec);
+Expression* RunTheSimulator::createExpressionFromStrings(vector<string> strings, int position) {
+    regex numberR("[0-9]+");
+    regex operatorR("[+]||[-]||[/]||[*]");
+    if (position == 0) {
+        double number = atoi(strings[position].c_str());
+        return new Number(number);
+    }
+    // תנאי אם אחד הביטויים הוא משתנה שצריך למשוך
+    Expression* left;
+    Expression* right = createExpressionFromStrings(strings, position - 1);
+    if (regex_match(strings[position - 1], operatorR)) {
+        left = createExpressionFromStrings(strings, position - 4);
+    } else {
+        left = createExpressionFromStrings(strings, position - 2);
+    }
+    if (regex_match(strings[position], numberR)) {
+        double number = atoi(strings[position].c_str());
+        return new Number(number);
+    }
+    // תנאי אם אחד הביטויים הוא משתנה שצריך למשוך
+    if (strings[position] == "/") {
+        return new Div(left, right);
+    }
+    if (strings[position] == "*") {
+        return new Mult(left, right);
+    }
+    if (strings[position] == "+") {
+        return new Plus(left, right);
+    }
+    if (strings[position] == "-") {
+        return new Minus(left, right);
+    }
 }

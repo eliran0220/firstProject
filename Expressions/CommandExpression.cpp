@@ -3,11 +3,11 @@
 //
 
 #include "Expression.h"
-#include "Command.h"
+//#include "Command.h"
 
 class CommandExpression : public Expression{
 public:
-    private Command;
+    //private Command;
     double calculate() override {
         return 0;
     }

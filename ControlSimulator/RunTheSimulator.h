@@ -20,25 +20,27 @@
 
 using namespace std;
 
-enum {
-    EQUAL
-};
+enum {EQUAL};
 
 class RunTheSimulator {
     vector<Expression*> expressions;
 
 public:
     RunTheSimulator() {}
-    void parser(string fileName);
 
+    void parser(string fileName);
 
     vector<string> splitCommand(const string &givenLine);
 
     vector<string> lexer(fstream &file);
 
-    vector<string> ReadConditionBLock(fstream &file,
-                            const string &firstLineBlock);
-    void check(string s);
+    vector<string> ReadConditionBLock(fstream &file, const string &firstLineBlock);
+
+    vector<string> ShuntingYardAlgorithm(vector<string> strings);
+
+    vector<string> splitExpression(string stringExpression);
+
+    Expression* createExpressionFromStrings(vector<string> strings, int position);
 };
 
 
