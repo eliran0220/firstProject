@@ -6,6 +6,6 @@
 #define FIRSTPROJECT_COMMAND_H
 class Command{
 public:
-    virtual int calculate() = 0;
+    virtual int execute() = 0;
 };
 #endif //FIRSTPROJECT_COMMAND_H
