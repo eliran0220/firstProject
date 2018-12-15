@@ -15,7 +15,7 @@ class SleepCommand : public Command {
 private:
     double sleepFor;
 public:
-    int execute() override;
+    void execute() override;
 
     SleepCommand(double sleepFor);
 
