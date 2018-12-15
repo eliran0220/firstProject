@@ -15,7 +15,7 @@ private:
     string message;
 
 public:
-    void execute() override;
+    int execute(const vector<string> &parameters, int position);
 
     PrintCommand(const string &message);
 };

@@ -16,7 +16,7 @@
 using namespace std;
 
 class CastStringToExpression {
-
+public:
     // להעביר בקונסטרקור את האובייקט המכיל את המשתנים הגלובלים שכול קומםאנד יחזיק
     CastStringToExpression() {}
 

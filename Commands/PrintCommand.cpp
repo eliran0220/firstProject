@@ -5,9 +5,9 @@
 #include <iostream>
 #include "PrintCommand.h"
 
-void PrintCommand::execute() {
-    cout << this->message;
-
+int PrintCommand::execute(const vector<string> &parameters, int position) {
+    cout << parameters[position + 1];
+    return position + 1;
 }
 
 PrintCommand::PrintCommand(const string &message) : message(message) {}

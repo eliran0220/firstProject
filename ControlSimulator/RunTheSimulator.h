@@ -18,6 +18,7 @@
 #include <algorithm>
 #include "../Expressions/Expression.h"
 
+
 using namespace std;
 
 enum {EQUAL};

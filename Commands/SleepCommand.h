@@ -8,15 +8,15 @@
 #include <vector>
 #include <string>
 #include "Command.h"
+#include "../Useful/CastStringToExpression.h"
 
 using namespace std;
 
 class SleepCommand : public Command {
-private:
-    double sleepFor;
+
 public:
-    void execute() override;
-    SleepCommand(double sleepFor);
+    int execute(const vector<string> &parameters, int position);
+    SleepCommand(){}
 
 };
 

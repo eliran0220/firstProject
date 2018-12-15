@@ -4,8 +4,14 @@
 
 #ifndef FIRSTPROJECT_COMMAND_H
 #define FIRSTPROJECT_COMMAND_H
+
+#include <string>
+#include <vector>
+using namespace std;
+
+
 class Command{
 public:
-    virtual void execute() = 0;
+    virtual int execute(const vector<string> &parameters, int position) = 0;
 };
 #endif //FIRSTPROJECT_COMMAND_H

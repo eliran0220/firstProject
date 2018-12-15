@@ -6,9 +6,12 @@
 #define MILLI_SECONDS 1000
 #include "SleepCommand.h"
 
-void SleepCommand::execute() {
-    sleep(static_cast<unsigned int>(sleepFor/MILLI_SECONDS));
+int SleepCommand::execute(const vector<string> &parameters, int position) {
+    CastStringToExpression c = CastStringToExpression();
+    Expression* e = c.createExpression(parameters[position + 1]);
+    delete(e);
+    sleep(static_cast<unsigned int>(e->calculate()/MILLI_SECONDS));
+    return position + 1;
 }
 
-SleepCommand::SleepCommand(double sleepFor) : sleepFor(sleepFor) {}
 

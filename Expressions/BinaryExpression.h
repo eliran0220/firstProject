@@ -20,7 +20,10 @@ public:
 
     virtual double calculate() = 0;
 
-
+    virtual ~BinaryExpression() {
+        delete (left);
+        delete(right);
+    }
 
 };
 
