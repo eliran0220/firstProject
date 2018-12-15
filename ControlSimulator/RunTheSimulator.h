@@ -28,19 +28,14 @@ class RunTheSimulator {
 public:
     RunTheSimulator() {}
 
-    void parser(string fileName);
+    void parser(vector<string> commands);
 
     vector<string> splitCommand(const string &givenLine);
 
-    vector<string> lexer(fstream &file);
+    vector<string> lexer(string fileName);
 
-    vector<string> ReadConditionBLock(fstream &file, const string &firstLineBlock);
+    //vector<string> ReadConditionBLock(fstream &file, const string &firstLineBlock);
 
-    vector<string> ShuntingYardAlgorithm(vector<string> strings);
-
-    vector<string> splitExpression(string stringExpression);
-
-    Expression* createExpressionFromStrings(vector<string> strings, int position);
 };
 
 
