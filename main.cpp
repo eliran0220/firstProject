@@ -8,6 +8,9 @@
 
 
 int main() {
+    // ליצור את כל המחלקות של הקומאנדים
+    // ליצור מחלקה שמחזירה את כל המשתנים var
+    // במחלקה יהיה מפה בין מחרוזת לקומאנד
     RunTheSimulator* r = new RunTheSimulator();
     vector<string> s = r->lexer("test.txt");
     return 0;
