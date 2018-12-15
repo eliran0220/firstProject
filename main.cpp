@@ -8,14 +8,8 @@
 
 
 int main() {
-    RunTheSimulator *r = new RunTheSimulator();
-    //r->parser‬‬("test.txt");
-    //r->check("7/(1-5)");
-    vector<string> vec = r->splitExpression("(2.3/(1-5.20) + (5.2 * 4.1))");
-    vec = r->ShuntingYardAlgorithm(vec);
-    Expression* e = r->createExpressionFromStrings(vec, (int)vec.size() - 1);
-    cout<<e->calculate();
-
+    RunTheSimulator* r = new RunTheSimulator();
+    vector<string> s = r->lexer("test.txt");
     return 0;
 }
 

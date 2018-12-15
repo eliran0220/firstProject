@@ -5,21 +5,15 @@
 
 
 
-#include <regex>
-#include <queue>
 #include "RunTheSimulator.h"
-#include "../Expressions/Div.h"
-#include "../Expressions/Mult.h"
-#include "../Expressions/Plus.h"
-#include "../Expressions/Minus.h"
-#include "../Expressions/Number.h"
 
 
-bool checkIfLineIsConditionCommand(const string &givenLine);
-vector<string> splitExpression(string stringExpression);
-vector<string> ShuntingYardAlgorithm(vector<string> strings);
-Expression* createExpressionFromStrings(vector<string> strings, int position);
 
+
+void RunTheSimulator::parser(vector<string> commands){
+
+}
+/*
 void RunTheSimulator::parser(string fileName){
     fstream file(fileName);
     if (!file) {
@@ -36,7 +30,29 @@ void RunTheSimulator::parser(string fileName){
     }
     file.close();
 }
+ */
 
+
+
+vector<string> RunTheSimulator::lexer(string fileName) {
+    fstream file(fileName);
+    vector<string> commands;
+    vector<string> temp;
+    string line;
+    bool check;
+    if (!file) {
+        cout << "file does not exists";
+        return commands;
+    }
+    while (!file.eof()) {
+        getline(file, line);
+        temp = splitCommand(line);
+        commands.insert(commands.end(), temp.begin(), temp.end());
+    }
+    file.close();
+    return commands;
+}
+/*
 vector<string> RunTheSimulator::lexer(fstream &file) {
     vector<string> command;
     string line;
@@ -52,6 +68,8 @@ vector<string> RunTheSimulator::lexer(fstream &file) {
     }
     return command;
 }
+ */
+
 
 vector<string> RunTheSimulator::splitCommand(const string &givenLine) {
     vector<string> vec;
@@ -62,6 +80,7 @@ vector<string> RunTheSimulator::splitCommand(const string &givenLine) {
         if (strcmp(item.c_str(), "") == EQUAL ) {
             continue;
         } else if (strcmp(item.c_str(), "=") == EQUAL) {
+            vec.push_back(item);
             getline(ss, item);
             if (strstr(item.c_str(), "bind")) {
                 stringstream temp(item);
@@ -73,13 +92,18 @@ vector<string> RunTheSimulator::splitCommand(const string &givenLine) {
             } else {
                 vec.push_back(item);
             }
-        } else if (strstr(item.c_str(), "{") && !strstr(item.c_str(), " ")) {
+        }
+        /*
+        else if (strstr(item.c_str(), "{") && !strstr(item.c_str(), " ")) {
+            vec.push_back(item);
             stringstream temp(item);
             getline(temp, item, '{');
             vec.push_back(item);
             getline(ss, item);
             vec.push_back(item);
-        } else {
+        }
+         */
+        else if (!strstr(item.c_str(), " ")) {
             item.erase(std::remove(item.begin(), item.end(), '"'), item.end());
             vec.push_back(item);
         }
@@ -94,6 +118,8 @@ vector<string> RunTheSimulator::splitCommand(const string &givenLine) {
 * command function, and repeat the algorithem untill we see }
 * than, we add } to the vector.
 */
+
+/*
 vector<string>
 RunTheSimulator::ReadConditionBLock(fstream &file,
                                   const string &firstLineBlock) {
@@ -113,7 +139,9 @@ RunTheSimulator::ReadConditionBLock(fstream &file,
     }
     return command;
 }
+ */
 
+/*
 bool checkIfLineIsConditionCommand(const string &givenLine) {
 
     return strstr(givenLine.c_str(), WHILE_LOOP) ||
@@ -121,111 +149,6 @@ bool checkIfLineIsConditionCommand(const string &givenLine) {
            || strstr(givenLine.c_str(), IF);
 
 }
-
-vector<string> splitExpression(string stringExpression) {
-    vector<string> split;
-    string temp;
-    string stringNumber;
-    regex letterR("[a-zA-Z]");
-    regex numberR("[0-9]");
-    bool flag = false;
-    for (int i = 0; i < stringExpression.size(); ++i) {
-        temp = stringExpression[i];
-        while (regex_match(temp, letterR) || regex_match(temp, numberR) || temp == ".") {
-            stringNumber = stringNumber + temp;
-            flag = true;
-            i++;
-            temp = stringExpression[i];
-        }
-        if (flag){
-            split.push_back(stringNumber);
-            stringNumber = "";
-            flag = false;
-        }
-        if (temp != " ") {
-            split.push_back(temp);
-        }
-    }
-    return split;
-}
+*/
 
 
-vector<string> ShuntingYardAlgorithm(vector<string> strings) {
-    vector<string> prefix = strings;
-    vector<string> infix;
-    string temp;
-    regex varR("[a-zA-Z0-9]+");
-    regex numberR("[0-9]+||[0-9].{0,1}[0-9]+");
-    regex operatorR("[+]||[-]||[/]||[*]");
-    stack<string> s;
-    queue<string> q;
-    for (int i = 0; i < prefix.size(); ++i) {
-        if (regex_match(prefix[i], numberR) || regex_match(prefix[i], varR)) {
-            q.push(prefix[i]);
-        } else if (regex_match(prefix[i], operatorR)) {
-            while ((! s.empty()) && regex_match(s.top(), operatorR)) {
-                q.push(s.top());
-                s.pop();
-            }
-            s.push(prefix[i]);
-        } else if (prefix[i] == "(") {
-            s.push(prefix[i]);
-        } else if (prefix[i] == ")") {
-            while (! s.empty()) {
-                if ( s.top() != "(") {
-                    temp = s.top();
-                    q.push(temp);
-                    s.pop();
-                } else {
-                    s.pop();
-                    break;
-                }
-            }
-        }
-    }
-    while (! s.empty()) {
-        q.push(s.top());
-        s.pop();
-    }
-    while (!q.empty()) {
-        temp = q.front();
-        infix.push_back(temp);
-        q.pop();
-    }
-    return infix;
-}
-
-Expression* createExpressionFromStrings(vector<string> strings, int position) {
-    regex numberR("[0-9]+||[0-9].{0,1}[0-9]+");
-    regex operatorR("[+]||[-]||[/]||[*]");
-    stack<Expression*> stackEx;
-    Expression* tempEx;
-    Expression* left;
-    Expression* right;
-    double tempNum;
-    for (int i = 0; i < strings.size(); ++i) {
-        if (regex_match(strings[i], numberR)) {
-            tempNum = stod(strings[i].c_str());
-            tempEx = new Number(tempNum);
-            stackEx.push(tempEx);
-        } else {
-            right = stackEx.top();
-            stackEx.pop();
-            left = stackEx.top();
-            stackEx.pop();
-            if (strings[i] == "/") {
-                tempEx = new Div(left, right);
-            } else if (strings[i] == "*") {
-                tempEx = new Mult(left, right);
-            } else if (strings[i] == "+") {
-                tempEx = new Plus(left, right);
-            }  else if (strings[i] == "-") {
-                tempEx = new Minus(left, right);
-            }
-            stackEx.push(tempEx);
-        }
-    }
-    tempEx = stackEx.top();
-    stackEx.pop();
-    return tempEx;
-}
