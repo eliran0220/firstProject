@@ -14,6 +14,8 @@ int main() {
     vector<string> vec = r->splitExpression("(2/(1-5) + (5 * 4))");
     vec = r->ShuntingYardAlgorithm(vec);
     Expression* e = r->createExpressionFromStrings(vec, (int)vec.size() - 1);
+    int x;
+
     return 0;
 }
 
