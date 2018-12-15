@@ -7,7 +7,5 @@
 
 int PrintCommand::execute(const vector<string> &parameters, int position) {
     cout << parameters[position + 1];
-    return position + 1;
+    return position + 2;
 }
-
-PrintCommand::PrintCommand(const string &message) : message(message) {}

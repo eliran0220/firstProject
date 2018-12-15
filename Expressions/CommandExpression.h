@@ -17,9 +17,17 @@ private:
 
 
 public:
+    CommandExpression(Command* c) {
+        this->command = c;
+    }
     virtual double calculate(){
         return command->execute(*this->parameters, position);
     }
+    virtual void setLexerStringAndPosition(vector<string> &parameters, int position){
+        this->position = position;
+        this->parameters = &parameters;
+    }
+
 };
 
 #endif //FIRSTPROJECT_COMMANDEXPRESSION_H

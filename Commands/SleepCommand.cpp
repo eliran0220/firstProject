@@ -9,9 +9,9 @@
 int SleepCommand::execute(const vector<string> &parameters, int position) {
     CastStringToExpression c = CastStringToExpression();
     Expression* e = c.createExpression(parameters[position + 1]);
-    delete(e);
     sleep(static_cast<unsigned int>(e->calculate()/MILLI_SECONDS));
-    return position + 1;
+    delete(e);
+    return position + 2;
 }
 
 

@@ -17,7 +17,7 @@ private:
 public:
     int execute(const vector<string> &parameters, int position);
 
-    PrintCommand(const string &message);
+    PrintCommand(){}
 };
 
 
