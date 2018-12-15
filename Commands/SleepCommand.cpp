@@ -1,10 +1,9 @@
 //
 // Created by eliran on 12/15/18.
 //
-
 #include <unistd.h>
-#include "SleepCommand.h"
 #define MILLI_SECONDS 1000
+#include "SleepCommand.h"
 
 int SleepCommand::execute() {
     sleep(static_cast<unsigned int>(sleepFor/MILLI_SECONDS));
