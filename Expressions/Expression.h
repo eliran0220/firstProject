@@ -8,5 +8,18 @@ class Expression {
 public:
     virtual double calculate() = 0;
     virtual ~Expression(){}
+
+    bool operator<(Expression *expression){
+        return this->calculate() < expression->calculate();
+    }
+    bool operator<=(Expression *expression){
+        return this->calculate() <= expression->calculate();
+    }
+    bool operator>(Expression *expression){
+        return this->calculate() > expression->calculate();
+    }
+    bool operator>=(Expression *expression){
+        return this->calculate() >= expression->calculate();
+    }
 };
 #endif //FIRSTPROJECT_EXPRESSION_H

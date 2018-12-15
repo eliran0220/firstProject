@@ -7,6 +7,7 @@
 
 #include "Expression.h"
 
+
 class BinaryExpression: public Expression {
 protected:
     Expression* left;
@@ -18,7 +19,12 @@ public:
     }
 
     virtual double calculate() = 0;
+
+
+
 };
+
+
 
 
 #endif //FIRSTPROJECT_BINARYEXPRESSION_H
