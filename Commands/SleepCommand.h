@@ -16,7 +16,6 @@ private:
     double sleepFor;
 public:
     void execute() override;
-
     SleepCommand(double sleepFor);
 
 };
