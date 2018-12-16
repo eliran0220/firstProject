@@ -3,3 +3,9 @@
 //
 
 #include "DefineVarCommand.h"
+
+int
+DefineVarCommand::execute(const vector<string> &parameters, int position) {
+
+    return 0;
+}

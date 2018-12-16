@@ -16,7 +16,6 @@ class SleepCommand : public Command {
 
 public:
     int execute(const vector<string> &parameters, int position);
-    SleepCommand(){}
 
 };
 

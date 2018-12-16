@@ -12,12 +12,9 @@ using namespace std;
 
 class PrintCommand : public Command{
 private:
-    string message;
-
 public:
     int execute(const vector<string> &parameters, int position);
 
-    PrintCommand(){}
 };
 
 
