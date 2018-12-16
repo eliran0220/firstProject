@@ -31,6 +31,6 @@ public:
         return this->calculate() >= expression->calculate();
     }
 
-    virtual void setLexerStringAndPosition(vector<string> &parameters, int position){}
+    virtual void setLexerStringAndPosition(vector<string>* parameters, int position){}
 };
 #endif //FIRSTPROJECT_EXPRESSION_H

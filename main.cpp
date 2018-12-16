@@ -13,6 +13,8 @@ int main() {
     // במחלקה יהיה מפה בין מחרוזת לקומאנד
     RunTheSimulator* r = new RunTheSimulator();
     vector<string> s = r->lexer("test.txt");
+    r->parser(s);
+    delete (r);
     return 0;
 }
 

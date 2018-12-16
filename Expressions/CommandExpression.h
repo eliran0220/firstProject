@@ -23,7 +23,7 @@ public:
     virtual double calculate(){
         return command->execute(*this->parameters, position);
     }
-    virtual void setLexerStringAndPosition(vector<string>* parameters, int position){
+    virtual void setLexerStringAndPosition(vector<string>* parameters, int position) {
         this->position = position;
         this->parameters = parameters;
     }

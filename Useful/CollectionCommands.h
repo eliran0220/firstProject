@@ -13,7 +13,7 @@ private:
     map<string, Expression*> commands;
     FactoryCommands* factoryCommands;
 public:
-    CollectionCommands(){}
+    CollectionCommands();
     ~CollectionCommands();
 
     Expression* getExpressionCommand(const string &command);

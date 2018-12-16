@@ -21,7 +21,7 @@ void RunTheSimulator::parser(vector<string> commands){
     int i = 0;
     while (i < commands.size()){
         command = this->collectionCommands->getExpressionCommand(commands[i]);
-        command->setLexerStringAndPosition(commands, i);
+        command->setLexerStringAndPosition(&commands, i);
         i += (int)command->calculate();
     }
 }
