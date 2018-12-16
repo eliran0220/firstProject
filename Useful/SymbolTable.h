@@ -25,6 +25,4 @@ private:
 };
 
 
-
-
 #endif //FIRSTPROJECT_SYMBOLTABLE_H
