@@ -9,18 +9,17 @@
 
 using namespace std;
 
+template<typename T, typename K>
 class SymbolTable {
 private:
     map<string, double> symbolTable;
     map<string, string> destTable;
-public:
-    SymbolTable(){}
 
     void add(T name, K value, char table);
 
     void update(T name, K value, char table);
 
-    K getSymbolValue(T name, char table);
+    K getSymbtolValue(T name, char table);
 
 
 };

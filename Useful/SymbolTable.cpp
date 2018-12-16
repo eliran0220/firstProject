@@ -5,24 +5,30 @@
 #include "SymbolTable.h"
 
 
-template<typename T, typename K>
-void SymbolTable<T, K>::add(T name, K value, char table) {
-    if (table == 's')
-        this->symbolTable.insert(pair<string, double>(name, value));
-    this->destTable.insert(pair<string, string>(name, value));
+void SymbolTable::addToSymbol(string name, double value) {
+    this->symbolTable.insert(pair<string,double>(name,value));
 }
 
-template<typename T, typename K>
-void SymbolTable<T, K>::update(T name, K value, char table) {
-    if (table == 's')
-        this->symbolTable.at(name) = value;
+void SymbolTable::addToDestTable(string name, string value) {
+    this->destTable.insert(pair<string,string>(name,value));
+}
+
+void SymbolTable::updateSymbtolTable(string name, double value) {
+    this->symbolTable.at(name) = value;
+}
+
+void SymbolTable::updateDestTable(string name, string value) {
     this->destTable.at(name) = value;
 }
 
-template<typename T, typename K>
-K SymbolTable<T, K>::getSymbolValue(T name, char table) {
-    if (table == 's')
-        return this->symbolTable.at(name);
-    return this->destTable.at(name);
-    int x;
+double SymbolTable::getValueSymbtolTable(string name) {
+    return this->symbolTable.at(name);
 }
+
+string SymbolTable::getValueDestTable(string name) {
+    return this->destTable.at(name);
+}
+
+
+
+
