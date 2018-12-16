@@ -24,5 +24,5 @@ K SymbolTable<T, K>::getSymbtolValue(T name, char table) {
     if (table == 's')
         return this->symbolTable.at(name);
     return this->destTable.at(name);
+    int x;
 }
-
