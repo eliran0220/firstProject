@@ -12,14 +12,19 @@
 #include "../Expressions/Plus.h"
 #include "../Expressions/Minus.h"
 #include "../Expressions/Number.h"
+#include "SymbolTable.h"
 
 using namespace std;
 
 class CastStringToExpression {
+private:
+    SymbolTable* symbolTable;
 public:
     // להעביר בקונסטרקור את האובייקט המכיל את המשתנים הגלובלים שכול קומםאנד יחזיק
-    CastStringToExpression() {}
-
+    CastStringToExpression(SymbolTable* symbolTable) {
+        this->symbolTable = symbolTable;
+    }
+    Expression* createExpressionFromStrings(vector<string> strings);
     Expression* createExpression(const string& exString);
 };
 

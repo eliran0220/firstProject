@@ -29,6 +29,20 @@ string SymbolTable::getValueDestTable(string name) {
     return this->destTable.at(name);
 }
 
+bool SymbolTable::existsVariableValue(string var) {
+    if (this->symbolTable.count(var) == 1) {
+        return true;
+    }
+    return false;
+}
+
+bool SymbolTable::existsVariabledest(string var) {
+    if (this->destTable.count(var) == 1) {
+        return true;
+    }
+    return false;
+}
+
 
 
 

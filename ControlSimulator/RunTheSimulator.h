@@ -17,6 +17,7 @@
 #include <sstream>
 #include <algorithm>
 #include "../Expressions/Expression.h"
+#include "../Useful/CollectionCommands.h"
 
 
 using namespace std;
@@ -24,10 +25,10 @@ using namespace std;
 enum {EQUAL};
 
 class RunTheSimulator {
-    vector<Expression*> expressions;
-
+    CollectionCommands* collectionCommands;
 public:
-    RunTheSimulator() {}
+    RunTheSimulator();
+    ~RunTheSimulator();
 
     void parser(vector<string> commands);
 

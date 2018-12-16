@@ -13,8 +13,11 @@
 using namespace std;
 
 class SleepCommand : public Command {
+private:
+    CastStringToExpression* castStringToExpression;
 
 public:
+    SleepCommand(CastStringToExpression* castStringToExpression);
     int execute(const vector<string> &parameters, int position);
 
 };

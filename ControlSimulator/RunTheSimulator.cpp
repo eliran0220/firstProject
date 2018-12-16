@@ -7,11 +7,23 @@
 
 #include "RunTheSimulator.h"
 
+RunTheSimulator::RunTheSimulator() {
+    this->collectionCommands = new CollectionCommands();
+}
 
+RunTheSimulator::~RunTheSimulator() {
+    delete (this->collectionCommands);
+}
 
 
 void RunTheSimulator::parser(vector<string> commands){
-
+    Expression* command;
+    int i = 0;
+    while (i < commands.size()){
+        command = this->collectionCommands->getExpressionCommand(commands[i]);
+        command->setLexerStringAndPosition(commands, i);
+        i += (int)command->calculate();
+    }
 }
 /*
 void RunTheSimulator::parser(string fileName){

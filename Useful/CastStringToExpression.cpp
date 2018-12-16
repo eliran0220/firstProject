@@ -3,6 +3,7 @@
 //
 
 
+#include <iostream>
 #include "CastStringToExpression.h"
 
 vector<string> splitExpression(string stringExpression) {
@@ -78,7 +79,7 @@ vector<string> shuntingYardAlgorithm(vector<string> strings) {
     return infix;
 }
 
-Expression* createExpressionFromStrings(vector<string> strings) {
+Expression* CastStringToExpression::createExpressionFromStrings(vector<string> strings) {
     regex numberR("[0-9]+||[0-9].{0,1}[0-9]+");
     regex operatorR("[+]||[-]||[/]||[*]");
     regex varR("[a-zA-Z0-9]+");
@@ -93,7 +94,14 @@ Expression* createExpressionFromStrings(vector<string> strings) {
             tempEx = new Number(tempNum);
             stackEx.push(tempEx);
         } else if (regex_match(strings[i], varR)){
-            // קבלה של הערך אם צרייך ליבא מטבלת המשתנים
+            if (this->symbolTable->existsVariableValue(strings[i])) {
+                tempEx = new Number(this->symbolTable->getValueSymbtolTable(strings[i]));
+            } else {
+                cout<<"The variable does not exists";
+                // לשחרר את זיכרון שקיים במחסנית
+                // להוסיף תנאי לכול קומפאנד שמקבל אקספרשיין שהוא שונה מnull
+                return NULL;
+            }
         } else {
             right = stackEx.top();
             stackEx.pop();

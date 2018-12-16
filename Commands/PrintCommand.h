@@ -7,12 +7,15 @@
 
 #include"string"
 #include "Command.h"
+#include "../Useful/CastStringToExpression.h"
 
 using namespace std;
 
 class PrintCommand : public Command{
 private:
+    CastStringToExpression* castStringToExpression;
 public:
+    PrintCommand(CastStringToExpression* castStringToExpression);
     int execute(const vector<string> &parameters, int position);
 
 };
