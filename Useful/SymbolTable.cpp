@@ -20,7 +20,7 @@ void SymbolTable<T, K>::update(T name, K value, char table) {
 }
 
 template<typename T, typename K>
-K SymbolTable<T, K>::getSymbtolValue(T name, char table) {
+K SymbolTable<T, K>::getSymbolValue(T name, char table) {
     if (table == 's')
         return this->symbolTable.at(name);
     return this->destTable.at(name);
