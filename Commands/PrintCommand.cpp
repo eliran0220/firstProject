@@ -22,5 +22,5 @@ int PrintCommand::execute(const vector<string> &parameters, int position) {
         item.erase(std::remove(item.begin(), item.end(), '"'), item.end());
         cout << item<<endl;
     }
-    return position + 2;
+    return 2;
 }

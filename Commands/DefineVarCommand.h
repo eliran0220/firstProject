@@ -14,7 +14,6 @@
 #include <map>
 class DefineVarCommand : public Command{
 private:
-
     SymbolTable * table;
 public:
     DefineVarCommand(SymbolTable* symbolTable);

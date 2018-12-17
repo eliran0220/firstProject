@@ -1,3 +1,5 @@
 
 1. print "done"
 2. var breaks = bind "/controls/flight/speedbrake"
+3. var throtle
+4. throtle = 3
