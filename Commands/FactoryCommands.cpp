@@ -26,17 +26,14 @@ Expression* FactoryCommands::createCommandExpression(string command) {
         Expression* expressionCommand = new CommandExpression(printCommand);
         return  expressionCommand;
     }
-    /*
+
     if (command == DEFINE_VAR_COMMAND){
-        DefineVarCommand* defineVarCommand = new DefineVarCommand(this->castStringToExpression);
+        DefineVarCommand* defineVarCommand = new DefineVarCommand(this->castStringToExpression,symbolTable);
         Expression* expressionCommand = new CommandExpression(defineVarCommand);
         return expressionCommand;
     }
-     */
+
 }
 
-SymbolTable* FactoryCommands::getSymbol() {
-    return this->symbolTable;
-}
 
 

@@ -2,7 +2,7 @@
 // Created by eliran on 12/17/18.
 //
 
-/*
+
 #ifndef FIRSTPROJECT_DEFINEVARCOMMAND_H
 #define FIRSTPROJECT_DEFINEVARCOMMAND_H
 
@@ -15,9 +15,9 @@
 class DefineVarCommand : public Command{
 private:
     CastStringToExpression* castStringToExpression;
-    FactoryCommands *factoryCommands;
+    SymbolTable * table;
 public:
-    DefineVarCommand(CastStringToExpression* castStringToExpression,FactoryCommands *fact);
+    DefineVarCommand(CastStringToExpression* castStringToExpression,SymbolTable* symbolTable);
     int execute(const vector<string> &parameters, int position);
 
 };
@@ -25,4 +25,3 @@ public:
 
 #endif //FIRSTPROJECT_DEFINEVARCOMMAND_H
 
-*/

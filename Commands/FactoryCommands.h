@@ -32,7 +32,5 @@ public:
 
     Expression* createCommandExpression(string command);
 
-    SymbolTable* getSymbol();
-
 };
 #endif //FIRSTPROJECT_FACTORYCOMMANDS_H
