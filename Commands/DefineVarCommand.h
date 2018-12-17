@@ -1,19 +1,28 @@
 //
-// Created by eliran on 12/15/18.
+// Created by eliran on 12/17/18.
 //
 
+/*
 #ifndef FIRSTPROJECT_DEFINEVARCOMMAND_H
 #define FIRSTPROJECT_DEFINEVARCOMMAND_H
 
+
 #include "Command.h"
+#include "../Useful/CastStringToExpression.h"
+#include "FactoryCommands.h"
 
-class DefineVarCommand : public Command {
+#include <map>
+class DefineVarCommand : public Command{
+private:
+    CastStringToExpression* castStringToExpression;
+    FactoryCommands *factoryCommands;
 public:
-    DefineVarCommand();
-
-    int execute(const vector<string> &parameters, int position) override;
+    DefineVarCommand(CastStringToExpression* castStringToExpression,FactoryCommands *fact);
+    int execute(const vector<string> &parameters, int position);
 
 };
 
 
 #endif //FIRSTPROJECT_DEFINEVARCOMMAND_H
+
+*/

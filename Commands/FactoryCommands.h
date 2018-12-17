@@ -12,11 +12,13 @@
 #include "../Commands/SleepCommand.h"
 #include "../Expressions/CommandExpression.h"
 #include "../Commands/PrintCommand.h"
+#include "../Commands/DefineVarCommand.h"
 
 using namespace std;
 
 #define PRINT_COMMAND  "print"
 #define SLEEP_COMMAND  "sleep"
+#define DEFINE_VAR_COMMAND "var"
 
 class FactoryCommands {
 
@@ -29,5 +31,8 @@ public:
     ~FactoryCommands();
 
     Expression* createCommandExpression(string command);
+
+    SymbolTable* getSymbol();
+
 };
 #endif //FIRSTPROJECT_FACTORYCOMMANDS_H

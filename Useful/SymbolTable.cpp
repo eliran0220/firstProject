@@ -46,3 +46,7 @@ bool SymbolTable::existsVariabledest(string var) {
 
 
 
+
+
+
+

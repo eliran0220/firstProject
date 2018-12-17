@@ -14,17 +14,24 @@ private:
     map<string, double> symbolTable;
     map<string, string> destTable;
 public:
-    SymbolTable(){}
+    SymbolTable() {}
+
     void addToSymbol(string name, double value);
+
     void addToDestTable(string name, string value);
+
     void updateSymbtolTable(string name, double value);
+
     void updateDestTable(string name, string value);
+
     double getValueSymbtolTable(string name);
+
     string getValueDestTable(string name);
 
     bool existsVariableValue(string var);
+
     bool existsVariabledest(string var);
-    };
+};
 
 
 #endif //FIRSTPROJECT_SYMBOLTABLE_H

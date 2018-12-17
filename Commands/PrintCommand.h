@@ -8,7 +8,7 @@
 #include"string"
 #include "Command.h"
 #include "../Useful/CastStringToExpression.h"
-
+#include "FactoryCommands.h"
 using namespace std;
 
 class PrintCommand : public Command{
