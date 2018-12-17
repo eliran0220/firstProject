@@ -14,10 +14,10 @@
 #include <map>
 class DefineVarCommand : public Command{
 private:
-    CastStringToExpression* castStringToExpression;
+
     SymbolTable * table;
 public:
-    DefineVarCommand(CastStringToExpression* castStringToExpression,SymbolTable* symbolTable);
+    DefineVarCommand(SymbolTable* symbolTable);
     int execute(const vector<string> &parameters, int position);
 
 };

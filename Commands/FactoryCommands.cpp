@@ -28,7 +28,7 @@ Expression* FactoryCommands::createCommandExpression(string command) {
     }
 
     if (command == DEFINE_VAR_COMMAND){
-        DefineVarCommand* defineVarCommand = new DefineVarCommand(this->castStringToExpression,symbolTable);
+        DefineVarCommand* defineVarCommand = new DefineVarCommand(symbolTable);
         Expression* expressionCommand = new CommandExpression(defineVarCommand);
         return expressionCommand;
     }

@@ -26,6 +26,8 @@ enum {EQUAL};
 
 class RunTheSimulator {
     CollectionCommands* collectionCommands;
+
+
 public:
     RunTheSimulator();
     ~RunTheSimulator();

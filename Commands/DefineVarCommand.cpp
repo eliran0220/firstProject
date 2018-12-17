@@ -6,21 +6,14 @@
 #include "DefineVarCommand.h"
 
 
-int
-DefineVarCommand::execute(const vector<string> &parameters, int position
-
-) {
+int DefineVarCommand::execute(const vector<string> &parameters, int position) {
     string var = parameters[position + 1];
     this->table->addToDestTable(var,"");
     return position+2;
 
 }
 
-DefineVarCommand::DefineVarCommand(
-        CastStringToExpression *castStringToExpression,
-        SymbolTable *symbolTable) {
-    this->castStringToExpression = castStringToExpression;
+DefineVarCommand::DefineVarCommand(SymbolTable *symbolTable) {
     this->table = symbolTable;
-
 }
 

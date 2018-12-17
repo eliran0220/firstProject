@@ -7,6 +7,8 @@
 CollectionCommands::CollectionCommands() {
     this->factoryCommands = new FactoryCommands();
 }
+
+
 CollectionCommands::~CollectionCommands() {
     delete (this->factoryCommands);
     map<string, Expression*>::iterator it = this->commands.begin();
