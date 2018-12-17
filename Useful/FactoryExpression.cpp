@@ -119,8 +119,10 @@ Expression* FactoryExpression::createExpressionFromStrings(vector<string> string
             stackEx.push(tempEx);
         }
     }
-    tempEx = stackEx.top();
-    stackEx.pop();
+    if (!stackEx.empty()) {
+        tempEx = stackEx.top();
+        stackEx.pop();
+    }
     return tempEx;
 }
 

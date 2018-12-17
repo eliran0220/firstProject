@@ -24,5 +24,4 @@ InitializeCommand::InitializeCommand(Factory *expression,
                                      SymbolTable *table) {
     this->expression = expression;
     this->table = table;
-
 }

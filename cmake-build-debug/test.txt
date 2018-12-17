@@ -1,6 +1,3 @@
-2. while i<t {
-3.  item = 5
-4.  sleep  500
-5.  var r=bind "ddddd"
-6.  print "done"
-7.}
+1. var h = bind "2/2"
+2. var h = 5
+3. print h
