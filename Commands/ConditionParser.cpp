@@ -6,6 +6,7 @@
 
 int ConditionParser::execute(const vector<string> &parameters, int position) {
 
+
     return 0;
 }
 
