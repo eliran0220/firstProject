@@ -12,7 +12,7 @@ DefineVarCommand::execute(const vector<string> &parameters, int position
 ) {
     string var = parameters[position + 1];
     this->table->addToDestTable(var,"");
-    return 3;
+    return position+2;
 
 }
 
