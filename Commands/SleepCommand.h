@@ -8,16 +8,16 @@
 #include <vector>
 #include <string>
 #include "Command.h"
-#include "../Useful/CastStringToExpression.h"
+#include "../Useful/Factory.h"
 
 using namespace std;
 
 class SleepCommand : public Command {
 private:
-    CastStringToExpression* castStringToExpression;
+    Factory* createExpression;
 
 public:
-    SleepCommand(CastStringToExpression* castStringToExpression);
+    SleepCommand(Factory* createExpression);
     int execute(const vector<string> &parameters, int position);
 
 };

@@ -23,7 +23,7 @@ Expression* CollectionCommands::getExpressionCommand(const string &command) {
     if (check == 1) {
         return this->commands[command];
     }
-    Expression* exCommand = this->factoryCommands->createCommandExpression(command);
+    Expression* exCommand = this->factoryCommands->create(command);
     this->commands[command] = exCommand;
     return exCommand;
 }

@@ -4,7 +4,7 @@
 
 
 #include <iostream>
-#include "CastStringToExpression.h"
+#include "FactoryExpression.h"
 
 vector<string> splitExpression(string stringExpression) {
     vector<string> split;
@@ -79,7 +79,7 @@ vector<string> shuntingYardAlgorithm(vector<string> strings) {
     return infix;
 }
 
-Expression* CastStringToExpression::createExpressionFromStrings(vector<string> strings) {
+Expression* FactoryExpression::createExpressionFromStrings(vector<string> strings) {
     regex numberR("[0-9]+||[0-9].{0,1}[0-9]+");
     regex operatorR("[+]||[-]||[/]||[*]");
     regex varR("[a-zA-Z0-9]+");
@@ -124,7 +124,7 @@ Expression* CastStringToExpression::createExpressionFromStrings(vector<string> s
     return tempEx;
 }
 
-Expression* CastStringToExpression::createExpression(const string &exString) {
+Expression* FactoryExpression::create(const string &exString) {
     vector<string> splitEx;
     splitEx = splitExpression(exString);
     splitEx = shuntingYardAlgorithm(splitEx);

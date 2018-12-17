@@ -116,7 +116,6 @@ vector<string> RunTheSimulator::splitCommand(const string &givenLine) {
         }
          */
         else if (!strstr(item.c_str(), " ")) {
-            item.erase(std::remove(item.begin(), item.end(), '"'), item.end());
             vec.push_back(item);
         }
     }

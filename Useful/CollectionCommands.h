@@ -11,7 +11,7 @@
 class CollectionCommands {
 private:
     map<string, Expression*> commands;
-    FactoryCommands* factoryCommands;
+    Factory* factoryCommands;
 
 public:
     CollectionCommands();

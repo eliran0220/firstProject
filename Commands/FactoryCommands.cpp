@@ -7,27 +7,27 @@
 
 FactoryCommands::FactoryCommands() {
     this->symbolTable = new SymbolTable();
-    this->castStringToExpression = new CastStringToExpression(this->symbolTable);
+    this->createExpression = new FactoryExpression(this->symbolTable);
 }
 
 FactoryCommands::~FactoryCommands() {
     delete (this->symbolTable);
-    delete(this->castStringToExpression);
+    delete(this->createExpression);
 }
 
-Expression* FactoryCommands::createCommandExpression(string command) {
-    if (command == SLEEP_COMMAND) {
-        SleepCommand* sleepCommand = new SleepCommand(this->castStringToExpression);
+Expression* FactoryCommands::create(const string &exString) {
+    if (exString == SLEEP_COMMAND) {
+        SleepCommand* sleepCommand = new SleepCommand(this->createExpression);
         Expression* expressionCommand = new CommandExpression(sleepCommand);
         return  expressionCommand;
     }
-    if (command == PRINT_COMMAND) {
-        PrintCommand* printCommand = new PrintCommand(this->castStringToExpression);
+    if (exString == PRINT_COMMAND) {
+        PrintCommand* printCommand = new PrintCommand(this->createExpression);
         Expression* expressionCommand = new CommandExpression(printCommand);
         return  expressionCommand;
     }
 
-    if (command == DEFINE_VAR_COMMAND){
+    if (exString == DEFINE_VAR_COMMAND){
         DefineVarCommand* defineVarCommand = new DefineVarCommand(symbolTable);
         Expression* expressionCommand = new CommandExpression(defineVarCommand);
         return expressionCommand;

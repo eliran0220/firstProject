@@ -7,15 +7,15 @@
 
 #include"string"
 #include "Command.h"
-#include "../Useful/CastStringToExpression.h"
+#include "../Useful/Factory.h"
 #include "FactoryCommands.h"
 using namespace std;
 
 class PrintCommand : public Command{
 private:
-    CastStringToExpression* castStringToExpression;
+    Factory* createExpression;
 public:
-    PrintCommand(CastStringToExpression* castStringToExpression);
+    PrintCommand(Factory* createExpression);
     int execute(const vector<string> &parameters, int position);
 
 };

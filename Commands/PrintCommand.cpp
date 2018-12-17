@@ -5,21 +5,22 @@
 #include <iostream>
 #include "PrintCommand.h"
 
-PrintCommand::PrintCommand(CastStringToExpression *castStringToExpression){
-    this->castStringToExpression = castStringToExpression;
+PrintCommand::PrintCommand(Factory *createExpression){
+    this->createExpression = createExpression;
 }
+
 int PrintCommand::execute(const vector<string> &parameters, int position) {
-    cout << parameters[position + 1]<<endl;
-    /*
     regex varR("[a-zA-Z0-9]+");
     if (regex_match(parameters[position + 1], varR)) {
-        Expression* e = this->castStringToExpression->createExpression(parameters[position + 1]);
+        Expression* e = this->createExpression->create(parameters[position + 1]);
         double value = e->calculate();
         cout<< value<<endl;
         delete (e);
     } else {
-        cout << parameters[position + 1]<<endl;
+        string item = parameters[position + 1];
+        // מחיקה של הגרשיים מהמחרוזת
+        item.erase(std::remove(item.begin(), item.end(), '"'), item.end());
+        cout << item<<endl;
     }
-     */
     return position + 2;
 }

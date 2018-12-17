@@ -13,19 +13,21 @@
 #include "../Expressions/Minus.h"
 #include "../Expressions/Number.h"
 #include "SymbolTable.h"
+#include "Factory.h"
 
 using namespace std;
 
-class CastStringToExpression {
+class FactoryExpression : public Factory {
+
 private:
     SymbolTable* symbolTable;
 public:
     // להעביר בקונסטרקור את האובייקט המכיל את המשתנים הגלובלים שכול קומםאנד יחזיק
-    CastStringToExpression(SymbolTable* symbolTable) {
+    FactoryExpression(SymbolTable* symbolTable) {
         this->symbolTable = symbolTable;
     }
     Expression* createExpressionFromStrings(vector<string> strings);
-    Expression* createExpression(const string& exString);
+    virtual Expression* create(const string& exString);
 };
 
 

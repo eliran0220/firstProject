@@ -8,11 +8,11 @@
 #include <string>
 
 #include "../Useful/SymbolTable.h"
-#include "../Useful/CastStringToExpression.h"
 #include "../Commands/SleepCommand.h"
 #include "../Expressions/CommandExpression.h"
 #include "../Commands/PrintCommand.h"
 #include "../Commands/DefineVarCommand.h"
+#include "../Useful/Factory.h"
 
 using namespace std;
 
@@ -20,17 +20,17 @@ using namespace std;
 #define SLEEP_COMMAND  "sleep"
 #define DEFINE_VAR_COMMAND "var"
 
-class FactoryCommands {
+class FactoryCommands: public Factory {
 
 private:
-    CastStringToExpression* castStringToExpression;
+    Factory* createExpression;
     SymbolTable* symbolTable;
 public:
     FactoryCommands();
 
     ~FactoryCommands();
 
-    Expression* createCommandExpression(string command);
+    virtual Expression* create(const string &command);
 
 };
 #endif //FIRSTPROJECT_FACTORYCOMMANDS_H

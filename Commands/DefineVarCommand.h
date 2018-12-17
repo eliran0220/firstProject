@@ -8,7 +8,7 @@
 
 
 #include "Command.h"
-#include "../Useful/CastStringToExpression.h"
+#include "../Useful/FactoryExpression.h"
 #include "FactoryCommands.h"
 
 #include <map>
