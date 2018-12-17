@@ -1,5 +1,6 @@
-
-1. print "done"
-2. var breaks = bind "/controls/flight/speedbrake"
-3. var throtle
-4. throtle = 3
+2. while i<t {
+3.  item = 5
+4.  sleep  500
+5.  var r=bind "ddddd"
+6.  print "done"
+7.}

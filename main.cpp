@@ -6,15 +6,16 @@
 #include <cstring>
 #include "ControlSimulator/RunTheSimulator.h"
 
-
 int main() {
     // ליצור את כל המחלקות של הקומאנדים
     // ליצור מחלקה שמחזירה את כל המשתנים var
     // במחלקה יהיה מפה בין מחרוזת לקומאנד
-    RunTheSimulator* r = new RunTheSimulator();
-    vector<string> s = r->lexer("test.txt");
-    r->parser(s);
-    delete (r);
+    //RunTheSimulator* r = new RunTheSimulator();
+    //vector<string> s = r->lexer("test.txt");
+    FactoryExpression* factoryExpression = new FactoryExpression(NULL);
+    Expression* e = factoryExpression->create("(5/2) +5");
+    //r->parser(s);
+    //delete (r);
     return 0;
 }
 

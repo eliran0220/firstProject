@@ -34,11 +34,7 @@ public:
 
     void parser(vector<string> commands);
 
-    vector<string> splitCommand(const string &givenLine);
-
     vector<string> lexer(string fileName);
-
-    //vector<string> ReadConditionBLock(fstream &file, const string &firstLineBlock);
 
 };
 
