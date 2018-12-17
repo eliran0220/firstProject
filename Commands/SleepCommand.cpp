@@ -13,7 +13,7 @@ int SleepCommand::execute(const vector<string> &parameters, int position) {
     Expression* e = this->createExpression->create(parameters[position + 1]);
     sleep(static_cast<unsigned int>(e->calculate()/MILLI_SECONDS));
     delete(e);
-    return position + 2;
+    return 2;
 }
 
 

@@ -19,6 +19,7 @@ using namespace std;
 #define PRINT_COMMAND  "print"
 #define SLEEP_COMMAND  "sleep"
 #define DEFINE_VAR_COMMAND "var"
+#define DEFINE_INITIALIZE_COMMAND "="
 
 class FactoryCommands: public Factory {
 

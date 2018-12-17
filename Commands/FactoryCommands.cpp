@@ -3,6 +3,7 @@
 //
 
 #include "FactoryCommands.h"
+#include "InitializeCommand.h"
 
 
 FactoryCommands::FactoryCommands() {
@@ -30,6 +31,11 @@ Expression* FactoryCommands::create(const string &exString) {
     if (exString == DEFINE_VAR_COMMAND){
         DefineVarCommand* defineVarCommand = new DefineVarCommand(symbolTable);
         Expression* expressionCommand = new CommandExpression(defineVarCommand);
+        return expressionCommand;
+    }
+    if (exString == DEFINE_INITIALIZE_COMMAND){
+        InitializeCommand * initializeCommand = new InitializeCommand(this->createExpression, symbolTable);
+        Expression* expressionCommand = new CommandExpression(initializeCommand);
         return expressionCommand;
     }
 
