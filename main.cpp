@@ -12,10 +12,12 @@ int main() {
     // במחלקה יהיה מפה בין מחרוזת לקומאנד
     //RunTheSimulator* r = new RunTheSimulator();
     //vector<string> s = r->lexer("test.txt");
-    FactoryExpression* factoryExpression = new FactoryExpression(NULL);
-    Expression* e = factoryExpression->create("(5/2) +5");
+    //FactoryExpression* factoryExpression = new FactoryExpression(NULL);
+    //Expression* e = factoryExpression->create("(5/2) +5");
     //r->parser(s);
     //delete (r);
+    FactoryExpression f = FactoryExpression(NULL);
+    cout<< f.create("9 - 2*3")->calculate();
     return 0;
 }
 

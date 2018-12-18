@@ -4,6 +4,7 @@
 
 #include "FactoryCommands.h"
 #include "InitializeCommand.h"
+#include "IncreaseCounterCommand.h"
 
 
 FactoryCommands::FactoryCommands() {
@@ -36,6 +37,11 @@ Expression* FactoryCommands::create(const string &exString) {
     if (exString == DEFINE_INITIALIZE_COMMAND){
         InitializeCommand * initializeCommand = new InitializeCommand(this->createExpression, symbolTable);
         Expression* expressionCommand = new CommandExpression(initializeCommand);
+        return expressionCommand;
+        // בדיקה האם זה משתנה שלא קיים כלומר משתנה בלי var לפני
+    } else if (!this->symbolTable->existsVariableValue(exString)) {
+        IncreaseCounterCommand* increaseCounterCommand = new IncreaseCounterCommand();
+        Expression* expressionCommand = new CommandExpression(increaseCounterCommand);
         return expressionCommand;
     }
 

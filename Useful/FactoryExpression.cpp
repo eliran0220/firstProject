@@ -33,6 +33,15 @@ vector<string> splitExpression(string stringExpression) {
     return split;
 }
 
+int precedence(string& op){
+    if(op == "+"||op == "-"){
+        return 1;
+    }
+    if(op == "*" ||op == "/") {
+        return 2;
+    }
+    return 0;
+}
 
 vector<string> shuntingYardAlgorithm(vector<string> strings) {
     vector<string> prefix = strings;
@@ -47,7 +56,8 @@ vector<string> shuntingYardAlgorithm(vector<string> strings) {
         if (regex_match(prefix[i], numberR) || regex_match(prefix[i], varR)) {
             q.push(prefix[i]);
         } else if (regex_match(prefix[i], operatorR)) {
-            while ((! s.empty()) && regex_match(s.top(), operatorR)) {
+            while ((! s.empty()) && regex_match(s.top(), operatorR)
+                  && precedence(s.top()) >= precedence(prefix[i])) {
                 q.push(s.top());
                 s.pop();
             }
@@ -119,8 +129,10 @@ Expression* FactoryExpression::createExpressionFromStrings(vector<string> string
             stackEx.push(tempEx);
         }
     }
-    tempEx = stackEx.top();
-    stackEx.pop();
+    if (!stackEx.empty()) {
+        tempEx = stackEx.top();
+        stackEx.pop();
+    }
     return tempEx;
 }
 
