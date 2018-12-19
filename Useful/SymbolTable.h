@@ -6,8 +6,12 @@
 #define FIRSTPROJECT_SYMBOLTABLE_H
 
 #include <map>
+#include <algorithm>
 
 using namespace std;
+
+#define ONE 1
+
 
 class SymbolTable {
 private:

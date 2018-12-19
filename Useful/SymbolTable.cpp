@@ -2,6 +2,7 @@
 // Created by eliran on 12/16/18.
 //
 
+#include <cstring>
 #include "SymbolTable.h"
 
 
@@ -18,6 +19,9 @@ void SymbolTable::updateSymbtolTable(string name, double value) {
 }
 
 void SymbolTable::updateDestTable(string name, string value) {
+    if (strstr(value.c_str(), "\"")) {
+        value.erase(std::remove(value.begin(), value.end(), ' '), value.end());
+    }
     this->destTable.at(name) = value;
 }
 
@@ -30,14 +34,14 @@ string SymbolTable::getValueDestTable(string name) {
 }
 
 bool SymbolTable::existsVariableValue(string var) {
-    if (this->symbolTable.count(var) == 1) {
+    if (this->symbolTable.count(var) == ONE) {
         return true;
     }
     return false;
 }
 
 bool SymbolTable::existsVariabledest(string var) {
-    if (this->destTable.count(var) == 1) {
+    if (this->destTable.count(var) == ONE) {
         return true;
     }
     return false;

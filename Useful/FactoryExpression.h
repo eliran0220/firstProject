@@ -22,10 +22,12 @@ class FactoryExpression : public Factory {
 private:
     SymbolTable* symbolTable;
 public:
-    // להעביר בקונסטרקור את האובייקט המכיל את המשתנים הגלובלים שכול קומםאנד יחזיק
     FactoryExpression(SymbolTable* symbolTable) {
         this->symbolTable = symbolTable;
     }
+
+    vector<string> splitExpression(string stringExpression);
+
     Expression* createExpressionFromStrings(vector<string> strings);
     virtual Expression* create(const string& exString);
 };

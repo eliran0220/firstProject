@@ -10,10 +10,10 @@
 vector<string> splitCommand(const string &givenLine);
 
 vector<string> splitVarCommand(const string &givenLine);
-vector<string> splitWhileCommandCondition(const string &givenLine);
-vector<string> splitOpenDataOrConnect(const string &givenLine, string command);
-vector<string> splitPrintOrSleepCommand(const string &givenLine, string command);
-vector<string> splitPlacementOperator(const string &givenLine);
+vector<string> splitLineCommandCondition(const string &givenLine, string command);
+vector<string> splitLineWithOneArguments(const string &givenLine, string command);
+vector<string> splitLineWithTwoArguments(const string &givenLine, string command);
+vector<string> splitInitializationOperator(const string &givenLine);
 
 RunTheSimulator::RunTheSimulator() {
     this->collectionCommands = new CollectionCommands();
@@ -62,22 +62,25 @@ vector<string> splitCommand(const string &givenLine) {
         return splitVarCommand(givenLine);
     }
     if (strstr(givenLine.c_str(), "while")) {
-        return splitWhileCommandCondition(givenLine);
+        return splitLineCommandCondition(givenLine, "while");
+    }
+    if (strstr(givenLine.c_str(), "if")) {
+        return splitLineCommandCondition(givenLine, "if");
     }
     if (strstr(givenLine.c_str(), "openDataServer")) {
-        return splitOpenDataOrConnect(givenLine, "openDataServer");
+        return splitLineWithTwoArguments(givenLine, "openDataServer");
     }
     if (strstr(givenLine.c_str(), "connect")) {
-        return splitOpenDataOrConnect(givenLine, "connect");
+        return splitLineWithTwoArguments(givenLine, "connect");
     }
     if (strstr(givenLine.c_str(), "sleep")) {
-        return splitPrintOrSleepCommand(givenLine, "sleep");
+        return splitLineWithOneArguments(givenLine, "sleep");
     }
     if (strstr(givenLine.c_str(), "print")) {
-        return splitPrintOrSleepCommand(givenLine, "print");
+        return splitLineWithOneArguments(givenLine, "print");
     }
     if (strstr(givenLine.c_str(), "=")) {
-        return splitPlacementOperator(givenLine);
+        return splitInitializationOperator(givenLine);
     }
     string tempSubString = givenLine.substr(2, givenLine.size());
     stringstream ss(tempSubString);
@@ -92,14 +95,14 @@ vector<string> splitCommand(const string &givenLine) {
 }
 
 
-vector<string> splitWhileCommandCondition(const string &givenLine) {
+vector<string> splitLineCommandCondition(const string &givenLine, string command) {
     vector<string> vec;
     string item;
     string tempSubString;
-    int start = (int) givenLine.find("while");
-    tempSubString = givenLine.substr(start + 5, givenLine.size());
+    int start = (int) givenLine.find(command);
+    tempSubString = givenLine.substr(start + command.size(), givenLine.size());
     stringstream ss(tempSubString);
-    vec.push_back("while");
+    vec.push_back(command);
     if (strstr(givenLine.c_str(), "{")) {
         getline(ss, item, '{');
         item.erase(std::remove(item.begin(), item.end(), ' '),
@@ -111,6 +114,9 @@ vector<string> splitWhileCommandCondition(const string &givenLine) {
     getline(ss, item);
     item.erase(std::remove(item.begin(), item.end(), ' '), item.end());
     vec.push_back(item);
+    if ((vec.size() == MISSING_PARAMETER) && (vec.size() == TWO && vec[1] == "{")){
+        throw "Syntax Error missing condition";
+    }
     return vec;
 }
 
@@ -144,25 +150,46 @@ vector<string> splitVarCommand(const string &givenLine) {
     getline(ss, item);
     item.erase(std::remove(item.begin(), item.end(), ' '), item.end());
     vec.push_back(item);
+    if (vec.size() == MISSING_PARAMETER) {
+        throw "Syntax Error missing var statement";
+    }
     return vec;
 }
 
-vector<string> splitOpenDataOrConnect(const string &givenLine, string command) {
+vector<string> splitLineWithTwoArguments(const string &givenLine, string command) {
     vector<string> vec;
     string item;
     string tempSubString;
     int start = (int) givenLine.find(command);
     tempSubString = givenLine.substr(start + command.size(), givenLine.size());
-    stringstream ss(tempSubString);
     vec.push_back(command);
-    getline(ss, item, ' ');
-    vec.push_back(item);
-    getline(ss, item, ' ');
-    vec.push_back(item);
+    if (strstr(tempSubString.c_str(), ",")) {
+        stringstream ss(tempSubString);
+        getline(ss, item, ',');
+        item.erase(std::remove(item.begin(), item.end(), ' '), item.end());
+        vec.push_back(item);
+        getline(ss, item, ',');
+        item.erase(std::remove(item.begin(), item.end(), ' '), item.end());
+        vec.push_back(item);
+    } else {
+        FactoryExpression f = FactoryExpression(NULL);
+        vector<string> vecTemp = f.splitExpression(tempSubString);
+        vec.insert(vec.end(), vecTemp.begin(), vecTemp.end());
+
+    }
+    if (vec.size() == NO_ARGUMENTS) {
+        throw "Syntax Error no arguments";
+    }
+    if (vec.size() > TWO_ARGUMENTS) {
+        throw "Syntax Error to much arguments";
+    }
+    if (vec.size() == OME_ARGUMENTS) {
+        throw "Syntax Error missing one argument Separate with char ',' ";
+    }
     return vec;
 }
 
-vector<string> splitPrintOrSleepCommand(const string &givenLine, string command) {
+vector<string> splitLineWithOneArguments(const string &givenLine, string command) {
     vector<string> vec;
     string tempSubString;
     int start = (int) givenLine.find(command);
@@ -171,10 +198,16 @@ vector<string> splitPrintOrSleepCommand(const string &givenLine, string command)
     vec.push_back(command);
     tempSubString.erase(std::remove(tempSubString.begin(), tempSubString.end(), ' '), tempSubString.end());
     vec.push_back(tempSubString);
+    if (vec.size() == NO_ARGUMENTS) {
+        throw "Syntax Error no arguments";
+    }
+    if (vec.size() > OME_ARGUMENTS) {
+        throw "Syntax Error to much arguments";
+    }
     return vec;
 }
 
-vector<string> splitPlacementOperator(const string &givenLine) {
+vector<string> splitInitializationOperator(const string &givenLine) {
     vector<string> vec;
     string item;
     string tempSubString = givenLine.substr(2, givenLine.size());
@@ -186,6 +219,9 @@ vector<string> splitPlacementOperator(const string &givenLine) {
     getline(ss, item, '=');
     item.erase(std::remove(item.begin(), item.end(), ' '), item.end());
     vec.push_back(item);
+    if (vec.size() == MISSING_PARAMETER) {
+        throw "Syntax Error missing initialization value";
+    }
     return vec;
 }
 

@@ -19,10 +19,12 @@
 #include "../Expressions/Expression.h"
 #include "../Useful/CollectionCommands.h"
 
+#define MISSING_PARAMETER 1
+#define TWO 2
 
 using namespace std;
 
-enum {EQUAL};
+enum {EQUAL, NO_ARGUMENTS, OME_ARGUMENTS, TWO_ARGUMENTS};
 
 class RunTheSimulator {
     CollectionCommands* collectionCommands;

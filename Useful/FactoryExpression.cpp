@@ -6,7 +6,7 @@
 #include <iostream>
 #include "FactoryExpression.h"
 
-vector<string> splitExpression(string stringExpression) {
+vector<string> FactoryExpression::splitExpression(string stringExpression) {
     vector<string> split;
     string temp;
     string stringNumber;
@@ -94,7 +94,7 @@ Expression* FactoryExpression::createExpressionFromStrings(vector<string> string
     regex operatorR("[+]||[-]||[/]||[*]");
     regex varR("[a-zA-Z0-9]+");
     stack<Expression*> stackEx;
-    Expression* tempEx;
+    Expression* tempEx = nullptr;
     Expression* left;
     Expression* right;
     double tempNum;
@@ -104,13 +104,18 @@ Expression* FactoryExpression::createExpressionFromStrings(vector<string> string
             tempEx = new Number(tempNum);
             stackEx.push(tempEx);
         } else if (regex_match(strings[i], varR)){
+            // check if the variable in the symbol table
             if (this->symbolTable->existsVariableValue(strings[i])) {
                 tempEx = new Number(this->symbolTable->getValueSymbtolTable(strings[i]));
             } else {
-                cout<<"The variable does not exists";
-                // לשחרר את זיכרון שקיים במחסנית
-                // להוסיף תנאי לכול קומפאנד שמקבל אקספרשיין שהוא שונה מnull
-                return NULL;
+                // שיחרור הזיכרון לפני זריקת האקספשיין
+                Expression* tempFree;
+                while (!stackEx.empty()) {
+                    tempFree = stackEx.top();
+                    stackEx.pop();
+                    delete (tempFree);
+                }
+                throw "The variable " + strings[i] + " does not exists";
             }
         } else {
             right = stackEx.top();
@@ -133,6 +138,9 @@ Expression* FactoryExpression::createExpressionFromStrings(vector<string> string
         tempEx = stackEx.top();
         stackEx.pop();
     }
+    if (tempEx == nullptr) {
+        throw "Something wrong with the expression syntax";
+    }
     return tempEx;
 }
 
@@ -141,6 +149,4 @@ Expression* FactoryExpression::create(const string &exString) {
     splitEx = splitExpression(exString);
     splitEx = shuntingYardAlgorithm(splitEx);
     return createExpressionFromStrings(splitEx);
-    // לא לשכוח להוסיף לליסט של הביטויים של המחלקה בשביל שיחרורי הזיכרון
-    // לממש דיסרקטור
 }
