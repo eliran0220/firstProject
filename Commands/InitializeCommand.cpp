@@ -12,8 +12,7 @@ InitializeCommand::execute(const vector<string> &parameters, int position) {
         this->table->updateDestTable(parameters[position-1],value);
         return 3;
     } else {
-        Expression *e = this->expression->create(
-                parameters[position + 1]);
+        Expression *e = this->expression->create(parameters[position+1]);
         this->table->updateSymbtolTable(parameters[position - 1],
                                  e->calculate());
         return 2;
