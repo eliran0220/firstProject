@@ -8,12 +8,14 @@
 
 #include "Command.h"
 #include "../Useful/Factory.h"
+#include "../ServerAndClient/DataReaderServer.h"
+
 
 class OpenServerCommand : public Command {
-private:
-
-
+    Factory *expression;
 public:
+    OpenServerCommand(Factory *expression);
+
     int execute(vector<string> &parameters, int position) override;
 
 };
