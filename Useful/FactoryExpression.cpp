@@ -14,6 +14,7 @@ vector<string> FactoryExpression::splitExpression(string stringExpression) {
     string stringNumber;
     regex letterR("[a-zA-Z_]");
     regex numberR("[0-9]");
+    regex operatorR("[+]||[-]||[/]||[*]");
     bool flag = false;
     for (int i = 0; i < stringExpression.size(); ++i) {
         temp = stringExpression[i];
@@ -27,8 +28,13 @@ vector<string> FactoryExpression::splitExpression(string stringExpression) {
             split.push_back(stringNumber);
             stringNumber = "";
             flag = false;
-        }
-        if (temp != " ") {
+            // תנאי אם קיים ביטוי שלילי
+        } if (temp == "-" && !split.empty()) {
+            if (regex_match(split[split.size() - 1], operatorR) || split[split.size() - 1] == "(") {
+                split.push_back("0");
+            }
+            split.push_back(temp);
+        } else if (temp != " ") {
             split.push_back(temp);
         }
     }
@@ -118,7 +124,7 @@ Expression* FactoryExpression::createExpressionFromStrings(vector<string> string
                     stackEx.pop();
                     delete (tempFree);
                 }
-                throw "The variable doesn't exist factoryCreate failed";
+                throw "The variable doesn't exist factoryCreateExpression failed";
             }
         } else {
             right = stackEx.top();
