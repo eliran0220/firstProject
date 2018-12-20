@@ -8,9 +8,9 @@
 
 int IfCommand::execute(vector<string> &parameters, int position) {
     if (this->condition(parameters[position + 1])) {
-        return this->parser(&parameters, position + 3);
+        return this->parser(&parameters, position + 3) - position;
     } else {
-        return findTheEndBlock(&parameters, position + 3);
+        return findTheEndBlock(&parameters, position + 3) - position;
     }
 }
 

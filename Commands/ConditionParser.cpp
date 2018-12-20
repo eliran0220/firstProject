@@ -34,7 +34,7 @@ int ConditionParser::parser(vector<string>* commands, int position) {
     while (commands->at(position) != "}") {
         Expression* tempCommand = this->factoryCommand->create(commands->at(position));
         tempCommand->setLexerStringAndPosition(commands, position);
-        tempCommand->calculate();
+        position += tempCommand->calculate();
         this->listOfCommands.push_back(tempCommand);
     }
     return position + 1;
