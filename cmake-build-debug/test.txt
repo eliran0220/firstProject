@@ -1,14 +1,23 @@
-1. var h = bind "2/2"
-2. h = 5 - 3
-3. print h
-4. var alt = bind "3/3"
-5. alt = 10
-6. while alt < 15 {
-7. 	h = h + 1
-8.	alt = alt + 1
-9.	print alt
-10.	print "afik"
-11.  }
-12.	print "done"
-
-
+var h = bind "2/2"
+h = 5 - 3
+print h
+var alt = bind "3/3"
+alt = 10
+while alt != 15 {
+    print "+++++++++"
+    alt = alt + 1
+    print alt
+    print "afik"
+    print "+++++++"
+    print "-----"
+    while h!=10 {
+        h = h + 1
+        print h
+    }
+    print "--------"
+    h = 2
+    print "AAAAAAA"
+    print h
+    print "AAAAAAA"
+}
+print "done"

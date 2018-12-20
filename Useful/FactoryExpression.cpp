@@ -111,6 +111,7 @@ Expression* FactoryExpression::createExpressionFromStrings(vector<string> string
             // check if the variable in the symbol table
             if (this->symbolTable->existsVariable(strings[i])) {
                 tempEx = new Number(this->symbolTable->getSymbolTableValue(strings[i]));
+                stackEx.push(tempEx);
             } else {
                 // שיחרור הזיכרון לפני זריקת האקספשיין
                 Expression* tempFree;

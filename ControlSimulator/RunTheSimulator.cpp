@@ -85,8 +85,7 @@ vector<string> splitCommand(const string &givenLine) {
     if (strstr(givenLine.c_str(), "=")) {
         return splitInitializationOperator(givenLine);
     }
-    string tempSubString = givenLine.substr(2, givenLine.size());
-    stringstream ss(tempSubString);
+    stringstream ss(givenLine);
     string item;
     getline(ss, item, ' ');
     getline(ss, item);
@@ -213,8 +212,7 @@ vector<string> splitLineWithOneArguments(const string &givenLine, string command
 vector<string> splitInitializationOperator(const string &givenLine) {
     vector<string> vec;
     string item;
-    string tempSubString = givenLine.substr(2, givenLine.size());
-    stringstream ss(tempSubString);
+    stringstream ss(givenLine);
     getline(ss, item, '=');
     item.erase(std::remove(item.begin(), item.end(), ' '), item.end());
     item.erase(std::remove(item.begin(), item.end(), '\t'), item.end());
