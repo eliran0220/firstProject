@@ -13,7 +13,7 @@ class IncreaseCounterCommand : public Command {
 public:
     IncreaseCounterCommand(){}
 
-    int execute(const vector<string> &parameters, int position) {
+    virtual int execute(vector<string> &parameters, int position) {
         return INCREASE_VALUE;
     }
 };

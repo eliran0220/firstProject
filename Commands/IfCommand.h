@@ -10,10 +10,10 @@
 
 class IfCommand : ConditionParser {
 public:
-
-    int execute(const vector<string> &parameters, int position);
-    vector<string>
-    defineBlockOfCommands(const vector<string> &parameters);
+    IfCommand(Factory* factoryCommand, Factory* factoryExpression):
+            ConditionParser(factoryCommand, factoryExpression){}
+    int execute(vector<string> &parameters, int position);
+    //vector<string> defineBlockOfCommands(vector<string> &parameters);
 };
 
 

@@ -6,12 +6,18 @@
 
 
 
-int IfCommand::execute(const vector<string> &parameters, int position) {
-
+int IfCommand::execute(vector<string> &parameters, int position) {
+    if (this->condition(parameters[position + 1])) {
+        return this->parser(&parameters, position + 3);
+    } else {
+        return findTheEndBlock(&parameters, position + 3);
+    }
 }
 
+
+/*
 vector<string>
-IfCommand::defineBlockOfCommands(const vector<string> &parameters) {
+IfCommand::defineBlockOfCommands(vector<string> &parameters) {
     int counter = 0;
     vector<string> blockOfCommands;
     for (int i = 0; i < parameters.size(); i++) {
@@ -29,3 +35,4 @@ IfCommand::defineBlockOfCommands(const vector<string> &parameters) {
     }
 
 }
+ */

@@ -12,6 +12,6 @@ using namespace std;
 
 class Command{
 public:
-    virtual int execute(const vector<string> &parameters, int position) = 0;
+    virtual int execute(vector<string> &parameters, int position) = 0;
 };
 #endif //FIRSTPROJECT_COMMAND_H

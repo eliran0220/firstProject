@@ -17,7 +17,7 @@ private:
     SymbolTable * table;
 public:
     DefineVarCommand(SymbolTable* symbolTable);
-    int execute(const vector<string> &parameters, int position);
+    int execute(vector<string> &parameters, int position);
 
 };
 

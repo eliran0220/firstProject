@@ -9,7 +9,7 @@ PrintCommand::PrintCommand(Factory *createExpression){
     this->createExpression = createExpression;
 }
 
-int PrintCommand::execute(const vector<string> &parameters, int position) {
+int PrintCommand::execute(vector<string> &parameters, int position) {
     regex varR("[a-zA-Z0-9]+");
     if (regex_match(parameters[position + 1], varR)) {
         Expression* e = this->createExpression->create(parameters[position + 1]);

@@ -7,13 +7,27 @@
 
 
 #include "Command.h"
+#include "../Useful/Factory.h"
 
 class ConditionParser : public Command {
-private:
-    vector<string> listOfCommands;
+
+protected:
+    vector<Expression*> listOfCommands;
+    Factory* factoryCommand;
+    Factory* factoryExpression;
+
 public:
-    ConditionParser(const vector<string> &listOfCommands);
-    int execute(const vector<string> &parameters, int position) override;
+    ConditionParser(Factory* factoryCommand, Factory* factoryExpression);
+    ~ConditionParser();
+
+    virtual int execute(vector<string> &parameters, int position) = 0;
+    vector<Expression*> splitCondition(string& condition, char opera);
+
+    bool condition(string conditionString);
+
+    int parser(vector<string>* commands, int position);
+
+    int findTheEndBlock(vector<string> *parameters, int position);
 };
 
 

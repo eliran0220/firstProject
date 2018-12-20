@@ -6,7 +6,7 @@
 #include <algorithm>
 
 int
-InitializeCommand::execute(const vector<string> &parameters, int position) {
+InitializeCommand::execute(vector<string> &parameters, int position) {
     if (parameters[position + 1] == "bind") {
         string value = parameters[position + 2];
         this->table->updateDestTable(parameters[position-1],value);

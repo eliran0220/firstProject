@@ -16,7 +16,7 @@ private:
     Factory* createExpression;
 public:
     PrintCommand(Factory* createExpression);
-    int execute(const vector<string> &parameters, int position);
+    virtual int execute(vector<string> &parameters, int position);
 
 };
 

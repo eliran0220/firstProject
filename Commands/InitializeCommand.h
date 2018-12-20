@@ -17,7 +17,7 @@ private:
 
 public:
     InitializeCommand(Factory * expression, SymbolTable * table);
-    int execute(const vector<string> &parameters, int position) override;
+    virtual int execute(vector<string> &parameters, int position);
 };
 
 

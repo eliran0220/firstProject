@@ -7,6 +7,11 @@
 
 #include <string>
 
+#include "InitializeCommand.h"
+#include "IncreaseCounterCommand.h"
+#include "ConditionParser.h"
+#include "WhileCommmand.h"
+#include "IfCommand.h"
 #include "../Useful/SymbolTable.h"
 #include "../Commands/SleepCommand.h"
 #include "../Expressions/CommandExpression.h"
@@ -20,6 +25,8 @@ using namespace std;
 #define SLEEP_COMMAND  "sleep"
 #define DEFINE_VAR_COMMAND "var"
 #define DEFINE_INITIALIZE_COMMAND "="
+#define WHILE_COMMAND  "while"
+#define IF_COMMAND "if"
 
 class FactoryCommands: public Factory {
 
