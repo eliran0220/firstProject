@@ -28,6 +28,7 @@ void RunTheSimulator::parser(vector<string> commands) {
     Expression *command;
     int i = 0;
     while (i < commands.size()) {
+        // ומה עם כאשר יש var נגיד באות h? זה קורס !
         command = this->collectionCommands->getExpressionCommand(commands[i]);
         command->setLexerStringAndPosition(&commands, i);
         i += (int) command->calculate();
@@ -48,6 +49,8 @@ vector<string> RunTheSimulator::lexer(string fileName) {
     }
     while (!file.eof()) {
         getline(file, line);
+        if (line == "")
+            continue;
         temp = splitCommand(line);
         commands.insert(commands.end(), temp.begin(), temp.end());
     }
@@ -214,6 +217,7 @@ vector<string> splitInitializationOperator(const string &givenLine) {
     stringstream ss(tempSubString);
     getline(ss, item, '=');
     item.erase(std::remove(item.begin(), item.end(), ' '), item.end());
+    item.erase(std::remove(item.begin(), item.end(), '\t'), item.end());
     vec.push_back(item);
     vec.push_back("=");
     getline(ss, item, '=');

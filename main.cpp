@@ -10,15 +10,21 @@ int main() {
     // ליצור את כל המחלקות של הקומאנדים
     // ליצור מחלקה שמחזירה את כל המשתנים var
     // במחלקה יהיה מפה בין מחרוזת לקומאנד
-    //RunTheSimulator* r = new RunTheSimulator();
-    //vector<string> s = r->lexer("test.txt");
+
+    RunTheSimulator* r = new RunTheSimulator();
+    vector<string> s = r->lexer("test.txt");
+    try {
+        r->parser(s);
+    } catch (const char *c){
+        cout << c << endl;
+    }
+
     //FactoryExpression* factoryExpression = new FactoryExpression(NULL);
+    int x = 5;
     //Expression* e = factoryExpression->create("(5/2) +5");
     //r->parser(s);
     //delete (r);
-    SymbolTable* s = new SymbolTable();
-    FactoryExpression f = FactoryExpression(NULL);
-    cout<< f.create("9 - 2*3")->calculate();
+
     return 0;
 }
 

@@ -48,19 +48,22 @@ bool ConditionParser::condition(string conditionString) {
     bool resualt;
     if (strstr(conditionString.c_str(),">")) {
         vec = splitCondition(conditionString, ">");
-        resualt = vec[0] > vec[1];
+        resualt = vec[0]->operator>(vec[1]);
     } else if (strstr(conditionString.c_str(),">=")) {
         vec = splitCondition(conditionString, ">=");
-        resualt = vec[0] >= vec[1];
+        resualt = vec[0]->operator>=(vec[1]);
     } else if (strstr(conditionString.c_str(),"<")) {
         vec = splitCondition(conditionString, "<");
-        resualt = vec[0] < vec[1];
+        resualt = vec[0]->operator<(vec[1]);
     } else if (strstr(conditionString.c_str(),"<=")) {
         vec = splitCondition(conditionString, "<=");
-        resualt = vec[0] <= vec[1];
+        resualt = vec[0]->operator<=(vec[1]);
     } else if (strstr(conditionString.c_str(),"==")) {
         vec = splitCondition(conditionString, "==");
-        resualt = vec[0] == vec[1];
+        resualt = vec[0]->operator==(vec[1]);
+    }else if (strstr(conditionString.c_str(),"!=")) {
+        vec = splitCondition(conditionString, "!=");
+        resualt = vec[0]->operator!=(vec[1]);
     }
     for (int i = (int)vec.size() - 1; i >= 0; --i) {
         delete(vec[i]);

@@ -47,10 +47,12 @@ Expression* FactoryCommands::create(const string &exString) {
         Expression* expressionCommand = new CommandExpression(ifCommand);
         return expressionCommand;
     }
-    if (!this->symbolTable->existsVariable(exString)) {
+    if (this->symbolTable->existsVariable(exString)) {
         IncreaseCounterCommand* increaseCounterCommand = new IncreaseCounterCommand();
         Expression* expressionCommand = new CommandExpression(increaseCounterCommand);
         return expressionCommand;
+    } else {
+        throw "the variable doesn't exist.";
     }
 
 }

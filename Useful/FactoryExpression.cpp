@@ -119,7 +119,7 @@ Expression* FactoryExpression::createExpressionFromStrings(vector<string> string
                     stackEx.pop();
                     delete (tempFree);
                 }
-                throw "The variable " + strings[i] + " does not exists";
+                throw "The variable doesn't exist factoryCreate failed";
             }
         } else {
             right = stackEx.top();

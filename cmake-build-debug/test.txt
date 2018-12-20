@@ -1,7 +1,14 @@
 1. var h = bind "2/2"
 2. h = 5 - 3
 3. print h
-4. while h < 10 {
-5.	x = 7
-6.	h = h + 10
-7. }
+4. var alt = bind "3/3"
+5. alt = 10
+6. while alt < 15 {
+7. 	h = h + 1
+8.	alt = alt + 1
+9.	print alt
+10.	print "afik"
+11.  }
+12.	print "done"
+
+

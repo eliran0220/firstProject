@@ -16,7 +16,6 @@ private:
 public:
     CollectionCommands();
     ~CollectionCommands();
-
     Expression* getExpressionCommand(const string &command);
 };
 
