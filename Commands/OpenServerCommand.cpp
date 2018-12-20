@@ -13,6 +13,7 @@ int OpenServerCommand::execute(vector<string> &parameters, int position) {
     int port = static_cast<int>(p->calculate());
     int rate = static_cast<int>(r->calculate());
     DataReaderServer *dataReaderServer = new DataReaderServer(port,rate);
+    dataReaderServer->run();
     return 3;
 
 }
