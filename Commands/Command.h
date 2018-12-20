@@ -14,6 +14,6 @@ class Command{
 public:
     virtual int execute(vector<string> &parameters, int position) = 0;
 
-    virtual ~Command() = 0;
+    virtual ~Command(){}
 };
 #endif //FIRSTPROJECT_COMMAND_H

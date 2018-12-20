@@ -58,6 +58,5 @@ SymbolTable::~SymbolTable() {
         itVa++;
     }
 }
-}
 
 
