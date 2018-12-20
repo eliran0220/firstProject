@@ -6,9 +6,10 @@
 
 int WhileCommand::execute(vector<string> &parameters, int position) {
     int returnPosition;
-    if (this->condition(parameters[position + 1])) {
+    bool flagCondition = this->condition(parameters[position + 1]);
+    if (flagCondition && this->listOfCommands.empty()) {
         returnPosition = this->parser(&parameters, position + 3);
-    } else {
+    } else if(!flagCondition) {
         return findTheEndBlock(&parameters, position + 3) - position;
     }
     while (this->condition(parameters[position + 1])) {

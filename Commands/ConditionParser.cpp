@@ -77,7 +77,7 @@ int ConditionParser::findTheEndBlock(vector<string> *parameters, int position) {
     while (counter < amountBlock) {
         if (parameters->at(position) == "{") {
             amountBlock++;
-        } else if (parameters->at(position) == "{") {
+        } else if (parameters->at(position) == "}") {
             counter++;
         }
         position++;
