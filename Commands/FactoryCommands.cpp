@@ -3,6 +3,7 @@
 //
 
 #include "FactoryCommands.h"
+#include "OpenServerCommand.h"
 
 FactoryCommands::FactoryCommands() {
     this->symbolTable = new SymbolTable();
@@ -45,6 +46,11 @@ Expression* FactoryCommands::create(const string &exString) {
     if (exString == IF_COMMAND) {
         ConditionParser * ifCommand = new IfCommand(this, this->createExpression);
         Expression* expressionCommand = new CommandExpression(ifCommand);
+        return expressionCommand;
+    }
+    if (exString == OPEN_SERVER_COMMAND) {
+        OpenServerCommand *openServerCommand = new OpenServerCommand(this->createExpression);
+        Expression * expressionCommand = new CommandExpression(openServerCommand);
         return expressionCommand;
     }
     if (this->symbolTable->existsVariable(exString)) {

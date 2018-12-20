@@ -42,7 +42,7 @@ int DataReaderServer::createSocket(int port) {
 
     /* Initialize socket structure */
     bzero((char *) &serv_addr, sizeof(serv_addr));
-    portno = 5001;
+    portno = port;
 
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_addr.s_addr = INADDR_ANY;
@@ -58,10 +58,11 @@ int DataReaderServer::createSocket(int port) {
        * go in sleep mode and will wait for the incoming connection
     */
 
-    listen(sockfd, 5);
+    listen(sockfd, 1);
     clilen = sizeof(cli_addr);
 
     /* Accept actual connection from the client */
+    cout << "waiting for connection..";
     newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr,
                        (socklen_t *) &clilen);
 
@@ -69,7 +70,7 @@ int DataReaderServer::createSocket(int port) {
         perror("ERROR on accept");
         exit(1);
     }
-
+    cout << "connection established";
     return newsockfd;
 }
 

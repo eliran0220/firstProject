@@ -38,6 +38,8 @@ vector<string> FactoryExpression::splitExpression(string stringExpression) {
             split.push_back(temp);
         }
     }
+    //אולי צריך להוריד
+    split.erase(std::remove(split.begin(),split.end(),""));
     return split;
 }
 
