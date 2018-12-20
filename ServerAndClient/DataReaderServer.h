@@ -6,8 +6,21 @@
 #define FIRSTPROJECT_DATAREADERSERVER_H
 
 
+#include "../Useful/Factory.h"
+
 class DataReaderServer {
-    DataReaderServer(){};
+
+private:
+    int port;
+    int rate;
+public:
+    DataReaderServer(int givenPort, int givenRate);
+
+    int run();
+
+    int createSocket(int port);
+
+    string getData(int socketId, int rate);
 };
 
 
