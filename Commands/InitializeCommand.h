@@ -5,7 +5,6 @@
 #ifndef FIRSTPROJECT_INITIALIZECOMMAND_H
 #define FIRSTPROJECT_INITIALIZECOMMAND_H
 
-
 #include "Command.h"
 #include "../Useful/Factory.h"
 #include "../Useful/SymbolTable.h"

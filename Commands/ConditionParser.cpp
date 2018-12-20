@@ -18,15 +18,18 @@ ConditionParser::~ConditionParser() {
 }
 
 
-vector<Expression*> ConditionParser::splitCondition(string& condition, char opera) {
+vector<Expression*> ConditionParser::splitCondition(string& condition, string opera) {
     vector<Expression*> vec;
     string item;
     stringstream ss(condition);
     Expression* temp = nullptr;
-    while (getline(ss, item, opera)) {
-        temp = factoryExpression->create(item);
-        vec.push_back(temp);
-    }
+    int start = (int)condition.find(opera);
+    item = condition.substr(0, start);
+    temp = this->factoryExpression->create(item);
+    vec.push_back(temp);
+    item = condition.substr(start + opera.size(), condition.size());
+    temp = this->factoryExpression->create(item);
+    vec.push_back(temp);
     return vec;
 }
 
@@ -44,19 +47,19 @@ bool ConditionParser::condition(string conditionString) {
     vector<Expression*> vec;
     bool resualt;
     if (strstr(conditionString.c_str(),">")) {
-        vec = splitCondition(conditionString, '>');
+        vec = splitCondition(conditionString, ">");
         resualt = vec[0] > vec[1];
     } else if (strstr(conditionString.c_str(),">=")) {
-        vec = splitCondition(conditionString, '>=');
+        vec = splitCondition(conditionString, ">=");
         resualt = vec[0] >= vec[1];
     } else if (strstr(conditionString.c_str(),"<")) {
-        vec = splitCondition(conditionString, '<');
+        vec = splitCondition(conditionString, "<");
         resualt = vec[0] < vec[1];
     } else if (strstr(conditionString.c_str(),"<=")) {
-        vec = splitCondition(conditionString, '<=');
+        vec = splitCondition(conditionString, "<=");
         resualt = vec[0] <= vec[1];
     } else if (strstr(conditionString.c_str(),"==")) {
-        vec = splitCondition(conditionString, '==');
+        vec = splitCondition(conditionString, "==");
         resualt = vec[0] == vec[1];
     }
     for (int i = (int)vec.size() - 1; i >= 0; --i) {

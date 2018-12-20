@@ -8,10 +8,8 @@
 
 int DefineVarCommand::execute(vector<string> &parameters, int position) {
     string var = parameters[position + 1];
-    this->table->addToDestTable(var,"");
-    this->table->addToSymbol(var,0);
+    this->table->addToTable(var);
     return 2;
-
 }
 
 DefineVarCommand::DefineVarCommand(SymbolTable *symbolTable) {

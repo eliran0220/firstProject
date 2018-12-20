@@ -8,12 +8,11 @@
 
 #include "ConditionParser.h"
 
-class IfCommand : ConditionParser {
+class IfCommand : public ConditionParser {
 public:
     IfCommand(Factory* factoryCommand, Factory* factoryExpression):
             ConditionParser(factoryCommand, factoryExpression){}
     int execute(vector<string> &parameters, int position);
-    //vector<string> defineBlockOfCommands(vector<string> &parameters);
 };
 
 

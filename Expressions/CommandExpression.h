@@ -27,7 +27,7 @@ public:
         this->position = position;
         this->parameters = parameters;
     }
-    ~CommandExpression() {
+    virtual ~CommandExpression() {
         delete(command);
     }
 

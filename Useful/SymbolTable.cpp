@@ -6,51 +6,58 @@
 #include "SymbolTable.h"
 
 
-void SymbolTable::addToSymbol(string name, double value) {
-    this->symbolTable.insert(pair<string,double>(name,value));
+void SymbolTable::addToTable(string name) {
+    StoreVarValue<string>* tempD = new StoreVarValue<string>();
+    StoreVarValue<double >* tempV = new StoreVarValue<double >();
+    this->valueTable[name] = tempV;
+    this->destTable[name] = tempD;
+
 }
 
-void SymbolTable::addToDestTable(string name, string value) {
-    this->destTable.insert(pair<string,string>(name,value));
+void SymbolTable::updateSymbolTableDest(string name, string value) {
+    this->destTable[name]->setInitialize(true);
+    this->destTable[name]->setValue(value);
 }
 
-void SymbolTable::updateSymbtolTable(string name, double value) {
-    this->symbolTable.at(name) = value;
+void SymbolTable::updateSymbolTableValue(string name, double value) {
+    this->valueTable[name]->setInitialize(true);
+    this->valueTable[name]->setValue(value);
 }
 
-void SymbolTable::updateDestTable(string name, string value) {
-    if (strstr(value.c_str(), "\"")) {
-        value.erase(std::remove(value.begin(), value.end(), ' '), value.end());
+string SymbolTable::getSymbolTableDest(string name) {
+    if (this->destTable[name]->checkIfInitialize()) {
+        return this->destTable[name]->getValue();
     }
-    this->destTable.at(name) = value;
+    throw "The variable does not Initialize";
 }
 
-double SymbolTable::getValueSymbtolTable(string name) {
-    return this->symbolTable.at(name);
+double SymbolTable::getSymbolTableValue(string name) {
+    if (this->valueTable[name]->checkIfInitialize()) {
+        return this->valueTable[name]->getValue();
+    }
+    throw "The variable does not Initialize";
 }
 
-string SymbolTable::getValueDestTable(string name) {
-    return this->destTable.at(name);
-}
-
-bool SymbolTable::existsVariableValue(string var) {
-    if (this->symbolTable.count(var) == ONE) {
+bool SymbolTable::existsVariable(string var) {
+    if (this->valueTable.count(var) == ONE || this->destTable.count(var)) {
         return true;
     }
     return false;
 }
 
-bool SymbolTable::existsVariabledest(string var) {
-    if (this->destTable.count(var) == ONE) {
-        return true;
+
+SymbolTable::~SymbolTable() {
+    map<string, StoreVarValue<string>*>::iterator itDe = this->destTable.begin();
+    while (itDe != this->destTable.end()) {
+        delete (itDe->second);
+        itDe++;
     }
-    return false;
+    map<string, StoreVarValue<double>*>::iterator itVa = this->valueTable.begin();
+    while (itVa != this->valueTable.end()) {
+        delete (itVa->second);
+        itVa++;
+    }
 }
-
-
-
-
-
-
+}
 
 

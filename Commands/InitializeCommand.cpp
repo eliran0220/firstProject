@@ -9,12 +9,11 @@ int
 InitializeCommand::execute(vector<string> &parameters, int position) {
     if (parameters[position + 1] == "bind") {
         string value = parameters[position + 2];
-        this->table->updateDestTable(parameters[position-1],value);
+        this->table->updateSymbolTableDest(parameters[position-1],value);
         return 3;
     } else {
         Expression *e = this->expression->create(parameters[position+1]);
-        this->table->updateSymbtolTable(parameters[position - 1],
-                                 e->calculate());
+        this->table->updateSymbolTableValue(parameters[position - 1], e->calculate());
         return 2;
     }
 }

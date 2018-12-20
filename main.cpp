@@ -16,6 +16,7 @@ int main() {
     //Expression* e = factoryExpression->create("(5/2) +5");
     //r->parser(s);
     //delete (r);
+    SymbolTable* s = new SymbolTable();
     FactoryExpression f = FactoryExpression(NULL);
     cout<< f.create("9 - 2*3")->calculate();
     return 0;

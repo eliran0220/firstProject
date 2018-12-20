@@ -6,6 +6,10 @@
 #include <iostream>
 #include "FactoryExpression.h"
 
+
+FactoryExpression::~FactoryExpression() {
+
+}
 vector<string> FactoryExpression::splitExpression(string stringExpression) {
     vector<string> split;
     string temp;
@@ -105,8 +109,8 @@ Expression* FactoryExpression::createExpressionFromStrings(vector<string> string
             stackEx.push(tempEx);
         } else if (regex_match(strings[i], varR)){
             // check if the variable in the symbol table
-            if (this->symbolTable->existsVariableValue(strings[i])) {
-                tempEx = new Number(this->symbolTable->getValueSymbtolTable(strings[i]));
+            if (this->symbolTable->existsVariable(strings[i])) {
+                tempEx = new Number(this->symbolTable->getSymbolTableValue(strings[i]));
             } else {
                 // שיחרור הזיכרון לפני זריקת האקספשיין
                 Expression* tempFree;

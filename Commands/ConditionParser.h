@@ -18,10 +18,10 @@ protected:
 
 public:
     ConditionParser(Factory* factoryCommand, Factory* factoryExpression);
-    ~ConditionParser();
+    virtual ~ConditionParser();
 
     virtual int execute(vector<string> &parameters, int position) = 0;
-    vector<Expression*> splitCondition(string& condition, char opera);
+    vector<Expression*> splitCondition(string& condition, string opera);
 
     bool condition(string conditionString);
 
