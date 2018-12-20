@@ -25,7 +25,6 @@ public:
     FactoryExpression(SymbolTable* symbolTable) {
         this->symbolTable = symbolTable;
     }
-    ~FactoryExpression();
 
     vector<string> splitExpression(string stringExpression);
 

@@ -7,9 +7,7 @@
 #include "FactoryExpression.h"
 
 
-FactoryExpression::~FactoryExpression() {
 
-}
 vector<string> FactoryExpression::splitExpression(string stringExpression) {
     vector<string> split;
     string temp;

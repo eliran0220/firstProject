@@ -195,10 +195,47 @@ splitLineWithTwoArguments(const string &givenLine, string command) {
         item.erase(std::remove(item.begin(), item.end(), ' '), item.end());
         vec.push_back(item);
     } else {
-        FactoryExpression f = FactoryExpression(NULL);
-        vector<string> vecTemp = f.splitExpression(tempSubString);
-        vec.insert(vec.end(), vecTemp.begin(), vecTemp.end());
-
+        regex operatorR("[+]||[-]||[/]||[*]");
+        vector<string> tempVector;
+        string tempString;
+        char prev;
+        bool flagCurrentIndex;
+        bool flagTopVector;
+        bool flagTabOrSpace;
+        bool stopToSeparate = false;
+        for (int i = 0; i < tempSubString.size(); ++i) {
+            tempString = tempSubString[i];
+            flagTabOrSpace = (tempSubString[i] == ' ' || tempSubString[i] == '\t');
+            if (!flagTabOrSpace) {
+                flagCurrentIndex = regex_match(tempString.c_str(), operatorR);
+                flagTopVector = (!tempVector.empty()) && !(regex_match(tempVector[tempVector.size() - 1], operatorR));
+                if ((!flagCurrentIndex) && flagTopVector && (!stopToSeparate)) {
+                    if (prev == ' ' || prev == '\t') {
+                        tempVector.push_back("&");
+                        tempVector.push_back(tempString);
+                        stopToSeparate = true;
+                    } else {
+                        tempVector.push_back(tempString);
+                    }
+                } else {
+                    tempString = tempSubString[i];
+                    tempVector.push_back(tempString);
+                }
+            }
+            prev = tempSubString[i];
+        }
+        tempString = "";
+        for (int j = 0; j < tempVector.size(); ++j) {
+            if (tempVector[j] != "&") {
+                tempString += tempVector[j];
+            } else {
+                vec.push_back(tempString);
+                tempString = "";
+            }
+        }
+        if (tempString != "") {
+            vec.push_back(tempString);
+        }
     }
     if (vec.size() == NO_ARGUMENTS && vec[0] != "{" && vec[0] != "}") {
         throw "Syntax Error no arguments";
@@ -207,7 +244,7 @@ splitLineWithTwoArguments(const string &givenLine, string command) {
         throw "Syntax Error to much arguments";
     }
     if (vec.size() == OME_ARGUMENTS && vec[0] != "{" && vec[0] != "}") {
-        throw "Syntax Error missing one argument Separate with char ',' ";
+        throw "Syntax Error Separate with char ',' ";
     }
     eraseBrackets(&vec, END_LINE, 0);
     return vec;

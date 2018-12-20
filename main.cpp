@@ -11,13 +11,14 @@ int main() {
     // ליצור מחלקה שמחזירה את כל המשתנים var
     // במחלקה יהיה מפה בין מחרוזת לקומאנד
 
-    RunTheSimulator* r = new RunTheSimulator();
-    vector<string> s = r->lexer("test.txt");
+
     try {
-        r->parser(s);
-    } catch (const char *c){
-        cout << c << endl;
+        RunTheSimulator* r = new RunTheSimulator();
+        vector<string> s = r->lexer("test.txt");
+    } catch (const char* c) {
+        cout<<c<<endl;
     }
+
 
     //FactoryExpression* factoryExpression = new FactoryExpression(NULL);
     int x = 5;
