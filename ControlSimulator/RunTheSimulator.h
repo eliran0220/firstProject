@@ -20,7 +20,8 @@
 #include "../Useful/CollectionCommands.h"
 
 #define MISSING_PARAMETER 1
-#define TWO 2
+#define START_LINE 1
+#define END_LINE 2
 
 using namespace std;
 

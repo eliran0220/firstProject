@@ -14,7 +14,7 @@ vector<string> FactoryExpression::splitExpression(string stringExpression) {
     vector<string> split;
     string temp;
     string stringNumber;
-    regex letterR("[a-zA-Z]");
+    regex letterR("[a-zA-Z_]");
     regex numberR("[0-9]");
     bool flag = false;
     for (int i = 0; i < stringExpression.size(); ++i) {
@@ -51,7 +51,7 @@ vector<string> shuntingYardAlgorithm(vector<string> strings) {
     vector<string> prefix = strings;
     vector<string> infix;
     string temp;
-    regex varR("[a-zA-Z0-9]+");
+    regex varR("[a-zA-Z0-9_]+");
     regex numberR("[0-9]+||[0-9].{0,1}[0-9]+");
     regex operatorR("[+]||[-]||[/]||[*]");
     stack<string> s;
@@ -96,7 +96,7 @@ vector<string> shuntingYardAlgorithm(vector<string> strings) {
 Expression* FactoryExpression::createExpressionFromStrings(vector<string> strings) {
     regex numberR("[0-9]+||[0-9].{0,1}[0-9]+");
     regex operatorR("[+]||[-]||[/]||[*]");
-    regex varR("[a-zA-Z0-9]+");
+    regex varR("[a-zA-Z0-9_]+");
     stack<Expression*> stackEx;
     Expression* tempEx = nullptr;
     Expression* left;

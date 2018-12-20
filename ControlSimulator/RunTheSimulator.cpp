@@ -10,10 +10,19 @@
 vector<string> splitCommand(const string &givenLine);
 
 vector<string> splitVarCommand(const string &givenLine);
-vector<string> splitLineCommandCondition(const string &givenLine, string command);
-vector<string> splitLineWithOneArguments(const string &givenLine, string command);
-vector<string> splitLineWithTwoArguments(const string &givenLine, string command);
+
+vector<string>
+splitLineCommandCondition(const string &givenLine, string command);
+
+vector<string>
+splitLineWithOneArguments(const string &givenLine, string command);
+
+vector<string>
+splitLineWithTwoArguments(const string &givenLine, string command);
+
 vector<string> splitInitializationOperator(const string &givenLine);
+
+void eraseBrackets(vector<string> *strings, int indication, int endOfCheck);
 
 RunTheSimulator::RunTheSimulator() {
     this->collectionCommands = new CollectionCommands();
@@ -34,7 +43,6 @@ void RunTheSimulator::parser(vector<string> commands) {
         i += (int) command->calculate();
     }
 }
-
 
 
 vector<string> RunTheSimulator::lexer(string fileName) {
@@ -97,14 +105,18 @@ vector<string> splitCommand(const string &givenLine) {
 }
 
 
-vector<string> splitLineCommandCondition(const string &givenLine, string command) {
+vector<string>
+splitLineCommandCondition(const string &givenLine, string command) {
     vector<string> vec;
     string item;
     string tempSubString;
     int start = (int) givenLine.find(command);
+    vec.push_back(givenLine);
+    eraseBrackets(&vec, START_LINE, start);
     tempSubString = givenLine.substr(start + command.size(), givenLine.size());
     stringstream ss(tempSubString);
     vec.push_back(command);
+    /*
     if (strstr(givenLine.c_str(), "{")) {
         getline(ss, item, '{');
         item.erase(std::remove(item.begin(), item.end(), ' '),
@@ -113,12 +125,15 @@ vector<string> splitLineCommandCondition(const string &givenLine, string command
         vec.push_back("{");
         return vec;
     }
+     */
     getline(ss, item);
     item.erase(std::remove(item.begin(), item.end(), ' '), item.end());
     vec.push_back(item);
-    if ((vec.size() == MISSING_PARAMETER) && (vec.size() == TWO && vec[1] == "{")){
+    //if ((vec.size() == MISSING_PARAMETER) && (vec.size() == TWO && vec[1] == "{")){
+    if (vec.size() == MISSING_PARAMETER && vec[0] != "{" && vec[0] != "}") {
         throw "Syntax Error missing condition";
     }
+    eraseBrackets(&vec, END_LINE, 0);
     return vec;
 }
 
@@ -127,6 +142,8 @@ vector<string> splitVarCommand(const string &givenLine) {
     string item;
     string tempSubString;
     int start = (int) givenLine.find("var");
+    vec.push_back(givenLine);
+    eraseBrackets(&vec, START_LINE, start);
     tempSubString = givenLine.substr(start + 3, givenLine.size());
     stringstream ss(tempSubString);
     vec.push_back("var");
@@ -152,17 +169,21 @@ vector<string> splitVarCommand(const string &givenLine) {
     getline(ss, item);
     item.erase(std::remove(item.begin(), item.end(), ' '), item.end());
     vec.push_back(item);
-    if (vec.size() == MISSING_PARAMETER) {
+    if (vec.size() == MISSING_PARAMETER && vec[0] != "{" && vec[0] != "}") {
         throw "Syntax Error missing var statement";
     }
+    eraseBrackets(&vec, END_LINE, 0);
     return vec;
 }
 
-vector<string> splitLineWithTwoArguments(const string &givenLine, string command) {
+vector<string>
+splitLineWithTwoArguments(const string &givenLine, string command) {
     vector<string> vec;
     string item;
     string tempSubString;
     int start = (int) givenLine.find(command);
+    vec.push_back(givenLine);
+    eraseBrackets(&vec, START_LINE, start);
     tempSubString = givenLine.substr(start + command.size(), givenLine.size());
     vec.push_back(command);
     if (strstr(tempSubString.c_str(), ",")) {
@@ -179,39 +200,49 @@ vector<string> splitLineWithTwoArguments(const string &givenLine, string command
         vec.insert(vec.end(), vecTemp.begin(), vecTemp.end());
 
     }
-    if (vec.size() == NO_ARGUMENTS) {
+    if (vec.size() == NO_ARGUMENTS && vec[0] != "{" && vec[0] != "}") {
         throw "Syntax Error no arguments";
     }
-    if (vec.size() > TWO_ARGUMENTS) {
+    if (vec.size() > TWO_ARGUMENTS && vec[0] != "{" && vec[0] != "}") {
         throw "Syntax Error to much arguments";
     }
-    if (vec.size() == OME_ARGUMENTS) {
+    if (vec.size() == OME_ARGUMENTS && vec[0] != "{" && vec[0] != "}") {
         throw "Syntax Error missing one argument Separate with char ',' ";
     }
+    eraseBrackets(&vec, END_LINE, 0);
     return vec;
 }
 
-vector<string> splitLineWithOneArguments(const string &givenLine, string command) {
+vector<string>
+splitLineWithOneArguments(const string &givenLine, string command) {
     vector<string> vec;
     string tempSubString;
     int start = (int) givenLine.find(command);
+    vec.push_back(givenLine);
+    eraseBrackets(&vec, START_LINE, start);
     tempSubString = givenLine.substr(start + command.size(), givenLine.size());
     stringstream ss(tempSubString);
     vec.push_back(command);
-    tempSubString.erase(std::remove(tempSubString.begin(), tempSubString.end(), ' '), tempSubString.end());
+    tempSubString.erase(
+            std::remove(tempSubString.begin(), tempSubString.end(), ' '),
+            tempSubString.end());
     vec.push_back(tempSubString);
-    if (vec.size() == NO_ARGUMENTS) {
+    if (vec.size() == NO_ARGUMENTS && vec[0] != "{" && vec[0] != "}") {
         throw "Syntax Error no arguments";
     }
-    if (vec.size() > OME_ARGUMENTS) {
+    if (vec.size() > OME_ARGUMENTS && vec[0] != "{" && vec[0] != "}") {
         throw "Syntax Error to much arguments";
     }
+    eraseBrackets(&vec, END_LINE, 0);
     return vec;
 }
 
 vector<string> splitInitializationOperator(const string &givenLine) {
     vector<string> vec;
     string item;
+    int start = (int) givenLine.find("=");
+    vec.push_back(givenLine);
+    eraseBrackets(&vec, START_LINE, start);
     stringstream ss(givenLine);
     getline(ss, item, '=');
     item.erase(std::remove(item.begin(), item.end(), ' '), item.end());
@@ -221,9 +252,39 @@ vector<string> splitInitializationOperator(const string &givenLine) {
     getline(ss, item, '=');
     item.erase(std::remove(item.begin(), item.end(), ' '), item.end());
     vec.push_back(item);
-    if (vec.size() == MISSING_PARAMETER) {
+    if (vec.size() == MISSING_PARAMETER && vec[0] != "{" && vec[0] != "}") {
         throw "Syntax Error missing initialization value";
     }
+    eraseBrackets(&vec, END_LINE, 0);
     return vec;
 }
 
+void eraseBrackets(vector<string> *strings, int indication, int endOfCheck) {
+    string temp;
+    if (indication == END_LINE) {
+        string temp = strings->at(strings->size() - 1);
+        if (strstr(temp.c_str(), "{")) {
+            temp.erase(std::remove(temp.begin(), temp.end(), '{'), temp.end());
+            strings->at(strings->size() - 1) = temp;
+            strings->push_back("{");
+        } else if (strstr(temp.c_str(), "}")) {
+            temp.erase(std::remove(temp.begin(), temp.end(), '}'), temp.end());
+            strings->at(strings->size() - 1) = temp;
+            strings->push_back("}");
+        }
+    } else if (indication == START_LINE) {
+        temp = strings->at(0);
+        for (int i = 0; i < endOfCheck; ++i) {
+            if (temp[i] == '{') {
+                strings->at(0) = "{";
+                return;
+            }
+            if (temp[i] == '}') {
+                strings->at(0) = "}";
+                return;
+            }
+        }
+        // אם לא נמצא סוגרת פותח או סוגר סוג בתחילת השורה
+        strings->pop_back();
+    }
+}

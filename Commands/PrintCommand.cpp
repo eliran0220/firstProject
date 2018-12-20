@@ -10,7 +10,7 @@ PrintCommand::PrintCommand(Factory *createExpression){
 }
 
 int PrintCommand::execute(vector<string> &parameters, int position) {
-    regex varR("[a-zA-Z0-9]+");
+    regex varR("[a-zA-Z0-9_]+");
     if (regex_match(parameters[position + 1], varR)) {
         Expression* e = this->createExpression->create(parameters[position + 1]);
         double value = e->calculate();
