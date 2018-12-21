@@ -4,6 +4,7 @@
 
 #include "FactoryCommands.h"
 #include "OpenServerCommand.h"
+#include "ClientCommand.h"
 
 FactoryCommands::FactoryCommands() {
     this->symbolTable = new SymbolTable();
@@ -53,12 +54,17 @@ Expression* FactoryCommands::create(const string &exString) {
         Expression * expressionCommand = new CommandExpression(openServerCommand);
         return expressionCommand;
     }
+    if (exString == CLIENT_COMMAND) {
+        ClientCommand* clientCommand = new ClientCommand(this->symbolTable, this->createExpression);
+        Expression * expressionCommand = new CommandExpression(clientCommand);
+        return expressionCommand;
+    }
     if (this->symbolTable->existsInValueTableMap(exString)) {
         IncreaseCounterCommand* increaseCounterCommand = new IncreaseCounterCommand();
         Expression* expressionCommand = new CommandExpression(increaseCounterCommand);
         return expressionCommand;
     } else {
-        throw "the variable doesn't exist.";
+        throw "the variable doesn't exist FactoryCommand failed";
     }
 
 }

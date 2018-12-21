@@ -17,10 +17,9 @@ class OpenServerCommand : public Command {
     bool shouldStop;
 
 public:
-
     OpenServerCommand(Factory *expression, SymbolTable* symbolTable);
     ~OpenServerCommand();
-    int execute(vector<string> &parameters, int position) override;
+    virtual int execute(vector<string> &parameters, int position);
 
 };
 

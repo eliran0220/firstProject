@@ -28,6 +28,7 @@ using namespace std;
 #define WHILE_COMMAND  "while"
 #define IF_COMMAND "if"
 #define OPEN_SERVER_COMMAND "openDataServer"
+#define CLIENT_COMMAND "connect"
 
 class FactoryCommands: public Factory {
 
