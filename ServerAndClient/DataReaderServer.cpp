@@ -7,7 +7,8 @@
 // Created by eliran on 12/20/18.
 //
 
-void DataReaderServer::run(int port, int rate, SymbolTable* symbolTable) {
+void DataReaderServer::run(int port, int rate, SymbolTable *symbolTable,
+                           bool *shouldStop) {
     int socket = createSocket(port);
     ssize_t n;
     float buffer[BUFFER];
@@ -69,7 +70,8 @@ int DataReaderServer::createSocket(int port) {
     return newsockfd;
 }
 
-void DataReaderServer::updateSymbolTable(float *values, SymbolTable* symbolTable) {
+void
+DataReaderServer::updateSymbolTable(float *values, SymbolTable *symbolTable) {
     string xmlPathsVec[XML_AMOUNT_VARIABLES] = {INDICATE_SPEED, INDICATE_ALT,
                                                 PRESSURE_ALT, PITCH_DEG,
                                                 ROLL_DEG, IN_PITCH_DEG,

@@ -6,20 +6,21 @@
 #include <thread>
 #include "OpenServerCommand.h"
 
-
 int OpenServerCommand::execute(vector<string> &parameters, int position) {
-    Expression *p = this->factoryExpression->create(parameters[position+1]);
-    Expression *r = this->factoryExpression->create(parameters[position+2]);
-    int port = (int)(p->calculate());
-    int rate = (int)(r->calculate());
+    Expression *p = this->factoryExpression->create(parameters[position + 1]);
+    Expression *r = this->factoryExpression->create(parameters[position + 2]);
+    int port = (int) (p->calculate());
+    int rate = (int) (r->calculate());
     delete (p);
     delete (r);
-    thread serverThread(DataReaderServer::run,port, rate, this->symbolTable);
+    thread serverThread(DataReaderServer::run, port, rate, this->symbolTable,
+                        &this->shouldStop);
     serverThread.detach();
     return 3;
 }
 
-OpenServerCommand::OpenServerCommand(Factory *expression, SymbolTable *symbolTable){
+OpenServerCommand::OpenServerCommand(Factory *expression,
+                                     SymbolTable *symbolTable) {
     this->factoryExpression = expression;
     this->symbolTable = symbolTable;
     this->shouldStop = false;

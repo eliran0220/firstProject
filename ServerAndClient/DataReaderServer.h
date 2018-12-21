@@ -16,7 +16,6 @@
 #include <strings.h>
 #include <unistd.h>
 #include <iostream>
-#include "DataReaderServer.h"
 #include "../Expressions/Expression.h"
 
 #define INDICATE_SPEED "/instrumentation/airspeed-indicator/indicated-speed-kt"
@@ -46,21 +45,10 @@
 #define XML_AMOUNT_VARIABLES 23
 
 class DataReaderServer {
-
-    /*
-private:
-    //int port;
-    //int rate;
-    //SymbolTable* symbolTable;
-*/
 public:
-    //DataReaderServer(int givenPort, int givenRate, SymbolTable* symbolTable1);
-
-    static void run(int port, int rate, SymbolTable* symbolTable);
+    static void run(int port, int rate, SymbolTable* symbolTable, bool *shouldStop);
 
     static int createSocket(int port);
-
-    //static void getData(int socketId, int rate);
 
     static void updateSymbolTable(float* values, SymbolTable* symbolTable);
 };
