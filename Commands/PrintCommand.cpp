@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <regex>
 #include "PrintCommand.h"
 
 PrintCommand::PrintCommand(Factory *createExpression){

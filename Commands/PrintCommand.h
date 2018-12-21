@@ -4,11 +4,10 @@
 
 #ifndef FIRSTPROJECT_PRINTCOMMAND_H
 #define FIRSTPROJECT_PRINTCOMMAND_H
-
 #include"string"
 #include "Command.h"
 #include "../Useful/Factory.h"
-#include "FactoryCommands.h"
+
 using namespace std;
 
 class PrintCommand : public Command{

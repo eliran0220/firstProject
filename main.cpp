@@ -32,10 +32,14 @@ int main() {
 
 
     //FactoryExpression* factoryExpression = new FactoryExpression(NULL);
-    int x = 5;
     //Expression* e = factoryExpression->create("(5/2) +5");
     //r->parser(s);
     //delete (r);
+    //RunTheSimulator* r = new RunTheSimulator();
+    //SymbolTable *symbolTable = new SymbolTable();
+    //vector<string> s = r->lexer("test.txt");
+    //r->parser(s);
+
 
     return 0;
 }

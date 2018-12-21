@@ -5,14 +5,15 @@
 #ifndef FIRSTPROJECT_DATAREADERCLIENT_H
 #define FIRSTPROJECT_DATAREADERCLIENT_H
 
-#include <string>
 #include <stdio.h>
 #include <stdlib.h>
-#include <strings.h>
+
 #include <netdb.h>
+#include <sys/socket.h>
 #include <unistd.h>
 #include <netinet/in.h>
-#include <sys/socket.h>
+
+#include <string.h>
 #include "../Useful/SymbolTable.h"
 
 using namespace std;

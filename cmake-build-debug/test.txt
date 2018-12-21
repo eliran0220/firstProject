@@ -1,2 +1,2 @@
-
-openDataServer 5400 10
+1. openDataServer 5400 10
+2. var breaks = bind "/controls/flight/speedbreak"
