@@ -21,7 +21,7 @@ int main() {
     }
      */
 
-    /*
+
     try {
         RunTheSimulator* r = new RunTheSimulator();
         vector<string> s = r->lexer("test.txt");
@@ -29,7 +29,6 @@ int main() {
     } catch (const char* c) {
         cout<<c<<endl;
     }
-     */
 
 
     //FactoryExpression* factoryExpression = new FactoryExpression(NULL);

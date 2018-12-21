@@ -18,12 +18,12 @@ void SymbolTable::updateSymbolTableDest(string name, string value) {
     this->destTable[name]->setValue(value);
     StoreVarValue<double>* temp = this->valueTable[name];
     // עידכון של המפה של הסימולטר
-    if (this->existsInSimulatorValueMap(value)) {
-        this->simulatorValue[value].push_back(temp);
+    if (this->existsInBindValueMap(value)) {
+        this->bindValue[value].push_back(temp);
     } else {
         vector<StoreVarValue<double>*> vec;
         vec.push_back(temp);
-        this->simulatorValue[value] = vec;
+        this->bindValue[value] = vec;
     }
 }
 
@@ -48,7 +48,7 @@ double SymbolTable::getSymbolTableValue(string name) {
 
 vector<StoreVarValue<double>*> SymbolTable::getVariablesForUpdate(
         string &key) {
-    return this->simulatorValue[key];
+    return this->bindValue[key];
 }
 
 bool SymbolTable::existsInDestMap(string var) {
@@ -58,8 +58,8 @@ bool SymbolTable::existsInDestMap(string var) {
     return false;
 }
 
-bool SymbolTable::existsInSimulatorValueMap(string var) {
-    if (this->simulatorValue.count(var) == ONE) {
+bool SymbolTable::existsInBindValueMap(string var) {
+    if (this->bindValue.count(var) == ONE) {
         return true;
     }
     return false;

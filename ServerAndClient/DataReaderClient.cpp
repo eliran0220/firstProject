@@ -2,27 +2,13 @@
 // Created by eliran on 12/21/18.
 //
 
-#include <stdio.h>
-#include <stdlib.h>
-
-#include <netdb.h>
-#include <unistd.h>
-#include <netinet/in.h>
-
-#include <string.h>
-
-#include <sys/socket.h>
 #include "DataReaderClient.h"
 
+void
+DataReaderClient::run(int givePort, string &givenIp, SymbolTable *symbolTable,
+                      bool *shouldStop) {
+    int socket = createSocket(givePort);
 
-DataReaderClient::DataReaderClient(int givenPort, string &givenIp, SymbolTable *symbolTable) {
-    this->port = givenPort;
-    this->ip = givenIp;
-    this->symbolTable = symbolTable;
-}
-
-int DataReaderClient::run() {
-    int socket = createSocket(this->port);
 }
 
 int DataReaderClient::createSocket(int port) {
@@ -61,17 +47,15 @@ int DataReaderClient::createSocket(int port) {
     clilen = sizeof(cli_addr);
 
     /* Accept actual connection from the client */
-    newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, (socklen_t *) &clilen);
+    newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr,
+                       (socklen_t *) &clilen);
 
     if (newsockfd < 0) {
         perror("ERROR on accept");
         exit(1);
     }
     return newsockfd;
-
 }
-
-DataReaderClient::~DataReaderClient() = default;
 
 
 

@@ -18,7 +18,7 @@ using namespace std;
 
 class SymbolTable {
 private:
-    map<string, vector<StoreVarValue<double>*>> simulatorValue;
+    map<string, vector<StoreVarValue<double>*>> bindValue;
     map<string, StoreVarValue<double>*> valueTable;
     map<string, StoreVarValue<string>*> destTable;
 
@@ -39,7 +39,7 @@ public:
 
     bool existsInDestMap(string var);
 
-    bool existsInSimulatorValueMap(string var);
+    bool existsInBindValueMap(string var);
 
     bool existsInValueTableMap(string var);
 

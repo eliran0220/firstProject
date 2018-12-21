@@ -13,7 +13,7 @@ void DataReaderServer::run(int port, int rate, SymbolTable *symbolTable,
     ssize_t n;
     float buffer[BUFFER];
     bzero(buffer, BUFFER);
-    while (true) {
+    while (!shouldStop) {
         n = read(socket, buffer, BUFFER - 1);
         updateSymbolTable(buffer, symbolTable);
         if (n < 0) {
@@ -86,7 +86,7 @@ DataReaderServer::updateSymbolTable(float *values, SymbolTable *symbolTable) {
     vector<StoreVarValue<double> *> vec;
     StoreVarValue<double> *temp;
     for (int i = 0; i < XML_AMOUNT_VARIABLES; ++i) {
-        if (symbolTable->existsInSimulatorValueMap(xmlPathsVec[i])) {
+        if (symbolTable->existsInBindValueMap(xmlPathsVec[i])) {
             vec = symbolTable->getVariablesForUpdate(xmlPathsVec[i]);
             for (int j = 0; j < vec.size(); ++j) {
                 temp = vec[j];

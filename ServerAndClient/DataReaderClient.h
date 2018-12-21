@@ -6,26 +6,23 @@
 #define FIRSTPROJECT_DATAREADERCLIENT_H
 
 #include <string>
+#include <stdio.h>
+#include <stdlib.h>
+#include <strings.h>
+#include <netdb.h>
+#include <unistd.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
 #include "../Useful/SymbolTable.h"
 
 using namespace std;
 
 class DataReaderClient {
-private:
-    int port;
-    string ip;
-    SymbolTable *symbolTable;
 public:
-    DataReaderClient(int givePort, string &givenIp, SymbolTable *symbolTable);
+    static void run(int givePort, string &givenIp, SymbolTable *symbolTable,
+                    bool *shouldStop);
 
-    int run();
-
-    int createSocket(int port);
-
-    void setDataToSimulator();
-
-    ~DataReaderClient();
-
+    static int createSocket(int port);
 };
 
 
