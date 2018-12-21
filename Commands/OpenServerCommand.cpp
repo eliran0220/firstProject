@@ -12,11 +12,12 @@ int OpenServerCommand::execute(vector<string> &parameters, int position) {
     Expression *r = this->expression->create(parameters[position+2]);
     int port = (int)(p->calculate());
     int rate = (int)(r->calculate());
+    delete (p);
+    delete (r);
     // להוסיף את הסימבול טייבל
     DataReaderServer *dataReaderServer = new DataReaderServer(port,rate, nullptr);
     dataReaderServer->run();
     return 3;
-
 }
 
 OpenServerCommand::OpenServerCommand(Factory *expression){

@@ -70,6 +70,7 @@ void DataReaderServer::getData(int socketId, int rate) {
     bzero(buffer, BUFFER);
     while (true) {
         n = read(socketId, buffer, BUFFER - 1);
+        this->updateSymbolTable(buffer);
         if (n < 0) {
             perror("ERROR reading from socket");
             exit(1);
@@ -78,12 +79,28 @@ void DataReaderServer::getData(int socketId, int rate) {
     }
 }
 
-void DataReaderServer::updateSymbolTable(float* values) {
-    string xmlPathsVec[XML_AMOUNT_VARIABLES] = { INDICATE_SPEED, INDICATE_ALT, PRESSURE_ALT, PITCH_DEG, ROLL_DEG, IN_PITCH_DEG, IN_ROLL_DEG,
-                               ENC_INDICATE_ALT, ENC_PRESURE_ALT, GPS_ALT, GPS_GRND_SPD, GPS_VERTICAL_SPD, HEAD_DEG, CMPS_HEAD_DEG,
-                               SLIP_SKID, TURN_RATE, SPEED_FPM, AILERON, ELEVATOR, RUDDER, FLAPS, THROTTLE, RPM};
+void DataReaderServer::updateSymbolTable(float *values) {
+    string xmlPathsVec[XML_AMOUNT_VARIABLES] = {INDICATE_SPEED, INDICATE_ALT,
+                                                PRESSURE_ALT, PITCH_DEG,
+                                                ROLL_DEG, IN_PITCH_DEG,
+                                                IN_ROLL_DEG,
+                                                ENC_INDICATE_ALT,
+                                                ENC_PRESURE_ALT, GPS_ALT,
+                                                GPS_GRND_SPD, GPS_VERTICAL_SPD,
+                                                HEAD_DEG, CMPS_HEAD_DEG,
+                                                SLIP_SKID, TURN_RATE, SPEED_FPM,
+                                                AILERON, ELEVATOR, RUDDER,
+                                                FLAPS, THROTTLE, RPM};
+    vector<StoreVarValue<double> *> vec;
+    StoreVarValue<double> *temp;
     for (int i = 0; i < XML_AMOUNT_VARIABLES; ++i) {
-
+        if (this->symbolTable->existsInSimulatorValueMap(xmlPathsVec[i])) {
+            for (int j = 0; j < vec.size(); ++j) {
+                temp = vec[j];
+                temp->setInitialize(true);
+                temp->setValue(values[i]);
+            }
+        }
     }
 }
 
