@@ -52,7 +52,7 @@ int DataReaderServer::createSocket(int port) {
     clilen = sizeof(cli_addr);
 
     /* Accept actual connection from the client */
-    cout << "waiting for connection..";
+    cout << "waiting for connection..\n" << endl;
     newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr,
                        (socklen_t *) &clilen);
 
