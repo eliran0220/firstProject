@@ -277,7 +277,7 @@ splitLineWithOneArguments(string &givenLine, string command) {
     return vec;
 }
 
-vector<string> splitInitializationOperator(const string &givenLine) {
+vector<string> splitInitializationOperator(string &givenLine) {
     vector<string> vec;
     string item;
     int start = (int) givenLine.find("=");

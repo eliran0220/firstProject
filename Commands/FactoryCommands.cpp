@@ -53,7 +53,7 @@ Expression* FactoryCommands::create(const string &exString) {
         Expression * expressionCommand = new CommandExpression(openServerCommand);
         return expressionCommand;
     }
-    if (this->symbolTable->existsVariable(exString)) {
+    if (this->symbolTable->existsInValueTableMap(exString)) {
         IncreaseCounterCommand* increaseCounterCommand = new IncreaseCounterCommand();
         Expression* expressionCommand = new CommandExpression(increaseCounterCommand);
         return expressionCommand;

@@ -5,6 +5,7 @@
 #include <sstream>
 #include <cstring>
 #include "ControlSimulator/RunTheSimulator.h"
+#include "ServerAndClient/DataReaderServer.h"
 
 int main() {
     // ליצור את כל המחלקות של הקומאנדים
@@ -20,12 +21,17 @@ int main() {
     }
      */
 
+    DataReaderServer* dataReaderServer = new DataReaderServer(5400,10, nullptr);
+    dataReaderServer->run();
+    /*
     try {
         RunTheSimulator* r = new RunTheSimulator();
         vector<string> s = r->lexer("test.txt");
+        r->parser(s);
     } catch (const char* c) {
         cout<<c<<endl;
     }
+     */
 
 
     //FactoryExpression* factoryExpression = new FactoryExpression(NULL);

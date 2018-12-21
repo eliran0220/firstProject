@@ -1,4 +1,2 @@
-var x = bind "afik\afik"
-var y = bind x
 
-openDataServer 5 + 5 -5 + h7
+openDataServer 5400 10

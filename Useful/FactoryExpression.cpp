@@ -115,7 +115,7 @@ Expression* FactoryExpression::createExpressionFromStrings(vector<string> string
             stackEx.push(tempEx);
         } else if (regex_match(strings[i], varR)){
             // check if the variable in the symbol table
-            if (this->symbolTable->existsVariable(strings[i])) {
+            if (this->symbolTable->existsInValueTableMap(strings[i])) {
                 tempEx = new Number(this->symbolTable->getSymbolTableValue(strings[i]));
                 stackEx.push(tempEx);
             } else {

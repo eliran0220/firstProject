@@ -10,9 +10,10 @@
 int OpenServerCommand::execute(vector<string> &parameters, int position) {
     Expression *p = this->expression->create(parameters[position+1]);
     Expression *r = this->expression->create(parameters[position+2]);
-    int port = static_cast<int>(p->calculate());
-    int rate = static_cast<int>(r->calculate());
-    DataReaderServer *dataReaderServer = new DataReaderServer(port,rate);
+    int port = (int)(p->calculate());
+    int rate = (int)(r->calculate());
+    // להוסיף את הסימבול טייבל
+    DataReaderServer *dataReaderServer = new DataReaderServer(port,rate, nullptr);
     dataReaderServer->run();
     return 3;
 

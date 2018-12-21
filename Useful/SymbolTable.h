@@ -7,6 +7,8 @@
 
 #include <map>
 #include <algorithm>
+#include <string>
+#include <vector>
 #include "StoreVarValue.h"
 
 using namespace std;
@@ -16,8 +18,10 @@ using namespace std;
 
 class SymbolTable {
 private:
+    map<string, vector<StoreVarValue<double>*>> simulatorValue;
     map<string, StoreVarValue<double>*> valueTable;
     map<string, StoreVarValue<string>*> destTable;
+
 public:
     SymbolTable() {}
     ~SymbolTable();
@@ -33,7 +37,13 @@ public:
 
     string getSymbolTableDest(string name);
 
-    bool existsVariable(string var);
+    bool existsInDestMap(string var);
+
+    bool existsInSimulatorValueMap(string var);
+
+    bool existsInValueTableMap(string var);
+
+    vector<StoreVarValue<double>*> getVariablesForUpdate(string& key);
 };
 
 

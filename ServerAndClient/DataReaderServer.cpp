@@ -7,23 +7,13 @@
 // Created by eliran on 12/20/18.
 //
 
-#define BUFFER 256
-#define MILLI_SECONDS 1000
-
-#include <netinet/in.h>
-#include <strings.h>
-#include <unistd.h>
-#include <iostream>
-#include "DataReaderServer.h"
-#include "../Expressions/Expression.h"
-
-int DataReaderServer::run() {
+void DataReaderServer::run() {
     int socket = createSocket(this->port);
-    string data = getData(socket,this->rate);
-    return 3;
+    getData(socket, this->rate);
 }
 
-DataReaderServer::DataReaderServer(int givenPort, int givenRate) {
+DataReaderServer::DataReaderServer(int givenPort, int givenRate,
+                                   SymbolTable *symbolTable1) {
     this->port = givenPort;
     this->rate = givenRate;
 }
@@ -74,16 +64,27 @@ int DataReaderServer::createSocket(int port) {
     return newsockfd;
 }
 
-string DataReaderServer::getData(int socketId, int rate) {
+void DataReaderServer::getData(int socketId, int rate) {
     ssize_t n;
-    char buffer[BUFFER];
+    float buffer[BUFFER];
     bzero(buffer, BUFFER);
-    n = read(socketId, buffer, BUFFER - 1);
-    if (n < 0) {
-        perror("ERROR reading from socket");
-        exit(1);
+    while (true) {
+        n = read(socketId, buffer, BUFFER - 1);
+        if (n < 0) {
+            perror("ERROR reading from socket");
+            exit(1);
+        }
+        sleep(rate / MILLI_SECONDS);
     }
-    sleep(rate / MILLI_SECONDS);
+}
+
+void DataReaderServer::updateSymbolTable(float* values) {
+    string xmlPathsVec[XML_AMOUNT_VARIABLES] = { INDICATE_SPEED, INDICATE_ALT, PRESSURE_ALT, PITCH_DEG, ROLL_DEG, IN_PITCH_DEG, IN_ROLL_DEG,
+                               ENC_INDICATE_ALT, ENC_PRESURE_ALT, GPS_ALT, GPS_GRND_SPD, GPS_VERTICAL_SPD, HEAD_DEG, CMPS_HEAD_DEG,
+                               SLIP_SKID, TURN_RATE, SPEED_FPM, AILERON, ELEVATOR, RUDDER, FLAPS, THROTTLE, RPM};
+    for (int i = 0; i < XML_AMOUNT_VARIABLES; ++i) {
+
+    }
 }
 
 

@@ -13,7 +13,7 @@ InitializeCommand::execute(vector<string> &parameters, int position) {
         if (strstr(value.c_str(),"\"")) {
             this->table->updateSymbolTableDest(parameters[position-1],value);
             // אם נקבל ביטוי מהצורה var x = bind y
-        } else if (this->table->existsVariable(value)) {
+        } else if (this->table->existsInValueTableMap(value)) {
             string dest = this->table->getSymbolTableDest(value);
             this->table->updateSymbolTableDest(parameters[position - 1], dest);
         }
