@@ -208,10 +208,13 @@ splitLineWithTwoArguments(string &givenLine, string command) {
         bool stopToSeparate = false;
         for (int i = 0; i < tempSubString.size(); ++i) {
             tempString = tempSubString[i];
-            flagTabOrSpace = (tempSubString[i] == ' ' || tempSubString[i] == '\t');
+            flagTabOrSpace = (tempSubString[i] == ' ' ||
+                              tempSubString[i] == '\t');
             if (!flagTabOrSpace) {
                 flagCurrentIndex = regex_match(tempString.c_str(), operatorR);
-                flagTopVector = (!tempVector.empty()) && !(regex_match(tempVector[tempVector.size() - 1], operatorR));
+                flagTopVector = (!tempVector.empty()) &&
+                                !(regex_match(tempVector[tempVector.size() - 1],
+                                              operatorR));
                 if ((!flagCurrentIndex) && flagTopVector && (!stopToSeparate)) {
                     if (prev == ' ' || prev == '\t') {
                         tempVector.push_back("&");

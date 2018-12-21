@@ -29,7 +29,7 @@ vector<string> FactoryExpression::splitExpression(string stringExpression) {
             stringNumber = "";
             flag = false;
             // תנאי אם קיים ביטוי שלילי
-        } if (temp == "-" && !split.empty()) {
+        } if ((temp == "-" || temp == "+") && !split.empty()) {
             if (regex_match(split[split.size() - 1], operatorR) || split[split.size() - 1] == "(") {
                 split.push_back("0");
             }

@@ -12,10 +12,14 @@
 
 
 class OpenServerCommand : public Command {
-    Factory *expression;
-public:
-    OpenServerCommand(Factory *expression);
+    Factory *factoryExpression;
+    SymbolTable* symbolTable;
+    bool shouldStop;
 
+public:
+
+    OpenServerCommand(Factory *expression, SymbolTable* symbolTable);
+    ~OpenServerCommand();
     int execute(vector<string> &parameters, int position) override;
 
 };

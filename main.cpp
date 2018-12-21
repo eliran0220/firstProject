@@ -21,8 +21,6 @@ int main() {
     }
      */
 
-    DataReaderServer* dataReaderServer = new DataReaderServer(5400,10, nullptr);
-    dataReaderServer->run();
     /*
     try {
         RunTheSimulator* r = new RunTheSimulator();

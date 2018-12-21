@@ -47,21 +47,22 @@
 
 class DataReaderServer {
 
+    /*
 private:
-    int port;
-    int rate;
-    SymbolTable* symbolTable;
-
+    //int port;
+    //int rate;
+    //SymbolTable* symbolTable;
+*/
 public:
-    DataReaderServer(int givenPort, int givenRate, SymbolTable* symbolTable1);
+    //DataReaderServer(int givenPort, int givenRate, SymbolTable* symbolTable1);
 
-    void run();
+    static void run(int port, int rate, SymbolTable* symbolTable);
 
-    int createSocket(int port);
+    static int createSocket(int port);
 
-    void getData(int socketId, int rate);
+    //static void getData(int socketId, int rate);
 
-    void updateSymbolTable(float* values);
+    static void updateSymbolTable(float* values, SymbolTable* symbolTable);
 };
 
 

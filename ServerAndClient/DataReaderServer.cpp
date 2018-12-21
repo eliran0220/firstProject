@@ -7,15 +7,20 @@
 // Created by eliran on 12/20/18.
 //
 
-void DataReaderServer::run() {
-    int socket = createSocket(this->port);
-    getData(socket, this->rate);
-}
-
-DataReaderServer::DataReaderServer(int givenPort, int givenRate,
-                                   SymbolTable *symbolTable1) {
-    this->port = givenPort;
-    this->rate = givenRate;
+void DataReaderServer::run(int port, int rate, SymbolTable* symbolTable) {
+    int socket = createSocket(port);
+    ssize_t n;
+    float buffer[BUFFER];
+    bzero(buffer, BUFFER);
+    while (true) {
+        n = read(socket, buffer, BUFFER - 1);
+        updateSymbolTable(buffer, symbolTable);
+        if (n < 0) {
+            perror("ERROR reading from socket");
+            exit(1);
+        }
+        sleep(rate / MILLI_SECONDS);
+    }
 }
 
 int DataReaderServer::createSocket(int port) {
@@ -64,22 +69,7 @@ int DataReaderServer::createSocket(int port) {
     return newsockfd;
 }
 
-void DataReaderServer::getData(int socketId, int rate) {
-    ssize_t n;
-    float buffer[BUFFER];
-    bzero(buffer, BUFFER);
-    while (true) {
-        n = read(socketId, buffer, BUFFER - 1);
-        this->updateSymbolTable(buffer);
-        if (n < 0) {
-            perror("ERROR reading from socket");
-            exit(1);
-        }
-        sleep(rate / MILLI_SECONDS);
-    }
-}
-
-void DataReaderServer::updateSymbolTable(float *values) {
+void DataReaderServer::updateSymbolTable(float *values, SymbolTable* symbolTable) {
     string xmlPathsVec[XML_AMOUNT_VARIABLES] = {INDICATE_SPEED, INDICATE_ALT,
                                                 PRESSURE_ALT, PITCH_DEG,
                                                 ROLL_DEG, IN_PITCH_DEG,
@@ -94,7 +84,8 @@ void DataReaderServer::updateSymbolTable(float *values) {
     vector<StoreVarValue<double> *> vec;
     StoreVarValue<double> *temp;
     for (int i = 0; i < XML_AMOUNT_VARIABLES; ++i) {
-        if (this->symbolTable->existsInSimulatorValueMap(xmlPathsVec[i])) {
+        if (symbolTable->existsInSimulatorValueMap(xmlPathsVec[i])) {
+            vec = symbolTable->getVariablesForUpdate(xmlPathsVec[i]);
             for (int j = 0; j < vec.size(); ++j) {
                 temp = vec[j];
                 temp->setInitialize(true);

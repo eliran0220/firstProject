@@ -49,7 +49,8 @@ Expression* FactoryCommands::create(const string &exString) {
         return expressionCommand;
     }
     if (exString == OPEN_SERVER_COMMAND) {
-        OpenServerCommand *openServerCommand = new OpenServerCommand(this->createExpression);
+
+        OpenServerCommand *openServerCommand = new OpenServerCommand(this->createExpression, this->symbolTable);
         Expression * expressionCommand = new CommandExpression(openServerCommand);
         return expressionCommand;
     }

@@ -18,7 +18,7 @@ void SymbolTable::updateSymbolTableDest(string name, string value) {
     this->destTable[name]->setValue(value);
     StoreVarValue<double>* temp = this->valueTable[name];
     // עידכון של המפה של הסימולטר
-    if (this->existsInSimulatorValueMap(name)) {
+    if (this->existsInSimulatorValueMap(value)) {
         this->simulatorValue[value].push_back(temp);
     } else {
         vector<StoreVarValue<double>*> vec;
