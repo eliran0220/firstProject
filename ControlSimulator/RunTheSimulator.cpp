@@ -7,22 +7,25 @@
 
 #include "RunTheSimulator.h"
 
-vector<string> splitCommand(const string &givenLine);
+vector<string> splitCommand(string &givenLine);
 
-vector<string> splitVarCommand(const string &givenLine);
-
-vector<string>
-splitLineCommandCondition(const string &givenLine, string command);
+vector<string> splitVarCommand(string &givenLine);
 
 vector<string>
-splitLineWithOneArguments(const string &givenLine, string command);
+splitLineCommandCondition(string &givenLine, string command);
 
 vector<string>
-splitLineWithTwoArguments(const string &givenLine, string command);
+splitLineWithOneArguments(string &givenLine, string command);
 
-vector<string> splitInitializationOperator(const string &givenLine);
+vector<string>
+splitLineWithTwoArguments(string &givenLine, string command);
+
+vector<string> splitInitializationOperator(string &givenLine);
 
 void eraseBrackets(vector<string> *strings, int indication, int endOfCheck);
+
+bool checkPrefix(string fullString, string prefix);
+
 
 RunTheSimulator::RunTheSimulator() {
     this->collectionCommands = new CollectionCommands();
@@ -67,30 +70,30 @@ vector<string> RunTheSimulator::lexer(string fileName) {
 }
 
 
-vector<string> splitCommand(const string &givenLine) {
+vector<string> splitCommand(string &givenLine) {
     vector<string> vec;
-    if (strstr(givenLine.c_str(), "var")) {
+    if (checkPrefix(givenLine, "var")) {
         return splitVarCommand(givenLine);
     }
-    if (strstr(givenLine.c_str(), "while")) {
+    if (checkPrefix(givenLine, "while")) {
         return splitLineCommandCondition(givenLine, "while");
     }
-    if (strstr(givenLine.c_str(), "if")) {
+    if (checkPrefix(givenLine, "if")) {
         return splitLineCommandCondition(givenLine, "if");
     }
-    if (strstr(givenLine.c_str(), "openDataServer")) {
+    if (checkPrefix(givenLine, "openDataServer")) {
         return splitLineWithTwoArguments(givenLine, "openDataServer");
     }
-    if (strstr(givenLine.c_str(), "connect")) {
+    if (checkPrefix(givenLine, "connect")) {
         return splitLineWithTwoArguments(givenLine, "connect");
     }
-    if (strstr(givenLine.c_str(), "sleep")) {
+    if (checkPrefix(givenLine, "sleep")) {
         return splitLineWithOneArguments(givenLine, "sleep");
     }
-    if (strstr(givenLine.c_str(), "print")) {
+    if (checkPrefix(givenLine, "print")) {
         return splitLineWithOneArguments(givenLine, "print");
     }
-    if (strstr(givenLine.c_str(), "=")) {
+    if (checkPrefix(givenLine, "=")) {
         return splitInitializationOperator(givenLine);
     }
     stringstream ss(givenLine);
@@ -106,7 +109,7 @@ vector<string> splitCommand(const string &givenLine) {
 
 
 vector<string>
-splitLineCommandCondition(const string &givenLine, string command) {
+splitLineCommandCondition(string &givenLine, string command) {
     vector<string> vec;
     string item;
     string tempSubString;
@@ -137,7 +140,7 @@ splitLineCommandCondition(const string &givenLine, string command) {
     return vec;
 }
 
-vector<string> splitVarCommand(const string &givenLine) {
+vector<string> splitVarCommand(string &givenLine) {
     vector<string> vec;
     string item;
     string tempSubString;
@@ -177,7 +180,7 @@ vector<string> splitVarCommand(const string &givenLine) {
 }
 
 vector<string>
-splitLineWithTwoArguments(const string &givenLine, string command) {
+splitLineWithTwoArguments(string &givenLine, string command) {
     vector<string> vec;
     string item;
     string tempSubString;
@@ -251,7 +254,7 @@ splitLineWithTwoArguments(const string &givenLine, string command) {
 }
 
 vector<string>
-splitLineWithOneArguments(const string &givenLine, string command) {
+splitLineWithOneArguments(string &givenLine, string command) {
     vector<string> vec;
     string tempSubString;
     int start = (int) givenLine.find(command);
@@ -324,4 +327,21 @@ void eraseBrackets(vector<string> *strings, int indication, int endOfCheck) {
         // אם לא נמצא סוגרת פותח או סוגר סוג בתחילת השורה
         strings->pop_back();
     }
+}
+
+bool checkPrefix(string fullString, string prefix) {
+    int counter = 0;
+    for (int i = 0; i < fullString.size(); ++i) {
+        if (counter == prefix.size()) {
+            return true;
+        }
+        if (fullString[i] != ' ' && fullString[i] != '\t') {
+            if (fullString[i] != prefix[counter]) {
+                return false;
+            } else {
+                counter++;
+            }
+        }
+    }
+    return false;
 }

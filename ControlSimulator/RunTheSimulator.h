@@ -23,6 +23,9 @@
 #define START_LINE 1
 #define END_LINE 2
 
+#define OPEN_DATA "openDataServer"
+#define VARIABLE "var"
+
 using namespace std;
 
 enum {EQUAL, NO_ARGUMENTS, OME_ARGUMENTS, TWO_ARGUMENTS};

@@ -26,7 +26,7 @@ int main() {
     } catch (const char* c) {
         cout<<c<<endl;
     }
-    
+
 
     //FactoryExpression* factoryExpression = new FactoryExpression(NULL);
     int x = 5;
