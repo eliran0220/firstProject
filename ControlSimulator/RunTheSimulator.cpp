@@ -26,16 +26,37 @@ void eraseBrackets(vector<string> *strings, int indication, int endOfCheck);
 
 bool checkPrefix(string fullString, string prefix);
 
-
+/**
+ * Function name: RunTheSimulator
+ * The input: none
+ * The output: none
+ * The function operation: Constructs a new RunTheSimulator
+ */
 RunTheSimulator::RunTheSimulator() {
     this->collectionCommands = new CollectionCommands();
 }
 
+/**
+ * Function name: ~RunTheSimulator
+ * The input: none
+ * The output: none
+ * The function operation: Destructs the RunTheSimulator
+ */
 RunTheSimulator::~RunTheSimulator() {
     delete (this->collectionCommands);
 }
 
-
+/**
+ * Function name: parser
+ * The input: vector<string>
+ * The output: void
+ * The function operation: The function goes through each command and executes it.
+ * Everytime, we get the command expression from the collection, set the lexer in the right position
+ * and call the calculate method, which returns an int.
+ * We raise the i with the value of the int we got, so we move to the next command to execute
+ * by order in the vector given
+ * @param commands
+ */
 void RunTheSimulator::parser(vector<string> commands) {
     Expression *command;
     int i = 0;
@@ -47,7 +68,16 @@ void RunTheSimulator::parser(vector<string> commands) {
     }
 }
 
-
+/**
+ * Function name: lexer
+ * The input: string
+ * The output: vector<string>
+ * The function operation: The function simply iterates thorugh everyline in the given file,
+ * sends it to the slitCommand function, and inserts it to a commands vector.
+ * In the end, when we iterated through all the lines in the file, we close it and return the vector.
+ * @param fileName
+ * @return
+ */
 vector<string> RunTheSimulator::lexer(string fileName) {
     fstream file(fileName);
     vector<string> commands;
@@ -69,7 +99,14 @@ vector<string> RunTheSimulator::lexer(string fileName) {
     return commands;
 }
 
-
+/**
+ * Function name: splitCommand
+ * The input: string
+ * The output: vector<string>
+ * The function operation: The function gets a string, and splits it depends on the prefix.
+ * @param givenLine given string
+ * @return vector<string>
+ */
 vector<string> splitCommand(string &givenLine) {
     vector<string> vec;
     if (checkPrefix(givenLine, "var")) {
@@ -107,7 +144,16 @@ vector<string> splitCommand(string &givenLine) {
     return vec;
 }
 
-
+/**
+ * Function name: splitLineCommandCondition
+ * The input: string,string
+ * The output: vector<string>
+ * The function operation: The function splits the string given the "while" or "if" commands
+ * First we find the position where the command starts, then we erase the brackets
+ * @param givenLine
+ * @param command
+ * @return
+ */
 vector<string>
 splitLineCommandCondition(string &givenLine, string command) {
     vector<string> vec;
