@@ -10,7 +10,7 @@
  * The output: none
  * The function operation: The function adds the given string to the maps.
  * The string represents the variable which will be added
- * @param name string
+ * @param name given string
  */
 void SymbolTable::addToTable(string name) {
     StoreVarValue<string> *tempD = new StoreVarValue<string>();
