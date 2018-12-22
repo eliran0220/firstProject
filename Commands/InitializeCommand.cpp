@@ -6,13 +6,25 @@
 #include <algorithm>
 #include <cstring>
 
+/**
+ * Function name: execute
+ * The input: vector<string>, int
+ * The output: int
+ * The function operation: The function initializes the variable.
+ * If the parameter after the "=" is bind, we need to initialize the destination of the variable
+ * in the destination table,
+ * else, we need to initialize the value of the variable in the symbol table
+ * @param parameters vector<string>
+ * @param position int
+ * @return int
+ */
 int
 InitializeCommand::execute(vector<string> &parameters, int position) {
     if (parameters[position + 1] == "bind") {
         string value = parameters[position + 2];
-        if (strstr(value.c_str(),"\"")) {
+        if (strstr(value.c_str(), "\"")) {
             value.erase(std::remove(value.begin(), value.end(), '\"'), value.end());
-            this->table->updateSymbolTableDest(parameters[position-1],value);
+            this->table->updateSymbolTableDest(parameters[position - 1], value);
             // אם נקבל ביטוי מהצורה var x = bind y
         } else if (this->table->existsInValueTableMap(value)) {
             string dest = this->table->getSymbolTableDest(value);
@@ -20,12 +32,20 @@ InitializeCommand::execute(vector<string> &parameters, int position) {
         }
         return 3;
     } else {
-        Expression *e = this->expression->create(parameters[position+1]);
+        Expression *e = this->expression->create(parameters[position + 1]);
         this->table->updateSymbolTableValue(parameters[position - 1], e->calculate());
         return 2;
     }
 }
 
+/**
+ * Function name: InitializeCommand
+ * The input: Factory*, SymbolTable*
+ * The output: void
+ * The function operation: Constructs a new InitializeCommand
+ * @param expression given expression
+ * @param table given table
+ */
 InitializeCommand::InitializeCommand(Factory *expression,
                                      SymbolTable *table) {
     this->expression = expression;

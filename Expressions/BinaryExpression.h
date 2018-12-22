@@ -8,10 +8,10 @@
 #include "Expression.h"
 
 
-class BinaryExpression: public Expression {
+class BinaryExpression : public Expression {
 protected:
-    Expression* left;
-    Expression* right;
+    Expression *left;
+    Expression *right;
 public:
     /**
      * Function name: BinaryExpression
@@ -21,7 +21,7 @@ public:
      * @param left expression
      * @param right expression
      */
-    BinaryExpression(Expression* left, Expression* right) {
+    BinaryExpression(Expression *left, Expression *right) {
         this->left = left;
         this->right = right;
     }
@@ -30,19 +30,23 @@ public:
      * Function name: calculate
      * The input: none
      * The output: double
-     * The function operation:
-     * @return
+     * The function operation: Calculates the value of an expression
+     * @return double
      */
     virtual double calculate() = 0;
 
+    /**
+     * Function name: ~BinaryExpression
+     * The input: none
+     * The output: none
+     * The function operation: Destructs the binary expression
+     */
     virtual ~BinaryExpression() {
         delete (left);
-        delete(right);
+        delete (right);
     }
 
 };
-
-
 
 
 #endif //FIRSTPROJECT_BINARYEXPRESSION_H
