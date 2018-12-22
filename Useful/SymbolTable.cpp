@@ -4,25 +4,39 @@
 
 #include "SymbolTable.h"
 
-
+/**
+ * Function name: addToTable
+ * The input: string
+ * The output: none
+ * The function operation: The function adds the given string to the maps.
+ * The string represents the variable which will be added
+ * @param name string
+ */
 void SymbolTable::addToTable(string name) {
-    StoreVarValue<string>* tempD = new StoreVarValue<string>();
-    StoreVarValue<double >* tempV = new StoreVarValue<double >();
+    StoreVarValue<string> *tempD = new StoreVarValue<string>();
+    StoreVarValue<double> *tempV = new StoreVarValue<double>();
     this->valueTable[name] = tempV;
     this->destTable[name] = tempD;
 
 }
 
+/**
+ * Function name: updateSymbtolTableDest
+ * The input: string, string
+ * The output: none
+ * The function operation: The function updates the tables with the given string
+ * @param name string
+ */
 void SymbolTable::updateSymbolTableDest(string name, string value) {
     this->destTable[name]->setInitialize(true);
     this->valueTable[name]->setInitialize(true);
     this->destTable[name]->setValue(value);
-    StoreVarValue<double>* temp = this->valueTable[name];
+    StoreVarValue<double> *temp = this->valueTable[name];
     // עידכון של המפה של הסימולטר
     if (this->existsInBindValueMap(value)) {
         this->bindValue[value].push_back(temp);
     } else {
-        vector<StoreVarValue<double>*> vec;
+        vector<StoreVarValue<double> *> vec;
         vec.push_back(temp);
         this->bindValue[value] = vec;
     }
@@ -47,7 +61,7 @@ double SymbolTable::getSymbolTableValue(string name) {
     throw "The variable does not Initialize";
 }
 
-vector<StoreVarValue<double>*> SymbolTable::getVariablesForUpdate(
+vector<StoreVarValue<double> *> SymbolTable::getVariablesForUpdate(
         string &key) {
     return this->bindValue[key];
 }
@@ -74,12 +88,12 @@ bool SymbolTable::existsInValueTableMap(string var) {
 }
 
 SymbolTable::~SymbolTable() {
-    map<string, StoreVarValue<string>*>::iterator itDe = this->destTable.begin();
+    map<string, StoreVarValue<string> *>::iterator itDe = this->destTable.begin();
     while (itDe != this->destTable.end()) {
         delete (itDe->second);
         itDe++;
     }
-    map<string, StoreVarValue<double>*>::iterator itVa = this->valueTable.begin();
+    map<string, StoreVarValue<double> *>::iterator itVa = this->valueTable.begin();
     while (itVa != this->valueTable.end()) {
         delete (itVa->second);
         itVa++;
