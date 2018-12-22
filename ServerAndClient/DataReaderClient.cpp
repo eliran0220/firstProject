@@ -2,8 +2,65 @@
 // Created by eliran on 12/21/18.
 //
 
+#include <sstream>
 #include "DataReaderClient.h"
 
+void
+DataReaderClient::run(int givePort, string givenIp, SymbolTable *symbolTable,
+                      bool *shouldStop) {
+        int sockfd, portno, n;
+        struct sockaddr_in serv_addr;
+        struct hostent *server;
+        // Create a socket point
+        sockfd = socket(AF_INET, SOCK_STREAM, 0);
+
+        if (sockfd < 0) {
+            perror("ERROR opening socket");
+            exit(1);
+        }
+
+        server = gethostbyname(givenIp.c_str());
+
+        if (server == NULL) {
+            fprintf(stderr, "ERROR, no such host\n");
+            exit(0);
+        }
+
+        bzero((char *) &serv_addr, sizeof(serv_addr));
+        serv_addr.sin_family = AF_INET;
+        bcopy((char *) server->h_addr, (char *) &serv_addr.sin_addr.s_addr, server->h_length);
+        serv_addr.sin_port = htons(givePort);
+
+        // Now connect to the server
+        int tries = 0;
+
+        while (connect(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
+        }
+        // Update the server for changes
+        vector<string> changes;
+        vector<string>::iterator it;
+        string updateMessage = "set /controls/flight/rudder -1 \n";
+        float f = -1;
+        while (true) {
+
+            write(sockfd, updateMessage.c_str(), updateMessage.size());
+
+            // Check if message sent
+            if (n < 0) {
+                perror("ERROR writing to socket");
+                exit(1);
+            }
+        }
+}
+/*
+static std::string format(const char *fmt, Args... args) {
+    std::stringstream ss;
+    format_impl(ss, fmt, args...);
+    return ss.str();
+}
+ */
+
+/*
 void
 DataReaderClient::run(int givePort, string givenIp, SymbolTable *symbolTable,
                       bool *shouldStop) {
@@ -23,12 +80,13 @@ DataReaderClient::run(int givePort, string givenIp, SymbolTable *symbolTable,
           server->h_length);
     serv_addr.sin_port = htons(givePort);
 
-    /* Now connect to the server */
+
     while (connect(socket, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0);
     while (!*shouldStop) {
         writeToServer(socket, symbolTable);
     }
 }
+*/
 
 void DataReaderClient::writeToServer(int socket, SymbolTable *symbolTable) {
     string xmlPathsVec[XML_AMOUNT_VARIABLES] = {INDICATE_SPEED, INDICATE_ALT,
@@ -55,7 +113,7 @@ void DataReaderClient::writeToServer(int socket, SymbolTable *symbolTable) {
                              to_string(vec[j]->getValue());
                 /* Send message to the server */
                 char c[32] = "set /controls/flight/rudder -1\n";
-                n = write(socket, c, strlen(c) + 1);
+                n = write(socket, c, strlen(c) - 1);
                 if (n < 0) {
                     perror("ERROR writing to socket");
                     exit(1);
