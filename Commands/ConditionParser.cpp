@@ -35,7 +35,8 @@ ConditionParser::~ConditionParser() {
  * Function name: splitCondition
  * The input: string, string
  * The output: vector<string>
- * The function operation:
+ * The function operation: The function splits the given string, by the given other string.
+ * It finds
  * @param condition
  * @param opera
  * @return

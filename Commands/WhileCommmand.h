@@ -13,7 +13,6 @@ class WhileCommand : public ConditionParser {
 public:
     WhileCommand(Factory* factoryCommand, Factory* factoryExpression):
     ConditionParser(factoryCommand, factoryExpression){}
-
     virtual int execute(vector<string> &parameters, int position);
 };
 
