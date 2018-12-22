@@ -14,6 +14,7 @@ void SymbolTable::addToTable(string name) {
 }
 
 void SymbolTable::updateSymbolTableDest(string name, string value) {
+    this->lock.lock();
     this->destTable[name]->setInitialize(true);
     this->valueTable[name]->setInitialize(true);
     this->destTable[name]->setValue(value);
@@ -26,11 +27,14 @@ void SymbolTable::updateSymbolTableDest(string name, string value) {
         vec.push_back(temp);
         this->bindValue[value] = vec;
     }
+    this->lock.unlock();
 }
 
 void SymbolTable::updateSymbolTableValue(string name, double value) {
+    this->lock.lock();
     this->valueTable[name]->setInitialize(true);
     this->valueTable[name]->setValue(value);
+    this->lock.unlock();
 }
 
 string SymbolTable::getSymbolTableDest(string name) {

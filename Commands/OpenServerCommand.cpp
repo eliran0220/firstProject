@@ -5,6 +5,9 @@
 #include <pthread.h>
 #include <thread>
 #include "OpenServerCommand.h"
+#include <mutex>
+
+
 
 int OpenServerCommand::execute(vector<string> &parameters, int position) {
     Expression *p = this->factoryExpression->create(parameters[position + 1]);

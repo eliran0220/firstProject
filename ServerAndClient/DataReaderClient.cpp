@@ -5,6 +5,7 @@
 #include <sstream>
 #include "DataReaderClient.h"
 
+/*
 void
 DataReaderClient::run(int givePort, string givenIp, SymbolTable *symbolTable,
                       bool *shouldStop) {
@@ -39,11 +40,11 @@ DataReaderClient::run(int givePort, string givenIp, SymbolTable *symbolTable,
         // Update the server for changes
         vector<string> changes;
         vector<string>::iterator it;
-        string updateMessage = "set /controls/flight/rudder -1 \n";
+        string updateMessage = "set /controls/flight/rudder 1\r\n";
         float f = -1;
         while (true) {
 
-            write(sockfd, updateMessage.c_str(), updateMessage.size());
+            n =write(sockfd, updateMessage.c_str(), updateMessage.size());
 
             // Check if message sent
             if (n < 0) {
@@ -52,15 +53,7 @@ DataReaderClient::run(int givePort, string givenIp, SymbolTable *symbolTable,
             }
         }
 }
-/*
-static std::string format(const char *fmt, Args... args) {
-    std::stringstream ss;
-    format_impl(ss, fmt, args...);
-    return ss.str();
-}
- */
-
-/*
+*/
 void
 DataReaderClient::run(int givePort, string givenIp, SymbolTable *symbolTable,
                       bool *shouldStop) {
@@ -86,7 +79,7 @@ DataReaderClient::run(int givePort, string givenIp, SymbolTable *symbolTable,
         writeToServer(socket, symbolTable);
     }
 }
-*/
+
 
 void DataReaderClient::writeToServer(int socket, SymbolTable *symbolTable) {
     string xmlPathsVec[XML_AMOUNT_VARIABLES] = {INDICATE_SPEED, INDICATE_ALT,
@@ -110,10 +103,9 @@ void DataReaderClient::writeToServer(int socket, SymbolTable *symbolTable) {
             vec = symbolTable->getVariablesForUpdate(xmlPathsVec[i]);
             for (int j = 0; j < vec.size(); ++j) {
                 tempString = "set " + xmlPathsVec[i] + " " +
-                             to_string(vec[j]->getValue());
+                             to_string(vec[j]->getValue()) + "\r\n";
                 /* Send message to the server */
-                char c[32] = "set /controls/flight/rudder -1\n";
-                n = write(socket, c, strlen(c) - 1);
+                n = write(socket, tempString.c_str(), tempString.size());
                 if (n < 0) {
                     perror("ERROR writing to socket");
                     exit(1);
@@ -127,11 +119,9 @@ int DataReaderClient::createSocket(int port) {
     int sockfd;
     /* Create a socket point */
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
-
     if (sockfd < 0) {
         perror("ERROR opening socket");
         exit(1);
     }
-
     return sockfd;
 }

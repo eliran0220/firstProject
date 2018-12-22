@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 #include "StoreVarValue.h"
+#include <mutex>
 
 using namespace std;
 
@@ -21,6 +22,7 @@ private:
     map<string, vector<StoreVarValue<double>*>> bindValue;
     map<string, StoreVarValue<double>*> valueTable;
     map<string, StoreVarValue<string>*> destTable;
+    mutex lock;
 
 public:
     SymbolTable() {}
