@@ -6,24 +6,46 @@
 #include <cstring>
 #include "ConditionParser.h"
 
-ConditionParser::ConditionParser(Factory* factoryCommand, Factory* factoryExpression) {
+/**
+ * Function name: ConditionParser
+ * The input: Factory*, Factory*
+ * The output: none
+ * The function operation: Constructs a new ConditionParser
+ * @param factoryCommand factoryCommand
+ * @param factoryExpression factoryExpression
+ */
+ConditionParser::ConditionParser(Factory *factoryCommand, Factory *factoryExpression) {
     this->factoryCommand = factoryCommand;
     this->factoryExpression = factoryExpression;
 }
 
+/**
+ * Function name: ~ClientCommand
+ * The input: none
+ * The output: none
+ * The function operation: Destructs the ClientCommand
+ */
 ConditionParser::~ConditionParser() {
     for (int i = this->listOfCommands.size() - 1; i >= 0; --i) {
-        delete(this->listOfCommands[i]);
+        delete (this->listOfCommands[i]);
     }
 }
 
-
-vector<Expression*> ConditionParser::splitCondition(string& condition, string opera) {
-    vector<Expression*> vec;
+/**
+ * Function name: splitCondition
+ * The input: string, string
+ * The output: vector<string>
+ * The function operation:
+ * @param condition
+ * @param opera
+ * @return
+ */
+vector<Expression *> ConditionParser::splitCondition(string &condition, string opera) {
+    vector<Expression *> vec;
     string item;
     stringstream ss(condition);
-    Expression* temp = nullptr;
-    int start = (int)condition.find(opera);
+    Expression *temp = nullptr;
+    int start = (int) condition.find(opera);
     item = condition.substr(0, start);
     temp = this->factoryExpression->create(item);
     vec.push_back(temp);
@@ -33,9 +55,9 @@ vector<Expression*> ConditionParser::splitCondition(string& condition, string op
     return vec;
 }
 
-int ConditionParser::parser(vector<string>* commands, int position) {
+int ConditionParser::parser(vector<string> *commands, int position) {
     while (commands->at(position) != "}") {
-        Expression* tempCommand = this->factoryCommand->create(commands->at(position));
+        Expression *tempCommand = this->factoryCommand->create(commands->at(position));
         tempCommand->setLexerStringAndPosition(commands, position);
         position += tempCommand->calculate();
         this->listOfCommands.push_back(tempCommand);
@@ -44,29 +66,29 @@ int ConditionParser::parser(vector<string>* commands, int position) {
 }
 
 bool ConditionParser::condition(string conditionString) {
-    vector<Expression*> vec;
+    vector<Expression *> vec;
     bool resualt;
-    if (strstr(conditionString.c_str(),">")) {
+    if (strstr(conditionString.c_str(), ">")) {
         vec = splitCondition(conditionString, ">");
         resualt = vec[0]->operator>(vec[1]);
-    } else if (strstr(conditionString.c_str(),">=")) {
+    } else if (strstr(conditionString.c_str(), ">=")) {
         vec = splitCondition(conditionString, ">=");
         resualt = vec[0]->operator>=(vec[1]);
-    } else if (strstr(conditionString.c_str(),"<")) {
+    } else if (strstr(conditionString.c_str(), "<")) {
         vec = splitCondition(conditionString, "<");
         resualt = vec[0]->operator<(vec[1]);
-    } else if (strstr(conditionString.c_str(),"<=")) {
+    } else if (strstr(conditionString.c_str(), "<=")) {
         vec = splitCondition(conditionString, "<=");
         resualt = vec[0]->operator<=(vec[1]);
-    } else if (strstr(conditionString.c_str(),"==")) {
+    } else if (strstr(conditionString.c_str(), "==")) {
         vec = splitCondition(conditionString, "==");
         resualt = vec[0]->operator==(vec[1]);
-    }else if (strstr(conditionString.c_str(),"!=")) {
+    } else if (strstr(conditionString.c_str(), "!=")) {
         vec = splitCondition(conditionString, "!=");
         resualt = vec[0]->operator!=(vec[1]);
     }
-    for (int i = (int)vec.size() - 1; i >= 0; --i) {
-        delete(vec[i]);
+    for (int i = (int) vec.size() - 1; i >= 0; --i) {
+        delete (vec[i]);
     }
     return resualt;
 }
