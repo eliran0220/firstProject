@@ -8,14 +8,12 @@
 #include "ControlSimulator/RunTheSimulator.h"
 #include "ServerAndClient/DataReaderClient.h"
 
-static void run(int port);
-static int createSocket(int port);
 
 int main() {
-    FactoryExpression* f = new FactoryExpression(NULL);
-    Expression* e = f->create("(0-1)*(0-1)");
-    cout<<e->calculate();
-    /*
+    //FactoryExpression* f = new FactoryExpression(NULL);
+    //Expression* e = f->create("rudder*-1");
+    //cout<<e->calculate();
+
     try {
         RunTheSimulator* r = new RunTheSimulator();
         vector<string> s = r->lexer("test.txt");
@@ -23,7 +21,8 @@ int main() {
     } catch (const char* c) {
         cout<<c<<endl;
     }
-     */
+
+
     return 0;
 }
 

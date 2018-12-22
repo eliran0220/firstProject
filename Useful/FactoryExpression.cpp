@@ -6,6 +6,7 @@
 #include <iostream>
 #include "FactoryExpression.h"
 
+string addBrackets(string stringToAdd, int start);
 
 /**
  * Function name: splitExpression
@@ -23,6 +24,9 @@ vector<string> FactoryExpression::splitExpression(string stringExpression) {
     regex letterR("[a-zA-Z_]");
     regex numberR("[0-9]");
     regex operatorR("[+]||[-]||[/]||[*]");
+    int counter = 0;
+    int amounet = 0;
+    bool flagMinus = false;
     bool flag = false;
     if (stringExpression[0] == '-' || stringExpression[0] == '+') {
         split.push_back("0");
@@ -41,11 +45,15 @@ vector<string> FactoryExpression::splitExpression(string stringExpression) {
             flag = false;
             // תנאי אם קיים ביטוי שלילי
         } if ((temp == "-" || temp == "+") && !split.empty()) {
-            if (regex_match(split[split.size() - 1], operatorR) || split[split.size() - 1] == "(") {
+            if (regex_match(split[split.size() - 1], operatorR)) {
+                split.push_back("(");
+                split.push_back("0");
+                stringExpression = addBrackets(stringExpression, i + 1);
+            } else if (split[split.size() - 1] == "(") {
                 split.push_back("0");
             }
             split.push_back(temp);
-        } else if (temp != " ") {
+        } else if (temp != "" || temp != "=") {
             split.push_back(temp);
         }
     }
@@ -60,6 +68,45 @@ int precedence(string& op){
         return 2;
     }
     return 0;
+}
+
+string addBrackets(string stringToAdd, int start) {
+    int counter = 0;
+    int amountBrackets = 0;
+    regex letter("[0-9a-zA-Z_]");
+    bool flag = false;
+    if (start < stringToAdd.size() && stringToAdd[start] == '(') {
+        amountBrackets = 1;
+    }
+    string s;
+    for (int i = 0; i < start; ++i) {
+        s += stringToAdd[i];
+    }
+    while (counter < amountBrackets && start < stringToAdd.size()) {
+        if (stringToAdd[start] == '(') {
+            amountBrackets++;
+        }
+        if (stringToAdd[start] == ')') {
+            counter++;
+        }
+        s += stringToAdd[start];
+        start++;
+    }
+    while (amountBrackets == 0 && start < stringToAdd.size()) {
+        string temp;
+        temp += stringToAdd[start];
+        if (! regex_match(temp.c_str(), letter)){
+            start--;
+            break;
+        }
+        s += stringToAdd[start];
+        start++;
+    }
+    s += ')';
+    for (int j = start; j < stringToAdd.size(); ++j) {
+        s += stringToAdd[j];
+    }
+    return s;
 }
 
 /**
