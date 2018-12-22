@@ -56,6 +56,17 @@ vector<Expression *> ConditionParser::splitCondition(string &condition, string o
     return vec;
 }
 
+/**
+ * Function name: parser
+ * The input: vector<string>, int
+ * The output: int
+ * The function operation: The function creates, and "calculates" the commands in the commands vector,
+ * as long as the command at the position is not " } "
+ * In the end, returns the position + 1, to move on to the next command
+ * @param commands vector<string>
+ * @param position int
+ * @return position + 1
+ */
 int ConditionParser::parser(vector<string> *commands, int position) {
     while (commands->at(position) != "}") {
         Expression *tempCommand = this->factoryCommand->create(commands->at(position));
@@ -66,6 +77,16 @@ int ConditionParser::parser(vector<string> *commands, int position) {
     return position + 1;
 }
 
+/**
+ * Function name: condition
+ * The input: string
+ * The output: bool
+ * The function operation: The function returns the result between operator of the expressions.
+ * Depending on the given string, we do invoke the right operator to evaluate the expression, and
+ * return the result.
+ * @param conditionString given conditionString
+ * @return bool
+ */
 bool ConditionParser::condition(string conditionString) {
     vector<Expression *> vec;
     bool resualt;
@@ -94,6 +115,18 @@ bool ConditionParser::condition(string conditionString) {
     return resualt;
 }
 
+/**
+ * Function name: findTheEndBlock
+ * The input: vector<string>, int
+ * The output: int
+ * The function operation: The function goes thorugh the strings in the parameters vector:
+ * First it recognizes where the first { is at, then iterates thouugh the vector and funds the last
+ * position of the } ,which is connected to the first { and returns it.
+ * Used to know nested loops end (or nested if)
+ * @param parameters vector<string>
+ * @param position int
+ * @return int
+ */
 int ConditionParser::findTheEndBlock(vector<string> *parameters, int position) {
     int counter = 0;
     int amountBlock = 1;

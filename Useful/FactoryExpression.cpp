@@ -160,10 +160,12 @@ vector<string> shuntingYardAlgorithm(vector<string> strings) {
             }
         }
     }
+    //while stack isn't empty, push to queue, extract from stack
     while (! s.empty()) {
         q.push(s.top());
         s.pop();
     }
+    //while queue isn't empty, exctract from queue, push to infix, do again
     while (!q.empty()) {
         temp = q.front();
         infix.push_back(temp);
@@ -201,7 +203,7 @@ Expression* FactoryExpression::createExpressionFromStrings(vector<string> string
                 tempEx = new Number(this->symbolTable->getSymbolTableValue(strings[i]));
                 stackEx.push(tempEx);
             } else {
-                // שיחרור הזיכרון לפני זריקת האקספשיין
+                // Release memory before throwing exception
                 Expression* tempFree;
                 while (!stackEx.empty()) {
                     tempFree = stackEx.top();
