@@ -7,7 +7,15 @@
 #include "FactoryExpression.h"
 
 
-
+/**
+ * Function name: splitExpression
+ * The input: string
+ * The output: vector<string>
+ * The function operation: The function gets a string and splits it.
+ *
+ * @param stringExpression
+ * @return
+ */
 vector<string> FactoryExpression::splitExpression(string stringExpression) {
     vector<string> split;
     string temp;
@@ -53,6 +61,17 @@ int precedence(string& op){
     return 0;
 }
 
+/**
+ * Function name: shuntingYardAlgorithm
+ * The input: vector<string>
+ * The output: vector<string>
+ * The function operation: The function gets a vector if strings, and applies the shunting yard
+ * algorithm on the vector. We work by "regular expressions" so we check each time if we have
+ * a match between the element in the vector to the item we defined in the function, and we operate
+ * by the shunting yard algorithm, untill we have no elements.
+ * @param strings vector of strings
+ * @return vector<string>
+ */
 vector<string> shuntingYardAlgorithm(vector<string> strings) {
     vector<string> prefix = strings;
     vector<string> infix;
@@ -62,12 +81,18 @@ vector<string> shuntingYardAlgorithm(vector<string> strings) {
     regex operatorR("[+]||[-]||[/]||[*]");
     stack<string> s;
     queue<string> q;
+    //iterate through the vector
     for (int i = 0; i < prefix.size(); ++i) {
+        //if we have a variable, or number
         if (regex_match(prefix[i], numberR) || regex_match(prefix[i], varR)) {
+            //push to the queue
             q.push(prefix[i]);
+            //if we have an operator
         } else if (regex_match(prefix[i], operatorR)) {
+            //while the stack isn't empty
             while ((! s.empty()) && regex_match(s.top(), operatorR)
                   && precedence(s.top()) >= precedence(prefix[i])) {
+                //push to stack by priority
                 q.push(s.top());
                 s.pop();
             }
@@ -99,6 +124,15 @@ vector<string> shuntingYardAlgorithm(vector<string> strings) {
     return infix;
 }
 
+/**
+ * Function name: createExpressionFromString
+ * The input: vector<string>
+ * The output: Expression
+ * The function operation: The function gets a vector of strings, and creates an expression from it.
+ *
+ * @param strings
+ * @return
+ */
 Expression* FactoryExpression::createExpressionFromStrings(vector<string> strings) {
     regex numberR("[0-9]+||[0-9].{0,1}[0-9]+");
     regex operatorR("[+]||[-]||[/]||[*]");
@@ -155,6 +189,15 @@ Expression* FactoryExpression::createExpressionFromStrings(vector<string> string
     return tempEx;
 }
 
+/**
+ * Function name: create
+ * The input: string
+ * The output: Expression
+ * The function operation: The function creates an expression from a given string, using all the functions
+ * above.
+ * @param exString a given string
+ * @return Expression*
+ */
 Expression* FactoryExpression::create(const string &exString) {
     vector<string> splitEx;
     splitEx = splitExpression(exString);
