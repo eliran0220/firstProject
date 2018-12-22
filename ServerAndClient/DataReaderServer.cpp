@@ -13,7 +13,7 @@ void DataReaderServer::run(int port, int rate, SymbolTable *symbolTable,
     ssize_t n;
     float buffer[BUFFER];
     bzero(buffer, BUFFER);
-    while (!shouldStop) {
+    while (!*shouldStop) {
         n = read(socket, buffer, BUFFER - 1);
         updateSymbolTable(buffer, symbolTable);
         if (n < 0) {

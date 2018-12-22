@@ -93,7 +93,7 @@ vector<string> splitCommand(string &givenLine) {
     if (checkPrefix(givenLine, "print")) {
         return splitLineWithOneArguments(givenLine, "print");
     }
-    if (checkPrefix(givenLine, "=")) {
+    if (strstr(givenLine.c_str(), "=")) {
         return splitInitializationOperator(givenLine);
     }
     stringstream ss(givenLine);

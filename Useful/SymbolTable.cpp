@@ -15,6 +15,7 @@ void SymbolTable::addToTable(string name) {
 
 void SymbolTable::updateSymbolTableDest(string name, string value) {
     this->destTable[name]->setInitialize(true);
+    this->valueTable[name]->setInitialize(true);
     this->destTable[name]->setValue(value);
     StoreVarValue<double>* temp = this->valueTable[name];
     // עידכון של המפה של הסימולטר

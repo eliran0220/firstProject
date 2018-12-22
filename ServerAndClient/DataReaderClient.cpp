@@ -5,7 +5,7 @@
 #include "DataReaderClient.h"
 
 void
-DataReaderClient::run(int givePort, string &givenIp, SymbolTable *symbolTable,
+DataReaderClient::run(int givePort, string givenIp, SymbolTable *symbolTable,
                       bool *shouldStop) {
     int socket = createSocket(givePort);
     int n;
@@ -19,17 +19,13 @@ DataReaderClient::run(int givePort, string &givenIp, SymbolTable *symbolTable,
     }
     bzero((char *) &serv_addr, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
-    bcopy(server->h_addr, (char *) &serv_addr.sin_addr.s_addr,
+    bcopy((char*)server->h_addr, (char *) &serv_addr.sin_addr.s_addr,
           server->h_length);
     serv_addr.sin_port = htons(givePort);
 
     /* Now connect to the server */
-    if (connect(socket, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) <
-        0) {
-        perror("ERROR connecting");
-        exit(1);
-    }
-    while (!shouldStop) {
+    while (connect(socket, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0);
+    while (!*shouldStop) {
         writeToServer(socket, symbolTable);
     }
 }
@@ -46,7 +42,7 @@ void DataReaderClient::writeToServer(int socket, SymbolTable *symbolTable) {
                                                 SLIP_SKID, TURN_RATE, SPEED_FPM,
                                                 AILERON, ELEVATOR, RUDDER,
                                                 FLAPS, THROTTLE, RPM};
-    int n;
+    ssize_t n;
     string tempString;
     char buffer[SIZE];
     vector<StoreVarValue<double> *> vec;
@@ -55,24 +51,15 @@ void DataReaderClient::writeToServer(int socket, SymbolTable *symbolTable) {
         if (symbolTable->existsInBindValueMap(xmlPathsVec[i])) {
             vec = symbolTable->getVariablesForUpdate(xmlPathsVec[i]);
             for (int j = 0; j < vec.size(); ++j) {
-                tempString = "set "  + xmlPathsVec[i] + " " +to_string(vec[j]->getValue());
+                tempString = "set " + xmlPathsVec[i] + " " +
+                             to_string(vec[j]->getValue());
                 /* Send message to the server */
-                n = write(socket, tempString.c_str(), tempString.size());
-
+                char c[32] = "set /controls/flight/rudder -1\n";
+                n = write(socket, c, strlen(c) + 1);
                 if (n < 0) {
                     perror("ERROR writing to socket");
                     exit(1);
                 }
-
-                /* Now read server response */
-                bzero(buffer, 1023);
-                n = read(socket, buffer, 1023);
-
-                if (n < 0) {
-                    perror("ERROR reading from socket");
-                    exit(1);
-                }
-                printf("%s\n", buffer);
             }
         }
     }

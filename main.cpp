@@ -20,7 +20,15 @@ int main() {
         cout<<c<<endl;
     }
      */
-
+    /*
+    try {
+    FactoryExpression* factoryExpression= new FactoryExpression(NULL);
+    Expression* e = factoryExpression->create("3+4/10*20");
+    cout<< e->calculate();
+    } catch (const char* c) {
+        cout<<c<<endl;
+    }
+    */
 
     try {
         RunTheSimulator* r = new RunTheSimulator();
@@ -30,7 +38,9 @@ int main() {
         cout<<c<<endl;
     }
 
+    while (true) {
 
+    }
     //FactoryExpression* factoryExpression = new FactoryExpression(NULL);
     //Expression* e = factoryExpression->create("(5/2) +5");
     //r->parser(s);

@@ -25,7 +25,7 @@ using namespace std;
 class DataReaderClient {
 
 public:
-    static void run(int givePort, string &givenIp, SymbolTable *symbolTable,
+    static void run(int givePort, string givenIp, SymbolTable *symbolTable,
                     bool *shouldStop);
 
     static int createSocket(int port);

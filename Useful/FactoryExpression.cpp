@@ -16,6 +16,9 @@ vector<string> FactoryExpression::splitExpression(string stringExpression) {
     regex numberR("[0-9]");
     regex operatorR("[+]||[-]||[/]||[*]");
     bool flag = false;
+    if (stringExpression[0] == '-' || stringExpression[0] == '+') {
+        split.push_back("0");
+    }
     for (int i = 0; i < stringExpression.size(); ++i) {
         temp = stringExpression[i];
         while (regex_match(temp, letterR) || regex_match(temp, numberR) || temp == ".") {

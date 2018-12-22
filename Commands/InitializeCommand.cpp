@@ -11,6 +11,7 @@ InitializeCommand::execute(vector<string> &parameters, int position) {
     if (parameters[position + 1] == "bind") {
         string value = parameters[position + 2];
         if (strstr(value.c_str(),"\"")) {
+            value.erase(std::remove(value.begin(), value.end(), '\"'), value.end());
             this->table->updateSymbolTableDest(parameters[position-1],value);
             // אם נקבל ביטוי מהצורה var x = bind y
         } else if (this->table->existsInValueTableMap(value)) {
