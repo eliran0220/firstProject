@@ -5,6 +5,7 @@
 #include "FactoryCommands.h"
 #include "OpenServerCommand.h"
 #include "ClientCommand.h"
+#include "EntercCommand.h"
 
 /**
  * Function name: FactoryCommands
@@ -97,6 +98,11 @@ Expression *FactoryCommands::create(const string &exString) {
         ClientCommand *clientCommand = new ClientCommand(this->symbolTable,
                                                          this->createExpression);
         Expression *expressionCommand = new CommandExpression(clientCommand);
+        return expressionCommand;
+    }
+    if (exString == ENTERC) {
+        EntercCommand *entrecCommand = new EntercCommand();
+        Expression *expressionCommand = new CommandExpression(entrecCommand);
         return expressionCommand;
     }
     //The case we don't find any command matched to the string.

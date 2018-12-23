@@ -7,15 +7,16 @@
 // Created by eliran on 12/20/18.
 //
 
+
 void DataReaderServer::run(int port, int rate, SymbolTable *symbolTable,
                            bool *shouldStop) {
     int socket = createSocket(port);
     ssize_t n;
-    float buffer[BUFFER];
-    bzero(buffer, BUFFER);
+    double buffer[23];
+    bzero(buffer, 23);
     while (!*shouldStop) {
-        n = read(socket, buffer, BUFFER - 1);
-        updateSymbolTable(buffer, symbolTable);
+        n = read(socket, buffer, 23);
+        //updateSymbolTable(buffer, symbolTable);
         if (n < 0) {
             perror("ERROR reading from socket");
             exit(1);
@@ -59,22 +60,21 @@ int DataReaderServer::createSocket(int port) {
 
     /* Accept actual connection from the client */
     cout << "waiting for connection..\n" << endl;
-    while (accept(sockfd, (struct sockaddr *) &cli_addr,
-                              (socklen_t *) &clilen) < 0);
+    newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr,
+                              (socklen_t *) &clilen);
 
-    /*
+
     if (newsockfd < 0) {
         perror("ERROR on accept");
         exit(1);
     }
-     */
+
     cout << "connection established";
-    int afik = 5;
     return newsockfd;
 }
 
 void
-DataReaderServer::updateSymbolTable(float *values, SymbolTable *symbolTable) {
+DataReaderServer::updateSymbolTable(double *values, SymbolTable *symbolTable) {
     string xmlPathsVec[XML_AMOUNT_VARIABLES] = {INDICATE_SPEED, INDICATE_ALT,
                                                 PRESSURE_ALT, PITCH_DEG,
                                                 ROLL_DEG, IN_PITCH_DEG,

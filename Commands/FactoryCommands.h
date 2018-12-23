@@ -29,6 +29,7 @@ using namespace std;
 #define IF_COMMAND "if"
 #define OPEN_SERVER_COMMAND "openDataServer"
 #define CLIENT_COMMAND "connect"
+#define ENTERC "Enterc"
 
 class FactoryCommands: public Factory {
 

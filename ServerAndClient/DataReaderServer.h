@@ -50,7 +50,7 @@ public:
 
     static int createSocket(int port);
 
-    static void updateSymbolTable(float* values, SymbolTable* symbolTable);
+    static void updateSymbolTable(double * values, SymbolTable* symbolTable);
 };
 
 

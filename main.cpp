@@ -15,12 +15,11 @@ int main() {
     //cout<<e->calculate();
     bool B = false;
     string s ="127.0.0.1";
-    //DataReaderClient::run(5402, s, NULL,&B);
-
     try {
         RunTheSimulator* r = new RunTheSimulator();
         vector<string> s = r->lexer("test.txt");
         r->parser(s);
+        while (true);
     } catch (const char* c) {
         cout<<c<<endl;
     }
