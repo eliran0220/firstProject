@@ -12,15 +12,13 @@ var elevator = bind "/controls/flight/elevator"
 var alt = bind "/instrumentation/altimeter/indicated-altitude-ft"
 breaks = 0
 throttle = 1
+var h0 = heading
 rudder = 1
 while alt < 1000 {
+    rudder = rudder * -1
     aileron = roll / 70
     elevator = pitch / 50
-    if rudder == 0 {
-        rudder = 1
-    }
-    rudder = rudder * -1
-    print rudder
+    print alt
     sleep 1000
 }
 print "done"
