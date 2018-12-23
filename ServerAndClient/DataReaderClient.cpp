@@ -130,7 +130,6 @@ void DataReaderClient::writeToServer(int socket, SymbolTable *symbolTable) {
                     perror("ERROR writing to socket");
                     exit(1);
                 }
-                int xafik;
             }
         }
     }

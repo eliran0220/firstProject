@@ -69,6 +69,7 @@ int DataReaderServer::createSocket(int port) {
     }
      */
     cout << "connection established";
+    int afik = 5;
     return newsockfd;
 }
 
