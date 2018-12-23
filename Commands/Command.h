@@ -1,19 +1,17 @@
-//
-// Created by eliran on 12/14/18.
-//
-
-#ifndef FIRSTPROJECT_COMMAND_H
-#define FIRSTPROJECT_COMMAND_H
+#ifndef COMMAND_H
+#define COMMAND_H
 
 #include <string>
 #include <vector>
 using namespace std;
 
-
+/**
+ * A abstract class command
+ */
 class Command{
 public:
     virtual int execute(vector<string> &parameters, int position) = 0;
 
     virtual ~Command(){}
 };
-#endif //FIRSTPROJECT_COMMAND_H
+#endif

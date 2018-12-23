@@ -1,8 +1,3 @@
-//
-// Created by eliran on 12/19/18.
-//
-
-
 #include "ConditionParser.h"
 
 /**
@@ -42,6 +37,7 @@ ConditionParser::~ConditionParser() {
  */
 vector<Expression *> ConditionParser::splitCondition(string &condition, string opera) {
     regex r("[0-9A-Za-z_]+(>||<||>=||<=||==||!=)[0-9A-Za-z_]+");
+    // check if the condition string is legal
     if (!regex_match(condition, r)) {
         throw "Syntax error invalid condition";
     }
@@ -71,10 +67,12 @@ vector<Expression *> ConditionParser::splitCondition(string &condition, string o
  * @return position + 1
  */
 int ConditionParser::parser(vector<string> *commands, int position) {
+    // while the block not ended
     while (commands->at(position) != "}") {
         Expression *tempCommand = this->factoryCommand->create(commands->at(position));
         tempCommand->setLexerStringAndPosition(commands, position);
         position += tempCommand->calculate();
+        // add to the command list for reuse
         this->listOfCommands.push_back(tempCommand);
     }
     return position + 1;

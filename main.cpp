@@ -16,7 +16,7 @@ int main() {
         RunTheSimulator* r = new RunTheSimulator();
         vector<string> s = r->lexer("test.txt");
         r->parser(s);
-        while (true);
+        delete (r);
     } catch (const char* c) {
         cout<<c<<endl;
     }

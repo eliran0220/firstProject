@@ -1,7 +1,3 @@
-//
-// Created by afik on 12/22/18.
-//
-
 #include "ClientCommand.h"
 
 /**
@@ -21,6 +17,7 @@ int ClientCommand::execute(vector<string> &parameters, int position) {
     int port = (int) e->calculate();
     string ip = parameters[position + 1];
     delete (e);
+    // check if the ip address is legal
     if (regex_match(ip, ipR)) {
         thread serverThread(DataReaderClient::run, port, ip, this->symbolTable,
                             &this->shouldStop);

@@ -1,9 +1,5 @@
-//
-// Created by afik on 12/22/18.
-//
-
-#ifndef FIRSTPROJECT_CLIENTCOMMAND_H
-#define FIRSTPROJECT_CLIENTCOMMAND_H
+#ifndef CLIENTCOMMAND_H
+#define CLIENTCOMMAND_H
 
 #include <regex>
 #include <thread>
@@ -23,4 +19,4 @@ public:
 };
 
 
-#endif //FIRSTPROJECT_CLIENTCOMMAND_H
+#endif
