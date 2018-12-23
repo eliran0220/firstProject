@@ -296,7 +296,7 @@ splitLineWithTwoArguments(string &givenLine, string command) {
         throw "Syntax Error to much arguments";
     }
     if (vec.size() == OME_ARGUMENTS && vec[0] != "{" && vec[0] != "}") {
-        throw "Syntax Error Separate with char ',' ";
+        throw "Syntax Error missing arguments Separate with char ',' ";
     }
     eraseBrackets(&vec, END_LINE, 0);
     return vec;

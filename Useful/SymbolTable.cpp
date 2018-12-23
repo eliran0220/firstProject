@@ -168,4 +168,7 @@ SymbolTable::~SymbolTable() {
     }
 }
 
+map<string, vector<StoreVarValue<double>*>> SymbolTable::getBindMap() {
+    return  this->bindValue;
+}
 

@@ -10,9 +10,6 @@
 
 
 int main() {
-    //FactoryExpression* f = new FactoryExpression(NULL);
-    //Expression* e = f->create("rudder*-1");
-    //cout<<e->calculate();
     bool B = false;
     string s ="127.0.0.1";
     try {

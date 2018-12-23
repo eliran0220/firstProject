@@ -213,6 +213,9 @@ Expression* FactoryExpression::createExpressionFromStrings(vector<string> string
                 throw "The variable doesn't exist factoryCreateExpression failed";
             }
         } else {
+            if (stackEx.size() < 2) {
+                throw "Something wrong with the expression syntax";
+            }
             right = stackEx.top();
             stackEx.pop();
             left = stackEx.top();

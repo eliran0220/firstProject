@@ -6,6 +6,9 @@
 #define FIRSTPROJECT_CONDITIONPARSER_H
 
 
+#include <sstream>
+#include <cstring>
+#include <regex>
 #include "Command.h"
 #include "../Useful/Factory.h"
 

@@ -46,6 +46,8 @@ public:
     bool existsInValueTableMap(string var);
 
     vector<StoreVarValue<double>*> getVariablesForUpdate(string& key);
+
+    map<string, vector<StoreVarValue<double>*>> getBindMap();
 };
 
 

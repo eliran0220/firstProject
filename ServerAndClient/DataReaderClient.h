@@ -12,8 +12,6 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #include <netinet/in.h>
-#include "DataReaderServer.h"
-
 
 #include <string.h>
 #include "../Useful/SymbolTable.h"

@@ -1,7 +1,6 @@
 //
 // Created by afik on 12/15/18.
 //
-
 #include "DataReaderServer.h"
 //
 // Created by eliran on 12/20/18.
@@ -12,17 +11,23 @@ void DataReaderServer::run(int port, int rate, SymbolTable *symbolTable,
                            bool *shouldStop) {
     int socket = createSocket(port);
     ssize_t n;
-    double buffer[23];
-    bzero(buffer, 23);
+    char buffer[1];
+    string values;
     while (!*shouldStop) {
-        n = read(socket, buffer, 23);
-        //updateSymbolTable(buffer, symbolTable);
-        if (n < 0) {
-            perror("ERROR reading from socket");
-            exit(1);
+        n = read(socket, buffer, 1);
+        while (strcmp(buffer, "\n") != 0 ) {
+            values += buffer;
+            n = read(socket, buffer, 1);
+            if (n < 0) {
+                perror("ERROR reading from socket");
+                exit(1);
+            }
         }
+        updateSymbolTable(values, symbolTable);
+        values = "";
         sleep(rate / MILLI_SECONDS);
     }
+    close(socket);
 }
 
 int DataReaderServer::createSocket(int port) {
@@ -57,24 +62,17 @@ int DataReaderServer::createSocket(int port) {
 
     listen(sockfd, 1);
     clilen = sizeof(cli_addr);
-
-    /* Accept actual connection from the client */
-    cout << "waiting for connection..\n" << endl;
     newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr,
-                              (socklen_t *) &clilen);
-
-
+                       (socklen_t *) &clilen);
     if (newsockfd < 0) {
         perror("ERROR on accept");
         exit(1);
     }
-
-    cout << "connection established";
     return newsockfd;
 }
 
 void
-DataReaderServer::updateSymbolTable(double *values, SymbolTable *symbolTable) {
+DataReaderServer::updateSymbolTable(string &values, SymbolTable *symbolTable) {
     string xmlPathsVec[XML_AMOUNT_VARIABLES] = {INDICATE_SPEED, INDICATE_ALT,
                                                 PRESSURE_ALT, PITCH_DEG,
                                                 ROLL_DEG, IN_PITCH_DEG,
@@ -87,14 +85,18 @@ DataReaderServer::updateSymbolTable(double *values, SymbolTable *symbolTable) {
                                                 AILERON, ELEVATOR, RUDDER,
                                                 FLAPS, THROTTLE, RPM};
     vector<StoreVarValue<double> *> vec;
-    StoreVarValue<double> *temp;
+    StoreVarValue<double> *tempValues;
+    stringstream ss(values);
+    string tempString;
+    double value;
     for (int i = 0; i < XML_AMOUNT_VARIABLES; ++i) {
-        if (symbolTable->existsInBindValueMap(xmlPathsVec[i])) {
+        if (getline(ss, tempString, ',') && symbolTable->existsInBindValueMap(xmlPathsVec[i])) {
+            value = stod(tempString);
             vec = symbolTable->getVariablesForUpdate(xmlPathsVec[i]);
             for (int j = 0; j < vec.size(); ++j) {
-                temp = vec[j];
-                temp->setInitialize(true);
-                temp->setValue(values[i]);
+                tempValues = vec[j];
+                tempValues->setInitialize(true);
+                tempValues->setValue(value);
             }
         }
     }

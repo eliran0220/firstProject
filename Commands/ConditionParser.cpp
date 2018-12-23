@@ -2,8 +2,7 @@
 // Created by eliran on 12/19/18.
 //
 
-#include <sstream>
-#include <cstring>
+
 #include "ConditionParser.h"
 
 /**
@@ -42,6 +41,10 @@ ConditionParser::~ConditionParser() {
  * @return
  */
 vector<Expression *> ConditionParser::splitCondition(string &condition, string opera) {
+    regex r("[0-9A-Za-z_]+(>||<||>=||<=||==||!=)[0-9A-Za-z_]+");
+    if (!regex_match(condition, r)) {
+        throw "Syntax error invalid condition";
+    }
     vector<Expression *> vec;
     string item;
     stringstream ss(condition);
@@ -108,6 +111,8 @@ bool ConditionParser::condition(string conditionString) {
     } else if (strstr(conditionString.c_str(), "!=")) {
         vec = splitCondition(conditionString, "!=");
         resualt = vec[0]->operator!=(vec[1]);
+    } else {
+        throw "Syntax error invalid condition";
     }
     for (int i = (int) vec.size() - 1; i >= 0; --i) {
         delete (vec[i]);

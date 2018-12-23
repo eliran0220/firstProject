@@ -9,13 +9,14 @@
 #include "../Useful/Factory.h"
 #include "../Useful/SymbolTable.h"
 
-#define BUFFER 1024
 #define MILLI_SECONDS 1000
 
 #include <netinet/in.h>
 #include <strings.h>
+#include <cstring>
 #include <unistd.h>
 #include <iostream>
+#include <sstream>
 #include "../Expressions/Expression.h"
 
 #define INDICATE_SPEED "/instrumentation/airspeed-indicator/indicated-speed-kt"
@@ -50,7 +51,7 @@ public:
 
     static int createSocket(int port);
 
-    static void updateSymbolTable(double * values, SymbolTable* symbolTable);
+    static void updateSymbolTable(string &values, SymbolTable* symbolTable);
 };
 
 
