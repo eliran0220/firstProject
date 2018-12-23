@@ -32,6 +32,7 @@ enum {EQUAL, NO_ARGUMENTS, OME_ARGUMENTS, TWO_ARGUMENTS};
 
 class RunTheSimulator {
     CollectionCommands* collectionCommands;
+    int x = 5;
 
 
 public:

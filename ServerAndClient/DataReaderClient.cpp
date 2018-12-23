@@ -64,7 +64,7 @@ void DataReaderClient::run(int givePort, string givenIp, SymbolTable *symbolTabl
 }
 
 
-
+/*
 void
 DataReaderClient::run2(int givePort, string givenIp, SymbolTable *symbolTable,
                       bool *shouldStop) {
@@ -94,7 +94,7 @@ DataReaderClient::run2(int givePort, string givenIp, SymbolTable *symbolTable,
         this_thread::sleep_for(std::chrono::milliseconds((unsigned int) 250));
     }
 }
-
+*/
 
 void DataReaderClient::writeToServer(int socket, SymbolTable *symbolTable) {
     string xmlPathsVec[XML_AMOUNT_VARIABLES] = {INDICATE_SPEED, INDICATE_ALT,
@@ -134,10 +134,10 @@ void DataReaderClient::writeToServer(int socket, SymbolTable *symbolTable) {
         }
     }
 }
-
+/*
 int DataReaderClient::createSocket(int port) {
     int sockfd;
-    /* Create a socket point */
+
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0) {
         perror("ERROR opening socket");
@@ -145,3 +145,4 @@ int DataReaderClient::createSocket(int port) {
     }
     return sockfd;
 }
+*/
