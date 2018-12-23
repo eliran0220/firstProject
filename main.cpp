@@ -13,6 +13,9 @@ int main() {
     //FactoryExpression* f = new FactoryExpression(NULL);
     //Expression* e = f->create("rudder*-1");
     //cout<<e->calculate();
+    bool B = false;
+    string s ="127.0.0.1";
+    //DataReaderClient::run(5402, s, NULL,&B);
 
     try {
         RunTheSimulator* r = new RunTheSimulator();
@@ -21,6 +24,7 @@ int main() {
     } catch (const char* c) {
         cout<<c<<endl;
     }
+
 
 
     return 0;

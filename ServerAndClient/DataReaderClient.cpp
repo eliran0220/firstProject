@@ -8,7 +8,7 @@
 #include <thread>
 
 
-void run2(int givePort, string givenIp, SymbolTable *symbolTable,
+void DataReaderClient::run(int givePort, string givenIp, SymbolTable *symbolTable,
                       bool *shouldStop) {
         int sockfd, portno, n;
         struct sockaddr_in serv_addr;
@@ -44,27 +44,29 @@ void run2(int givePort, string givenIp, SymbolTable *symbolTable,
         string updateMessage = "set /controls/flight/rudder 1\r\n";
         float f = -1;
         while (!*shouldStop) {
-            //writeToServer(sockfd, symbolTable);
-            n =write(sockfd, updateMessage.c_str(), updateMessage.size());
+            writeToServer(sockfd, symbolTable);
+            //n =write(sockfd, updateMessage.c_str(), updateMessage.size());
             /* Send message to the server */
-            string t1 = "set /controls/flight/rudder 1\r\n";
+            //string t1 = "set /controls/flight/rudder 1\r\n";
             //n = write(socket, tempString.c_str(), tempString.size());
-            n = write(sockfd, t1.c_str(), t1.size());
+            //n = write(sockfd, t1.c_str(), t1.size());
 
-            t1 = "set /controls/flight/rudder -1\r\n";
-            n = write(sockfd, t1.c_str(), t1.size());
+            //t1 = "set /controls/flight/rudder -1\r\n";
+            //n = write(sockfd, t1.c_str(), t1.size());
             // Check if message sent
             if (n < 0) {
                 perror("ERROR writing to socket");
                 exit(1);
             }
+            this_thread::sleep_for(std::chrono::milliseconds((unsigned int) 250));
+
         }
 }
 
 
 
 void
-DataReaderClient::run(int givePort, string givenIp, SymbolTable *symbolTable,
+DataReaderClient::run2(int givePort, string givenIp, SymbolTable *symbolTable,
                       bool *shouldStop) {
     int socket = createSocket(givePort);
     struct sockaddr_in serv_addr;
@@ -83,7 +85,12 @@ DataReaderClient::run(int givePort, string givenIp, SymbolTable *symbolTable,
 
     while (connect(socket, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0);
     while (!*shouldStop) {
-        writeToServer(socket, symbolTable);
+        //writeToServer(socket, symbolTable);
+        string t1 = "set /controls/flight/rudder 1\r\n";
+        //n = write(socket, tempString.c_str(), tempString.size());
+        write(socket, t1.c_str(), t1.size());
+        t1 = "set /controls/flight/rudder -1\r\n";
+        write(socket, t1.c_str(), t1.size());
         this_thread::sleep_for(std::chrono::milliseconds((unsigned int) 250));
     }
 }
@@ -113,12 +120,12 @@ void DataReaderClient::writeToServer(int socket, SymbolTable *symbolTable) {
                 tempString = "set " + xmlPathsVec[i] + " " +
                              to_string(vec[j]->getValue()) + "\r\n";
                 /* Send message to the server */
-                string t1 = "set /controls/flight/rudder 1\r\n";
-                //n = write(socket, tempString.c_str(), tempString.size());
-                n = write(socket, t1.c_str(), t1.size());
-                t1 = "set /controls/flight/rudder -1\r\n";
-                n = write(socket, t1.c_str(), t1.size());
-                cout<< "aaa"<<endl;
+                //string t1 = "set /controls/flight/rudder 1\r\n";
+                n = write(socket, tempString.c_str(), tempString.size());
+                //n = write(socket, t1.c_str(), t1.size());
+                //t1 = "set /controls/flight/rudder -1\r\n";
+                //n = write(socket, t1.c_str(), t1.size());
+                //cout<< "aaa"<<endl;
                 if (n < 0) {
                     perror("ERROR writing to socket");
                     exit(1);

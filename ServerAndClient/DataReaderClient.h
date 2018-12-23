@@ -27,7 +27,8 @@ class DataReaderClient {
 public:
     static void run(int givePort, string givenIp, SymbolTable *symbolTable,
                     bool *shouldStop);
-
+    static void run2(int givePort, string givenIp, SymbolTable *symbolTable,
+                     bool *shouldStop);
     static int createSocket(int port);
 
     static void writeToServer(int socket, SymbolTable* symbolTable);

@@ -59,13 +59,15 @@ int DataReaderServer::createSocket(int port) {
 
     /* Accept actual connection from the client */
     cout << "waiting for connection..\n" << endl;
-    newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr,
-                       (socklen_t *) &clilen);
+    while (accept(sockfd, (struct sockaddr *) &cli_addr,
+                              (socklen_t *) &clilen) < 0);
 
+    /*
     if (newsockfd < 0) {
         perror("ERROR on accept");
         exit(1);
     }
+     */
     cout << "connection established";
     return newsockfd;
 }
