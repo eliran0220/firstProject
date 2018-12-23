@@ -1,16 +1,7 @@
-//
-// Created by afik on 12/16/18.
-//
-
 #include "FactoryCommands.h"
-#include "OpenServerCommand.h"
-#include "ClientCommand.h"
-#include "EntercCommand.h"
 
 /**
  * Function name: FactoryCommands
- * The input: none
- * The output: none
  * The function operation: Constructs a new FactoryCommands
  */
 
@@ -21,8 +12,6 @@ FactoryCommands::FactoryCommands() {
 
 /**
  * Function name: ~FactoryCommands
- * The input: none
- * The output: none
  * The function operation: Destructs the FactoryCommands
  */
 
@@ -33,14 +22,12 @@ FactoryCommands::~FactoryCommands() {
 
 /**
  * Function name: create
- * The input: string
- * The output: Expression*
  * The function operation: The function creates a new Command, given by the string, and returns it
  * We have 8 types of command : print, sleep, var , = , while, if, openDataServer and connect
  * if we don't have a match, we create a "new" command called increament, which just moves the
  * position on the lexer by 1 (example, if we are positioned on a variable, we need to move
  * to the actual command)
- * @param exString given string
+ * @param exString string
  * @return Expression*
  */
 Expression *FactoryCommands::create(const string &exString) {

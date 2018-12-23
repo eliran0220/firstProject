@@ -11,7 +11,7 @@
 class IfCommand : public ConditionParser {
 public:
     IfCommand(Factory* factoryCommand, Factory* factoryExpression):
-            ConditionParser(factoryCommand, factoryExpression){}
+    ConditionParser(factoryCommand, factoryExpression){}
     int execute(vector<string> &parameters, int position);
 };
 

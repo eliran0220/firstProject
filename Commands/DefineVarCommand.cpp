@@ -1,8 +1,3 @@
-//
-// Created by eliran on 12/17/18.
-//
-
-
 #include "DefineVarCommand.h"
 
 /**
@@ -13,18 +8,16 @@
  * Then, we move 2 positions in the lexer
  * @param parameters vector<string>
  * @param position int
- * @return
+ * @return int
  */
 int DefineVarCommand::execute(vector<string> &parameters, int position) {
     string var = parameters[position + 1];
     this->table->addToTable(var);
-    return 2;
+    return AMOUNT_MOVEMENT;
 }
 
 /**
  * Function name: DefineVarCommand
- * The input: SymbolTable
- * The output: none
  * The function operation: Constructs a new ClientCommand
  * @param symbolTable symbolTable
  */

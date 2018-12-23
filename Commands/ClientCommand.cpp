@@ -2,8 +2,6 @@
 
 /**
  * Function name: execute
- * The input: vector<string>, int
- * The output: int
  * The function operation: The function runs the client.
  * First it calculates the port and the ip (from the parameters, we know their positions)
  * then it checks if the ip is valid, if so, opens a thread and runs the server given the data above.
@@ -25,13 +23,11 @@ int ClientCommand::execute(vector<string> &parameters, int position) {
     } else {
         throw "Syntax error invalid ip address";
     }
-    return 3;
+    return AMOUNT_MOVEMENT;
 }
 
 /**
  * Function name: ClientCommand
- * The input: SymbolTable, Factory
- * The output: none
  * The function operation: Constructs a new ClientCommand
  * @param symbolTable table
  * @param factoryExpression factoryExpression
@@ -45,8 +41,6 @@ ClientCommand::ClientCommand(SymbolTable *symbolTable,
 
 /**
  * Function name: ~ClientCommand
- * The input: none
- * The output: none
  * The function operation: Destructs the ClientCommand
  */
 ClientCommand::~ClientCommand() {

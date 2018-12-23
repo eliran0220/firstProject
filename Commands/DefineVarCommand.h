@@ -1,15 +1,9 @@
-//
-// Created by eliran on 12/17/18.
-//
-
-
-#ifndef FIRSTPROJECT_DEFINEVARCOMMAND_H
-#define FIRSTPROJECT_DEFINEVARCOMMAND_H
-
+#ifndef DEFINEVARCOMMAND_H
+#define DEFINEVARCOMMAND_H
 
 #include "Command.h"
 #include "../Useful/FactoryExpression.h"
-
+#define AMOUNT_MOVEMENT 2
 
 #include <map>
 class DefineVarCommand : public Command{
@@ -22,5 +16,5 @@ public:
 };
 
 
-#endif //FIRSTPROJECT_DEFINEVARCOMMAND_H
+#endif
 

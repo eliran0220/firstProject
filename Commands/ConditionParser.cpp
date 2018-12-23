@@ -2,8 +2,6 @@
 
 /**
  * Function name: ConditionParser
- * The input: Factory*, Factory*
- * The output: none
  * The function operation: Constructs a new ConditionParser
  * @param factoryCommand factoryCommand
  * @param factoryExpression factoryExpression
@@ -15,8 +13,6 @@ ConditionParser::ConditionParser(Factory *factoryCommand, Factory *factoryExpres
 
 /**
  * Function name: ~ClientCommand
- * The input: none
- * The output: none
  * The function operation: Destructs the ClientCommand
  */
 ConditionParser::~ConditionParser() {
@@ -27,13 +23,11 @@ ConditionParser::~ConditionParser() {
 
 /**
  * Function name: splitCondition
- * The input: string, string
- * The output: vector<string>
  * The function operation: The function splits the given string, by the given other string.
  * It finds
- * @param condition
- * @param opera
- * @return
+ * @param condition string
+ * @param opera string
+ * @return string
  */
 vector<Expression *> ConditionParser::splitCondition(string &condition, string opera) {
     regex r("[0-9A-Za-z_]+(>||<||>=||<=||==||!=)[0-9A-Za-z_]+");
@@ -57,14 +51,12 @@ vector<Expression *> ConditionParser::splitCondition(string &condition, string o
 
 /**
  * Function name: parser
- * The input: vector<string>, int
- * The output: int
  * The function operation: The function creates, and "calculates" the commands in the commands vector,
  * as long as the command at the position is not " } "
  * In the end, returns the position + 1, to move on to the next command
  * @param commands vector<string>
  * @param position int
- * @return position + 1
+ * @return int
  */
 int ConditionParser::parser(vector<string> *commands, int position) {
     // while the block not ended
@@ -80,12 +72,11 @@ int ConditionParser::parser(vector<string> *commands, int position) {
 
 /**
  * Function name: condition
- * The input: string
- * The output: bool
+
  * The function operation: The function returns the result between operator of the expressions.
  * Depending on the given string, we do invoke the right operator to evaluate the expression, and
  * return the result.
- * @param conditionString given conditionString
+ * @param conditionString string
  * @return bool
  */
 bool ConditionParser::condition(string conditionString) {
@@ -120,8 +111,6 @@ bool ConditionParser::condition(string conditionString) {
 
 /**
  * Function name: findTheEndBlock
- * The input: vector<string>, int
- * The output: int
  * The function operation: The function goes thorugh the strings in the parameters vector:
  * First it recognizes where the first { is at, then iterates thouugh the vector and funds the last
  * position of the } ,which is connected to the first { and returns it.

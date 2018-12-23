@@ -1,18 +1,20 @@
-//
-// Created by afik on 12/23/18.
-//
+#ifndef ENTERCCOMMAND_H
+#define ENTERCCOMMAND_H
 
-#ifndef FIRSTPROJECT_ENTERCCOMMAND_H
-#define FIRSTPROJECT_ENTERCCOMMAND_H
-
-
+#include <iostream>
 #include "Command.h"
 
-class EntercCommand: public Command {
+#define AMOUNT_MOVEMENT 1
+
+/**
+ * The aim of the class is to stop the program untill it gets an input
+ * from the user
+ */
+class EntercCommand : public Command {
 public:
     EntercCommand();
+
     virtual int execute(vector<string> &parameters, int position);
 };
 
-
-#endif //FIRSTPROJECT_ENTERCCOMMAND_H
+#endif

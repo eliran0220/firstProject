@@ -1,7 +1,3 @@
-//
-// Created by eliran on 12/19/18.
-//
-
 #include "IfCommand.h"
 
 /**

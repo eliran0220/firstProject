@@ -1,12 +1,7 @@
-//
-// Created by afik on 12/16/18.
-//
-
-#ifndef FIRSTPROJECT_FACTORYCOMMANDS_H
-#define FIRSTPROJECT_FACTORYCOMMANDS_H
+#ifndef FACTORYCOMMANDS_H
+#define FACTORYCOMMANDS_H
 
 #include <string>
-
 #include "InitializeCommand.h"
 #include "IncreaseCounterCommand.h"
 #include "ConditionParser.h"
@@ -18,8 +13,10 @@
 #include "../Commands/PrintCommand.h"
 #include "../Commands/DefineVarCommand.h"
 #include "../Useful/Factory.h"
+#include "OpenServerCommand.h"
+#include "ClientCommand.h"
+#include "EntercCommand.h"
 
-using namespace std;
 
 #define PRINT_COMMAND  "print"
 #define SLEEP_COMMAND  "sleep"
@@ -31,17 +28,20 @@ using namespace std;
 #define CLIENT_COMMAND "connect"
 #define ENTERC "Enterc"
 
-class FactoryCommands: public Factory {
+using namespace std;
+
+class FactoryCommands : public Factory {
 
 private:
-    Factory* createExpression;
-    SymbolTable* symbolTable;
+    Factory *createExpression;
+    SymbolTable *symbolTable;
 public:
     FactoryCommands();
 
     ~FactoryCommands();
 
-    virtual Expression* create(const string &command);
+    virtual Expression *create(const string &command);
 
 };
-#endif //FIRSTPROJECT_FACTORYCOMMANDS_H
+
+#endif

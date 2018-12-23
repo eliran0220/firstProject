@@ -8,15 +8,18 @@
 #include "../Useful/Factory.h"
 #include "../ServerAndClient/DataReaderClient.h"
 
-class ClientCommand : public Command{
-    SymbolTable* symbolTable;
-    Factory* factoryExpression;
+#define AMOUNT_MOVEMENT 3
+
+class ClientCommand : public Command {
+    SymbolTable *symbolTable;
+    Factory *factoryExpression;
     bool shouldStop;
 public:
-    ClientCommand(SymbolTable* symbolTable, Factory* factoryExpression);
+    ClientCommand(SymbolTable *symbolTable, Factory *factoryExpression);
+
     ~ClientCommand();
+
     virtual int execute(vector<string> &parameters, int position);
 };
-
 
 #endif
