@@ -1,13 +1,12 @@
-//
-// Created by afik on 12/17/18.
-//
-
-#ifndef FIRSTPROJECT_INCREASECOUNTECOMMAND_H
-#define FIRSTPROJECT_INCREASECOUNTECOMMAND_H
+#ifndef INCREASECOUNTECOMMAND_H
+#define INCREASECOUNTECOMMAND_H
 
 #include "Command.h"
 #define INCREASE_VALUE 1
 
+/**
+ * The class is responsible of incrementing to the next position in the parser.
+ */
 class IncreaseCounterCommand : public Command {
 
 public:
@@ -17,4 +16,4 @@ public:
         return INCREASE_VALUE;
     }
 };
-#endif //FIRSTPROJECT_INCREASECOUNTECOMMAND_H
+#endif

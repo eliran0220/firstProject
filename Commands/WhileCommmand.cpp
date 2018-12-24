@@ -18,17 +18,23 @@
  * @return int
  */
 int WhileCommand::execute(vector<string> &parameters, int position) {
-    int returnPosition;
+    vector<Expression *> expressions;
     bool flagCondition = this->condition(parameters[position + 1]);
-    if (flagCondition && this->listOfCommands.empty()) {
-        returnPosition = this->parser(&parameters, position + 3);
+    if (flagCondition && expressions.empty()) {
+        expressions = this->parser(&parameters, position + 3);
+        // if the user input exit command free the memory and finish the loop
+        if (loopPosition == EXIT_VALUE) {
+            this->freeExpressionMemory(expressions);
+            return this->loopPosition;
+        }
     } else if (!flagCondition) {
         return findTheEndBlock(&parameters, position + 3) - position;
     }
     while (this->condition(parameters[position + 1])) {
-        for (int i = 0; i < this->listOfCommands.size(); ++i) {
-            this->listOfCommands[i]->calculate();
+        for (int i = 0; i < expressions.size(); ++i) {
+            expressions[i]->calculate();
         }
     }
-    return returnPosition - position;
+    this->freeExpressionMemory(expressions);
+    return this->loopPosition - position;
 }

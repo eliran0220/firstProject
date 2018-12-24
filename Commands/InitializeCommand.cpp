@@ -1,10 +1,4 @@
-//
-// Created by eliran on 12/17/18.
-//
-
 #include "InitializeCommand.h"
-#include <algorithm>
-#include <cstring>
 
 /**
  * Function name: execute

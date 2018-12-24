@@ -32,7 +32,8 @@ void SymbolTable::addToTable(string name) {
  * @param value string
  */
 void SymbolTable::updateSymbolTableDest(string name, string value) {
-    this->lock.lock();
+    mutex mtx;
+    unique_lock<mutex> lock(mtx);
     this->destTable[name]->setInitialize(true);
     this->valueTable[name]->setInitialize(true);
     this->destTable[name]->setValue(value);
@@ -45,7 +46,6 @@ void SymbolTable::updateSymbolTableDest(string name, string value) {
         vec.push_back(temp);
         this->bindValue[value] = vec;
     }
-    this->lock.unlock();
 }
 
 /**
@@ -59,10 +59,10 @@ void SymbolTable::updateSymbolTableDest(string name, string value) {
  * @param value the value we want to update
  */
 void SymbolTable::updateSymbolTableValue(string name, double value) {
-    this->lock.lock();
+    mutex mtx;
+    unique_lock<mutex> lock(mtx);
     this->valueTable[name]->setInitialize(true);
     this->valueTable[name]->setValue(value);
-    this->lock.unlock();
 }
 
 /**

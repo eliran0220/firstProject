@@ -26,11 +26,12 @@ int OpenServerCommand::execute(vector<string> &parameters, int position) {
     Expression *r = this->factoryExpression->create(parameters[position + 2]);
     int port = (int) (p->calculate());
     int rate = (int) (r->calculate());
+    int socket = DataReaderServer::createSocket(port);
     delete (p);
     delete (r);
-    thread serverThread(DataReaderServer::run, port, rate, this->symbolTable,
+    thread serverThread(DataReaderServer::run, socket, rate, this->symbolTable,
                         &this->shouldStop);
-    serverThread.detach();
+    serverThread.join();
     return 3;
 }
 

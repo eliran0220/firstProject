@@ -11,6 +11,7 @@
 #include <regex>
 #include "Command.h"
 #include "../Useful/Factory.h"
+#include "ExitCommand.h"
 
 class ConditionParser : public Command {
 
@@ -18,6 +19,7 @@ protected:
     vector<Expression*> listOfCommands;
     Factory* factoryCommand;
     Factory* factoryExpression;
+    int loopPosition;
 
 public:
     ConditionParser(Factory* factoryCommand, Factory* factoryExpression);
@@ -28,7 +30,9 @@ public:
 
     bool condition(string conditionString);
 
-    int parser(vector<string>* commands, int position);
+    vector<Expression*> parser(vector<string>* commands, int position);
+
+    void freeExpressionMemory(vector<Expression *> expression);
 
     int findTheEndBlock(vector<string> *parameters, int position);
 };

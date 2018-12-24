@@ -40,14 +40,14 @@
 #define ELEVATOR "/controls/flight/elevator"
 #define RUDDER "/controls/flight/rudder"
 #define FLAPS "/controls/flight/flaps"
-#define THROTTLE "/controls/engines/engine/throttle"
+#define THROTTLE "/controls/engines/current-engine/throttle"
 #define RPM "/engines/engine/rpm"
 
 #define XML_AMOUNT_VARIABLES 23
 
 class DataReaderServer {
 public:
-    static void run(int port, int rate, SymbolTable* symbolTable, bool *shouldStop);
+    static void run(int socket, int rate, SymbolTable* symbolTable, bool *shouldStop);
 
     static int createSocket(int port);
 

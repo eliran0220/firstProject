@@ -58,16 +58,24 @@ vector<Expression *> ConditionParser::splitCondition(string &condition, string o
  * @param position int
  * @return int
  */
-int ConditionParser::parser(vector<string> *commands, int position) {
+vector<Expression*> ConditionParser::parser(vector<string> *commands, int position) {
+    vector<Expression*> listOfCommands;
+    int value;
     // while the block not ended
     while (commands->at(position) != "}") {
         Expression *tempCommand = this->factoryCommand->create(commands->at(position));
         tempCommand->setLexerStringAndPosition(commands, position);
-        position += tempCommand->calculate();
+        value = (int)tempCommand->calculate();
+        position += value;
         // add to the command list for reuse
-        this->listOfCommands.push_back(tempCommand);
+        listOfCommands.push_back(tempCommand);
+        if (value == EXIT_VALUE) {
+            this->loopPosition = EXIT_VALUE;
+            return listOfCommands;
+        }
     }
-    return position + 1;
+    this->loopPosition = position + 1;
+    return listOfCommands;
 }
 
 /**
@@ -109,6 +117,7 @@ bool ConditionParser::condition(string conditionString) {
     return resualt;
 }
 
+
 /**
  * Function name: findTheEndBlock
  * The function operation: The function goes thorugh the strings in the parameters vector:
@@ -133,3 +142,8 @@ int ConditionParser::findTheEndBlock(vector<string> *parameters, int position) {
     return position;
 }
 
+void ConditionParser::freeExpressionMemory(vector<Expression *> expression) {
+    for (int i = expression.size() - 1; i >= 0; --i) {
+        delete(expression[i]);
+    }
+}

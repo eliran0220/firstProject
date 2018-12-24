@@ -19,7 +19,7 @@ int ClientCommand::execute(vector<string> &parameters, int position) {
     if (regex_match(ip, ipR)) {
         thread serverThread(DataReaderClient::run, port, ip, this->symbolTable,
                             &this->shouldStop);
-        serverThread.detach();
+        serverThread.join();
     } else {
         throw "Syntax error invalid ip address";
     }

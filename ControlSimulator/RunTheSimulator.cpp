@@ -60,11 +60,16 @@ RunTheSimulator::~RunTheSimulator() {
 void RunTheSimulator::parser(vector<string> commands) {
     Expression *command;
     int i = 0;
+    int value;
     while (i < commands.size()) {
         // ומה עם כאשר יש var נגיד באות h? זה קורס !
         command = this->collectionCommands->getExpressionCommand(commands[i]);
         command->setLexerStringAndPosition(&commands, i);
-        i += (int) command->calculate();
+        value = (int) command->calculate();
+        i += value;
+        if (value == EXIT_VALUE) {
+            break;
+        }
     }
 }
 

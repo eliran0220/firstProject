@@ -22,7 +22,6 @@ private:
     map<string, vector<StoreVarValue<double>*>> bindValue;
     map<string, StoreVarValue<double>*> valueTable;
     map<string, StoreVarValue<string>*> destTable;
-    mutex lock;
 
 public:
     SymbolTable() {}

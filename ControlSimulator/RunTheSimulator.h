@@ -5,9 +5,6 @@
 #ifndef FIRSTPROJECT_RUNTHESIMULATOR_H
 #define FIRSTPROJECT_RUNTHESIMULATOR_H
 
-#define WHILE_LOOP "while"
-#define FOR_LOOP "for"
-#define IF "if"
 
 #include <string>
 #include <vector>
@@ -22,9 +19,6 @@
 #define MISSING_PARAMETER 1
 #define START_LINE 1
 #define END_LINE 2
-
-#define OPEN_DATA "openDataServer"
-#define VARIABLE "var"
 
 using namespace std;
 
