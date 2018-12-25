@@ -8,7 +8,7 @@
 #include "../Useful/Factory.h"
 #include "../ServerAndClient/DataReaderClient.h"
 
-#define AMOUNT_MOVEMENT 3
+#define AMOUNT_CLIENT_MOVEMENT 3
 
 /**
  * ClientCommand class: The ClientCommand class is supposed to open a new

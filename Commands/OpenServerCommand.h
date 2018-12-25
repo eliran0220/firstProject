@@ -8,7 +8,7 @@
 #include <thread>
 #include <mutex>
 
-#define AMOUNT_MOVEMENT 3
+#define AMOUNT_SERVER_MOVEMENT 3
 
 /**
  * OpenServerCommand class: The OpenServerCommand class is supposed to open

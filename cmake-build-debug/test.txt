@@ -1,35 +1,25 @@
-var x = 1
-var y = 1
 
-while x < 5 {
-    print x
-    x = x+1
-    while y < 3 {
-     print "a"
-     y = y + 1
-    }
+openDataServer 5403 10
+connect 127.0.0.1 5402
+var breaks = bind "/controls/flight/speedbrake"
+var throttle = bind "/controls/engines/current-engine/throttle"
+var heading = bind "/instrumentation/heading-indicator/offset-deg"
+var airspeed = bind "/instrumentation/airspeed-indicator/indicated-speed-kt"
+var roll = bind "/instrumentation/attitude-indicator/indicated-roll-deg"
+var pitch = bind "/instrumentation/attitude/internal-pitch-deg"
+var rudder = bind "/controls/flight/rudder"
+var aileron = bind "/controls/flight/aileron"
+var elevator = bind "/controls/flight/elevator"
+var alt = bind "/instrumentation/altimeter/indicated-altitude-ft"
+breaks = 0
+throttle = 0.0001
+var h0 = heading
+while alt < 1000 {
+    rudder = (h0 - heading)/20
+    throttle = throttle + 0.0001
+    aileron = - roll / 70
+    elevator = pitch / 50
+    print alt
+    sleep 250
 }
-
-var t =1
-var m = 1
-
-while t < 5 {
-    print t
-    t = t+1
-    while m < 3 {
-     print "b"
-     m = m + 1
-    }
-}
-
-if x >= 5 {
-    print "yes"
-    if y>=3 {
-    print "ti"
-    }
-}
-
-if t>=5 {
-    print "holl"
-}
-
+print "done"

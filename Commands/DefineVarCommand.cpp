@@ -11,7 +11,7 @@
 int DefineVarCommand::execute(vector<string> &parameters, int position) {
     string var = parameters[position + 1];
     this->table->addToTable(var);
-    return AMOUNT_MOVEMENT;
+    return AMOUNT_VAR_MOVEMENT;
 }
 
 /**

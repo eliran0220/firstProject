@@ -4,7 +4,7 @@
 #include <iostream>
 #include "Command.h"
 
-#define AMOUNT_MOVEMENT 1
+#define AMOUNT_ENTCRE_MOVEMENT 1
 
 /**
  * EntercCommand class: The aim of the class is to stop the program

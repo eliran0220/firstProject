@@ -90,18 +90,18 @@ vector<Expression*> ConditionParser::parser(vector<string> *commands, int positi
 bool ConditionParser::condition(string conditionString) {
     vector<Expression *> vec;
     bool resualt;
-    if (strstr(conditionString.c_str(), ">")) {
-        vec = splitCondition(conditionString, ">");
-        resualt = vec[0]->operator>(vec[1]);
-    } else if (strstr(conditionString.c_str(), ">=")) {
+    if (strstr(conditionString.c_str(), ">=")) {
         vec = splitCondition(conditionString, ">=");
         resualt = vec[0]->operator>=(vec[1]);
-    } else if (strstr(conditionString.c_str(), "<")) {
-        vec = splitCondition(conditionString, "<");
-        resualt = vec[0]->operator<(vec[1]);
     } else if (strstr(conditionString.c_str(), "<=")) {
         vec = splitCondition(conditionString, "<=");
         resualt = vec[0]->operator<=(vec[1]);
+    } else if (strstr(conditionString.c_str(), "<")) {
+        vec = splitCondition(conditionString, "<");
+        resualt = vec[0]->operator<(vec[1]);
+    } else if (strstr(conditionString.c_str(), ">")) {
+        vec = splitCondition(conditionString, ">");
+        resualt = vec[0]->operator>(vec[1]);
     } else if (strstr(conditionString.c_str(), "==")) {
         vec = splitCondition(conditionString, "==");
         resualt = vec[0]->operator==(vec[1]);

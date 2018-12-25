@@ -17,5 +17,5 @@ int EntercCommand::execute(vector<string> &parameters, int position) {
     cout << "Please wait until connection established:";
     char temp[2];
     fgets(temp, sizeof(temp), stdin);
-    return AMOUNT_MOVEMENT;
+    return AMOUNT_ENTCRE_MOVEMENT;
 }

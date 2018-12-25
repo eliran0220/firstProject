@@ -5,7 +5,7 @@
 #include "../Useful/FactoryExpression.h"
 #include <map>
 
-#define AMOUNT_MOVEMENT 2
+#define AMOUNT_VAR_MOVEMENT 2
 
 /**
  * DefineVarCommand: The DefineVarCommand is supposed to define a new var
