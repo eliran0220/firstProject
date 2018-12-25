@@ -2,8 +2,6 @@
 
 /**
  * Function name: execute
- * The input: vector<string>, int
- * The output: int
  * The function operation: The function initializes the variable.
  * If the parameter after the "=" is bind, we need to initialize the destination of the variable
  * in the destination table,
@@ -24,18 +22,16 @@ InitializeCommand::execute(vector<string> &parameters, int position) {
             string dest = this->table->getSymbolTableDest(value);
             this->table->updateSymbolTableDest(parameters[position - 1], dest);
         }
-        return 3;
+        return AMOUNT_MOVEMENT + 1;
     } else {
         Expression *e = this->expression->create(parameters[position + 1]);
         this->table->updateSymbolTableValue(parameters[position - 1], e->calculate());
-        return 2;
+        return AMOUNT_MOVEMENT;
     }
 }
 
 /**
  * Function name: InitializeCommand
- * The input: Factory*, SymbolTable*
- * The output: void
  * The function operation: Constructs a new InitializeCommand
  * @param expression given expression
  * @param table given table

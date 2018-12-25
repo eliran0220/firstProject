@@ -1,15 +1,7 @@
-//
-// Created by eliran on 12/15/18.
-//
-
-#include <iostream>
-#include <regex>
 #include "PrintCommand.h"
 
 /**
  * Function name: PrintCommand
- * The input: Factory*
- * The output: none
  * The function operation: Constructs a new PrintCommand
  * @param createExpression given createExpression
  */
@@ -19,8 +11,6 @@ PrintCommand::PrintCommand(Factory *createExpression) {
 
 /**
  * Function name: execute
- * The input: vector<string>, int
- * The output: int
  * The function operation: The function prints the next parameter in the lexer.
  * First we check if the next parameter is an expression we need to evaluate, if so , we do it and then print it
  * If not, it means it's a string, so we remove the ' " ' from it and print it.
@@ -38,9 +28,9 @@ int PrintCommand::execute(vector<string> &parameters, int position) {
         delete (e);
     } else {
         string item = parameters[position + 1];
-        // מחיקה של הגרשיים מהמחרוזת
+        //delete brackets from the string
         item.erase(std::remove(item.begin(), item.end(), '"'), item.end());
         cout << item << endl;
     }
-    return 2;
+    return AMOUNT_MOVEMENT;
 }

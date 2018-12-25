@@ -7,6 +7,12 @@
 #include "../Useful/Factory.h"
 #include "../Useful/SymbolTable.h"
 
+#define AMOUNT_MOVEMENT 2
+
+/**
+ * InitializeCommand class: The InitializeCommand class is supposed to
+ * initialize the given vars
+ */
 class InitializeCommand : public Command {
 private:
     Factory *expression;

@@ -7,8 +7,8 @@
 #define AMOUNT_MOVEMENT 1
 
 /**
- * The aim of the class is to stop the program untill it gets an input
- * from the user
+ * EntercCommand class: The aim of the class is to stop the program
+ * untill it gets an input from the user
  */
 class EntercCommand : public Command {
 public:

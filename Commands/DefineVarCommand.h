@@ -3,14 +3,20 @@
 
 #include "Command.h"
 #include "../Useful/FactoryExpression.h"
+#include <map>
+
 #define AMOUNT_MOVEMENT 2
 
-#include <map>
-class DefineVarCommand : public Command{
+/**
+ * DefineVarCommand: The DefineVarCommand is supposed to define a new var
+ * in our program
+ */
+class DefineVarCommand : public Command {
 private:
-    SymbolTable * table;
+    SymbolTable *table;
 public:
-    DefineVarCommand(SymbolTable* symbolTable);
+    DefineVarCommand(SymbolTable *symbolTable);
+
     int execute(vector<string> &parameters, int position);
 
 };

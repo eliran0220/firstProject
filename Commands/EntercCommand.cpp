@@ -1,4 +1,9 @@
 #include "EntercCommand.h"
+
+/**
+ * Function name: EntercCommand
+ * The function operation: Constructs a new EntercCommand
+ */
 EntercCommand::EntercCommand() {}
 
 /**

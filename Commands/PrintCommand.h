@@ -1,23 +1,25 @@
-//
-// Created by eliran on 12/15/18.
-//
+#ifndef PRINTCOMMAND_H
+#define PRINTCOMMAND_H
 
-#ifndef FIRSTPROJECT_PRINTCOMMAND_H
-#define FIRSTPROJECT_PRINTCOMMAND_H
 #include"string"
 #include "Command.h"
 #include "../Useful/Factory.h"
+#include <iostream>
+#include <regex>
+
+#define AMOUNT_MOVEMENT 2
 
 using namespace std;
 
-class PrintCommand : public Command{
+class PrintCommand : public Command {
 private:
-    Factory* createExpression;
+    Factory *createExpression;
 public:
-    PrintCommand(Factory* createExpression);
+    PrintCommand(Factory *createExpression);
+
     virtual int execute(vector<string> &parameters, int position);
 
 };
 
 
-#endif //FIRSTPROJECT_PRINTCOMMAND_H
+#endif

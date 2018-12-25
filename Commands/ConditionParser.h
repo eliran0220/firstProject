@@ -13,6 +13,10 @@
 #include "../Useful/Factory.h"
 #include "ExitCommand.h"
 
+/**
+ * ConditionParser class: The ConditionParser class is supposed to check
+ * if the condition is valid
+ */
 class ConditionParser : public Command {
 
 protected:

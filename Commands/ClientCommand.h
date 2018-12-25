@@ -10,6 +10,10 @@
 
 #define AMOUNT_MOVEMENT 3
 
+/**
+ * ClientCommand class: The ClientCommand class is supposed to open a new
+ * client
+ */
 class ClientCommand : public Command {
     SymbolTable *symbolTable;
     Factory *factoryExpression;

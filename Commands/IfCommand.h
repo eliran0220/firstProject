@@ -5,7 +5,7 @@
 #include "ConditionParser.h"
 
 /*
- * If command class the class is supposed to check if the condition is valid
+ * If command class: the class is supposed to check if the condition is valid
  */
 class IfCommand : public ConditionParser {
 public:

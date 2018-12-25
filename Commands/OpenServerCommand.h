@@ -1,26 +1,31 @@
-//
-// Created by eliran on 12/20/18.
-//
-
-#ifndef FIRSTPROJECT_OPENSERVERCOMMAND_H
-#define FIRSTPROJECT_OPENSERVERCOMMAND_H
-
+#ifndef OPENSERVERCOMMAND_H
+#define OPENSERVERCOMMAND_H
 
 #include "Command.h"
 #include "../Useful/Factory.h"
 #include "../ServerAndClient/DataReaderServer.h"
+#include <pthread.h>
+#include <thread>
+#include <mutex>
 
+#define AMOUNT_MOVEMENT 3
 
+/**
+ * OpenServerCommand class: The OpenServerCommand class is supposed to open
+ * the server
+ */
 class OpenServerCommand : public Command {
     Factory *factoryExpression;
-    SymbolTable* symbolTable;
+    SymbolTable *symbolTable;
     bool shouldStop;
 
 public:
-    OpenServerCommand(Factory *expression, SymbolTable* symbolTable);
+    OpenServerCommand(Factory *expression, SymbolTable *symbolTable);
+
     ~OpenServerCommand();
+
     virtual int execute(vector<string> &parameters, int position);
 
 };
 
-#endif //FIRSTPROJECT_OPENSERVERCOMMAND_H
+#endif

@@ -17,7 +17,6 @@
 #include "ClientCommand.h"
 #include "EntercCommand.h"
 
-
 #define PRINT_COMMAND  "print"
 #define SLEEP_COMMAND  "sleep"
 #define DEFINE_VAR_COMMAND "var"
@@ -28,10 +27,15 @@
 #define CLIENT_COMMAND "connect"
 //#define ENTERC "Enterc"
 #include "ExitCommand.h"
+
 #define EXIT "exit"
 
 using namespace std;
 
+/**
+ * FactoryCommands class: The class is supposed to create a new command
+ * given the string
+ */
 class FactoryCommands : public Factory {
 
 private:

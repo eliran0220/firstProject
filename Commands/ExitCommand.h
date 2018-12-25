@@ -1,21 +1,20 @@
-//
-// Created by afik on 12/25/18.
-//
-
-#ifndef FIRSTPROJECT_EXITCOMMAND_H
-#define FIRSTPROJECT_EXITCOMMAND_H
-
+#ifndef EXITCOMMAND_H
+#define EXITCOMMAND_H
+#define EXIT_VALUE -1
 
 #include "Command.h"
 
-#define EXIT_VALUE -1
-
+/**
+ * ExitCommand class: The ExitCommand class is supposed to make the command
+ * exit after it's purpose has been completed
+ */
 class ExitCommand : public Command {
 public:
     ExitCommand() {}
+
     int execute(vector<string> &parameters, int position);
 
 };
 
 
-#endif //FIRSTPROJECT_EXITCOMMAND_H
+#endif

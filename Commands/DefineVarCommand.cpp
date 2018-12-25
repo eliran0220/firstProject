@@ -2,8 +2,6 @@
 
 /**
  * Function name: execute
- * The input: vector<string>, int
- * The output: none
  * The function operation: creates the string of the var, and then adds the var to the tables.
  * Then, we move 2 positions in the lexer
  * @param parameters vector<string>
