@@ -18,6 +18,7 @@ int OpenServerCommand::execute(vector<string> &parameters, int position) {
     int rate = (int) (r->calculate());
     // create socket and stop the program until the connection is made
     int socket = DataReaderServer::createSocket(port);
+    int x;
     delete (p);
     delete (r);
 
