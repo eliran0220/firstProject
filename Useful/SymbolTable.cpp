@@ -1,13 +1,7 @@
-//
-// Created by eliran on 12/16/18.
-//
-
 #include "SymbolTable.h"
 
 /**
  * Function name: addToTable
- * The input: string
- * The output: none
  * The function operation: The function adds the given string to the maps.
  * The string represents the variable which will be added
  * @param name given string
@@ -22,14 +16,12 @@ void SymbolTable::addToTable(string name) {
 
 /**
  * Function name: updateSymbtolTableDest
- * The input: string, string
- * The output: none
  * The function operation: The function updates the table dest with the given string (name) to the
  * given string (value).
  * We initialize the name var in the dest, value, to true , so we would know it exists,
  * and then we set the value in the dest table.
- * @param name string
- * @param value string
+ * @param name given string
+ * @param value given string
  */
 void SymbolTable::updateSymbolTableDest(string name, string value) {
     mutex mtx;
@@ -38,7 +30,7 @@ void SymbolTable::updateSymbolTableDest(string name, string value) {
     this->valueTable[name]->setInitialize(true);
     this->destTable[name]->setValue(value);
     StoreVarValue<double> *temp = this->valueTable[name];
-    // עידכון של המפה של הסימולטר
+    // update map of simulator
     if (this->existsInBindValueMap(value)) {
         this->bindValue[value].push_back(temp);
     } else {
@@ -50,8 +42,6 @@ void SymbolTable::updateSymbolTableDest(string name, string value) {
 
 /**
  * Function name: updateSymbolTableValue
- * The input: string, double
- * The output: none
  * The function operation: The function updates the symbol table
  * Inserts the value of the given var (string name) , the value to the table
  * And initialize the bool sign to true, so we would know it exists.

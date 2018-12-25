@@ -1,12 +1,14 @@
-//
-// Created by afik on 12/15/18.
-//
 #include "DataReaderServer.h"
-//
-// Created by eliran on 12/20/18.
-//
 
-
+/**
+ * Function name: DataReaderServer
+ * The function operation: The function runs the server with the given
+ * parameters, and constantly updates the symbol table with the values
+ * @param socket given socket
+ * @param rate the given hertz rate
+ * @param symbolTable given symbol table
+ * @param shouldStop given boolean to know when to stop
+ */
 void DataReaderServer::run(int socket, int rate, SymbolTable *symbolTable,
                            bool *shouldStop) {
     //int socket = createSocket(port);
@@ -15,7 +17,7 @@ void DataReaderServer::run(int socket, int rate, SymbolTable *symbolTable,
     string values;
     while (!*shouldStop) {
         n = read(socket, buffer, 1);
-        while (strcmp(buffer, "\n") != 0 ) {
+        while (strcmp(buffer, "\n") != 0) {
             values += buffer;
             n = read(socket, buffer, 1);
             if (n < 0) {
@@ -71,6 +73,15 @@ int DataReaderServer::createSocket(int port) {
     return newsockfd;
 }
 
+/**
+ * Function name: updateSymbolTable
+ * The function operation: The function sends the values and the
+ * symbol table (by refrence, so we can update), goes through all the
+ * variables in the xml file, if the value exists in the table, we
+ * we update it.
+ * @param values given values to update
+ * @param symbolTable given symbol table to update
+ */
 void
 DataReaderServer::updateSymbolTable(string &values, SymbolTable *symbolTable) {
     string xmlPathsVec[XML_AMOUNT_VARIABLES] = {INDICATE_SPEED, INDICATE_ALT,
@@ -90,7 +101,8 @@ DataReaderServer::updateSymbolTable(string &values, SymbolTable *symbolTable) {
     string tempString;
     double value;
     for (int i = 0; i < XML_AMOUNT_VARIABLES; ++i) {
-        if (getline(ss, tempString, ',') && symbolTable->existsInBindValueMap(xmlPathsVec[i])) {
+        if (getline(ss, tempString, ',') &&
+            symbolTable->existsInBindValueMap(xmlPathsVec[i])) {
             value = stod(tempString);
             vec = symbolTable->getVariablesForUpdate(xmlPathsVec[i]);
             for (int j = 0; j < vec.size(); ++j) {

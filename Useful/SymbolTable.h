@@ -1,9 +1,5 @@
-//
-// Created by eliran on 12/16/18.
-//
-
-#ifndef FIRSTPROJECT_SYMBOLTABLE_H
-#define FIRSTPROJECT_SYMBOLTABLE_H
+#ifndef SYMBOLTABLE_H
+#define SYMBOLTABLE_H
 
 #include <map>
 #include <algorithm>
@@ -12,19 +8,19 @@
 #include "StoreVarValue.h"
 #include <mutex>
 
-using namespace std;
-
 #define ONE 1
 
+using namespace std;
 
 class SymbolTable {
 private:
-    map<string, vector<StoreVarValue<double>*>> bindValue;
-    map<string, StoreVarValue<double>*> valueTable;
-    map<string, StoreVarValue<string>*> destTable;
+    map<string, vector<StoreVarValue<double> *>> bindValue;
+    map<string, StoreVarValue<double> *> valueTable;
+    map<string, StoreVarValue<string> *> destTable;
 
 public:
     SymbolTable() {}
+
     ~SymbolTable();
 
 
@@ -44,10 +40,10 @@ public:
 
     bool existsInValueTableMap(string var);
 
-    vector<StoreVarValue<double>*> getVariablesForUpdate(string& key);
+    vector<StoreVarValue<double> *> getVariablesForUpdate(string &key);
 
-    map<string, vector<StoreVarValue<double>*>> getBindMap();
+    map<string, vector<StoreVarValue<double> *>> getBindMap();
 };
 
 
-#endif //FIRSTPROJECT_SYMBOLTABLE_H
+#endif

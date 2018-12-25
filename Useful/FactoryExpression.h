@@ -1,9 +1,5 @@
-//
-// Created by afik on 12/15/18.
-//
-
-#ifndef FIRSTPROJECT_CASTSTRINGTOEXPRESSION_H
-#define FIRSTPROJECT_CASTSTRINGTOEXPRESSION_H
+#ifndef CASTSTRINGTOEXPRESSION_H
+#define CASTSTRINGTOEXPRESSION_H
 
 #include <regex>
 #include <queue>
@@ -17,20 +13,25 @@
 
 using namespace std;
 
+/**
+ * The class holds the responsability, of splitting the given string
+ * and create the desirable expression from it.
+ */
 class FactoryExpression : public Factory {
 
 private:
-    SymbolTable* symbolTable;
+    SymbolTable *symbolTable;
 public:
-    FactoryExpression(SymbolTable* symbolTable) {
+    FactoryExpression(SymbolTable *symbolTable) {
         this->symbolTable = symbolTable;
     }
 
     vector<string> splitExpression(string stringExpression);
 
-    Expression* createExpressionFromStrings(vector<string> strings);
-    virtual Expression* create(const string& exString);
+    Expression *createExpressionFromStrings(vector<string> strings);
+
+    virtual Expression *create(const string &exString);
 };
 
 
-#endif //FIRSTPROJECT_CASTSTRINGTOEXPRESSION_H
+#endif

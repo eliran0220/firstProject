@@ -1,13 +1,7 @@
-//
-// Created by afik on 12/16/18.
-//
-
 #include "CollectionCommands.h"
 
 /**
 * Function name: CollectionCommands
-* The input: none
-* The output: none
 * The function operation: Constructs a new CollectionCommand
 */
 CollectionCommands::CollectionCommands() {
@@ -16,9 +10,7 @@ CollectionCommands::CollectionCommands() {
 
 /**
  * Function name: ~CollectionCommands
- * The input: none
- * The output: none
- * The function operatin: Destructs the collection command
+ * The function operation: Destructs the collection command
  */
 CollectionCommands::~CollectionCommands() {
     delete (this->factoryCommands);
@@ -31,8 +23,6 @@ CollectionCommands::~CollectionCommands() {
 
 /**
  * Function name: getExpressionCommand
- * The input: string
- * The output: Expression
  * The function operation: gets a string command, checks if the command exists in the collection,
  * if exists, returns it, if not, creates a new Expression of that command and returns it.
  * @param command a given string

@@ -1,8 +1,3 @@
-//
-// Created by afik on 12/15/18.
-//
-
-
 #include <iostream>
 #include "FactoryExpression.h"
 
@@ -10,12 +5,9 @@ string addBrackets(string stringToAdd, int start);
 
 /**
  * Function name: splitExpression
- * The input: string
- * The output: vector<string>
  * The function operation: The function gets a string and splits it.
- *
- * @param stringExpression
- * @return
+ * @param stringExpression given string
+ * @return vector<string>
  */
 vector<string> FactoryExpression::splitExpression(string stringExpression) {
     vector<string> split;
@@ -111,8 +103,6 @@ string addBrackets(string stringToAdd, int start) {
 
 /**
  * Function name: shuntingYardAlgorithm
- * The input: vector<string>
- * The output: vector<string>
  * The function operation: The function gets a vector if strings, and applies the shunting yard
  * algorithm on the vector. We work by "regular expressions" so we check each time if we have
  * a match between the element in the vector to the item we defined in the function, and we operate
@@ -176,12 +166,9 @@ vector<string> shuntingYardAlgorithm(vector<string> strings) {
 
 /**
  * Function name: createExpressionFromString
- * The input: vector<string>
- * The output: Expression
  * The function operation: The function gets a vector of strings, and creates an expression from it.
- *
- * @param strings
- * @return
+ * @param strings given vector of strings
+ * @return Expression*
  */
 Expression* FactoryExpression::createExpressionFromStrings(vector<string> strings) {
     regex numberR("[0-9]+||[0-9].{0,1}[0-9]+");
@@ -244,8 +231,6 @@ Expression* FactoryExpression::createExpressionFromStrings(vector<string> string
 
 /**
  * Function name: create
- * The input: string
- * The output: Expression
  * The function operation: The function creates an expression from a given string, using all the functions
  * above.
  * @param exString a given string

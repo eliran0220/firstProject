@@ -1,9 +1,5 @@
-//
-// Created by afik on 12/15/18.
-//
-
-#ifndef FIRSTPROJECT_DATAREADERSERVER_H
-#define FIRSTPROJECT_DATAREADERSERVER_H
+#ifndef DATAREADERSERVER_H
+#define DATAREADERSERVER_H
 
 
 #include "../Useful/Factory.h"
@@ -45,6 +41,9 @@
 
 #define XML_AMOUNT_VARIABLES 23
 
+/**
+ * The class creates a server given ip and reading rate
+ */
 class DataReaderServer {
 public:
     static void run(int socket, int rate, SymbolTable* symbolTable, bool *shouldStop);
@@ -55,4 +54,4 @@ public:
 };
 
 
-#endif //FIRSTPROJECT_DATAREADERSERVER_H
+#endif
