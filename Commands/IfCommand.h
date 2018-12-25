@@ -1,7 +1,6 @@
 #ifndef IFCOMMAND_H
 #define IFCOMMAND_H
 
-
 #include "ConditionParser.h"
 
 /*
