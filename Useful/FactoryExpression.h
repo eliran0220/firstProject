@@ -2,6 +2,7 @@
 #define CASTSTRINGTOEXPRESSION_H
 
 #include <regex>
+#include <iostream>
 #include <queue>
 #include "../Expressions/Div.h"
 #include "../Expressions/Mult.h"

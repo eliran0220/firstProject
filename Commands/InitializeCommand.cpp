@@ -29,6 +29,7 @@ InitializeCommand::execute(vector<string> &parameters, int position) {
         Expression *e = this->expression->create(parameters[position + 1]);
         this->table->updateSymbolTableValue(parameters[position - 1],
                                             e->calculate());
+        delete (e);
         return AMOUNT_MOVEMENT;
     }
 }

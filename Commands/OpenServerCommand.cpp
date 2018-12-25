@@ -17,11 +17,25 @@ int OpenServerCommand::execute(vector<string> &parameters, int position) {
     int port = (int) (p->calculate());
     int rate = (int) (r->calculate());
     // create socket and stop the program until the connection is made
-    //int socket = DataReaderServer::createSocket(port);
+    int socket = DataReaderServer::createSocket(port);
     delete (p);
     delete (r);
+
+    ssize_t n;
+    char buffer[1];
+    string values;
+    n = read(socket, buffer, 1);
+    while (strcmp(buffer, "\n") != 0) {
+        values += buffer;
+        n = read(socket, buffer, 1);
+        if (n < 0) {
+            perror("ERROR reading from socket");
+            exit(1);
+        }
+    }
+
     // open a new thread for the server.
-    thread serverThread(DataReaderServer::run, port, rate, this->symbolTable,
+    thread serverThread(DataReaderServer::run, socket, rate, this->symbolTable,
                         &this->shouldStop);
     serverThread.detach();
     return AMOUNT_SERVER_MOVEMENT;
@@ -45,5 +59,6 @@ OpenServerCommand::OpenServerCommand(Factory *expression,
  * The function operation: Destructs the OpenServerCommand
  */
 OpenServerCommand::~OpenServerCommand() {
+    // stop the threads.
     this->shouldStop = true;
 }

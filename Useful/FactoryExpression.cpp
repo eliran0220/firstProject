@@ -1,7 +1,6 @@
-#include <iostream>
 #include "FactoryExpression.h"
 
-string addBrackets(string stringToAdd, int start);
+string decorateBrackets(string stringToDecorate, int start);
 
 /**
  * Function name: splitExpression
@@ -16,31 +15,33 @@ vector<string> FactoryExpression::splitExpression(string stringExpression) {
     regex letterR("[a-zA-Z_]");
     regex numberR("[0-9]");
     regex operatorR("[+]||[-]||[/]||[*]");
-    int counter = 0;
-    int amounet = 0;
-    bool flagMinus = false;
     bool flag = false;
+    // check if the first number is negative if is add 0
     if (stringExpression[0] == '-' || stringExpression[0] == '+') {
         split.push_back("0");
     }
     for (int i = 0; i < stringExpression.size(); ++i) {
         temp = stringExpression[i];
-        while (regex_match(temp, letterR) || regex_match(temp, numberR) || temp == ".") {
+        while (regex_match(temp, letterR) || regex_match(temp, numberR) ||
+               temp == ".") {
             stringNumber = stringNumber + temp;
             flag = true;
             i++;
             temp = stringExpression[i];
         }
-        if (flag){
+        if (flag) {
             split.push_back(stringNumber);
             stringNumber = "";
             flag = false;
-            // תנאי אם קיים ביטוי שלילי
-        } if ((temp == "-" || temp == "+") && !split.empty()) {
+        }
+        // check if temp is an operator - or  +.
+        if ((temp == "-" || temp == "+") && !split.empty()) {
+            // check if the last string is an operator
             if (regex_match(split[split.size() - 1], operatorR)) {
                 split.push_back("(");
                 split.push_back("0");
-                stringExpression = addBrackets(stringExpression, i + 1);
+                // decorate the expression with brackets
+                stringExpression = decorateBrackets(stringExpression, i + 1);
             } else if (split[split.size() - 1] == "(") {
                 split.push_back("0");
             }
@@ -52,60 +53,78 @@ vector<string> FactoryExpression::splitExpression(string stringExpression) {
     return split;
 }
 
-int precedence(string& op){
-    if(op == "+"||op == "-"){
+/**
+ * Function name: precedence
+ * The function operation: The function sorts the priority of the operators.
+ * @param op
+ * @return int
+ */
+int precedence(string &op) {
+    if (op == "+" || op == "-") {
         return 1;
     }
-    if(op == "*" ||op == "/") {
+    if (op == "*" || op == "/") {
         return 2;
     }
     return 0;
 }
 
-string addBrackets(string stringToAdd, int start) {
+/**
+ * Function name: decorateBrackets
+ * The function operation: The function decorates the expression with brackets.
+ * @param stringToDecorate
+ * @param start
+ * @return
+ */
+string decorateBrackets(string stringToDecorate, int start) {
     int counter = 0;
     int amountBrackets = 0;
+    string s;
     regex letter("[0-9a-zA-Z_]");
-    bool flag = false;
-    if (start < stringToAdd.size() && stringToAdd[start] == '(') {
+    // count the first bracket
+    if (start < stringToDecorate.size() && stringToDecorate[start] == '(') {
         amountBrackets = 1;
     }
-    string s;
+    // concatenate the string
     for (int i = 0; i < start; ++i) {
-        s += stringToAdd[i];
+        s += stringToDecorate[i];
     }
-    while (counter < amountBrackets && start < stringToAdd.size()) {
-        if (stringToAdd[start] == '(') {
+    // find the end expression to decorate.
+    while (counter < amountBrackets && start < stringToDecorate.size()) {
+        if (stringToDecorate[start] == '(') {
             amountBrackets++;
         }
-        if (stringToAdd[start] == ')') {
+        if (stringToDecorate[start] == ')') {
             counter++;
         }
-        s += stringToAdd[start];
+        s += stringToDecorate[start];
         start++;
     }
-    while (amountBrackets == 0 && start < stringToAdd.size()) {
+    // if the expression not have brackets
+    while (amountBrackets == 0 && start < stringToDecorate.size()) {
         string temp;
-        temp += stringToAdd[start];
-        if (! regex_match(temp.c_str(), letter)){
+        temp += stringToDecorate[start];
+        if (!regex_match(temp.c_str(), letter)) {
             start--;
             break;
         }
-        s += stringToAdd[start];
+        s += stringToDecorate[start];
         start++;
     }
     s += ')';
-    for (int j = start; j < stringToAdd.size(); ++j) {
-        s += stringToAdd[j];
+    // concatenate the end string
+    for (int j = start; j < stringToDecorate.size(); ++j) {
+        s += stringToDecorate[j];
     }
     return s;
 }
 
 /**
  * Function name: shuntingYardAlgorithm
- * The function operation: The function gets a vector if strings, and applies the shunting yard
- * algorithm on the vector. We work by "regular expressions" so we check each time if we have
- * a match between the element in the vector to the item we defined in the function, and we operate
+ * The function operation: The function gets a vector if strings, and applies
+ * the shunting yard algorithm on the vector. We work by "regular expressions"
+ * so we check each time if we have a match between the element in the vector
+ * to the item we defined in the function, and we operate
  * by the shunting yard algorithm, untill we have no elements.
  * @param strings vector of strings
  * @return vector<string>
@@ -128,8 +147,8 @@ vector<string> shuntingYardAlgorithm(vector<string> strings) {
             //if we have an operator
         } else if (regex_match(prefix[i], operatorR)) {
             //while the stack isn't empty
-            while ((! s.empty()) && regex_match(s.top(), operatorR)
-                  && precedence(s.top()) >= precedence(prefix[i])) {
+            while ((!s.empty()) && regex_match(s.top(), operatorR)
+                   && precedence(s.top()) >= precedence(prefix[i])) {
                 //push to stack by priority
                 q.push(s.top());
                 s.pop();
@@ -138,8 +157,8 @@ vector<string> shuntingYardAlgorithm(vector<string> strings) {
         } else if (prefix[i] == "(") {
             s.push(prefix[i]);
         } else if (prefix[i] == ")") {
-            while (! s.empty()) {
-                if ( s.top() != "(") {
+            while (!s.empty()) {
+                if (s.top() != "(") {
                     temp = s.top();
                     q.push(temp);
                     s.pop();
@@ -151,7 +170,7 @@ vector<string> shuntingYardAlgorithm(vector<string> strings) {
         }
     }
     //while stack isn't empty, push to queue, extract from stack
-    while (! s.empty()) {
+    while (!s.empty()) {
         q.push(s.top());
         s.pop();
     }
@@ -166,39 +185,44 @@ vector<string> shuntingYardAlgorithm(vector<string> strings) {
 
 /**
  * Function name: createExpressionFromString
- * The function operation: The function gets a vector of strings, and creates an expression from it.
+ * The function operation: The function gets a vector of strings, and creates
+ * an expression from it.
  * @param strings given vector of strings
  * @return Expression*
  */
-Expression* FactoryExpression::createExpressionFromStrings(vector<string> strings) {
+Expression *
+FactoryExpression::createExpressionFromStrings(vector<string> strings) {
     regex numberR("[0-9]+||[0-9].{0,1}[0-9]+");
     regex operatorR("[+]||[-]||[/]||[*]");
     regex varR("[a-zA-Z0-9_]+");
-    stack<Expression*> stackEx;
-    Expression* tempEx = nullptr;
-    Expression* left;
-    Expression* right;
+    stack<Expression *> stackEx;
+    Expression *tempEx = nullptr;
+    Expression *left;
+    Expression *right;
     double tempNum;
     for (int i = 0; i < strings.size(); ++i) {
         if (regex_match(strings[i], numberR)) {
             tempNum = stod(strings[i].c_str());
             tempEx = new Number(tempNum);
             stackEx.push(tempEx);
-        } else if (regex_match(strings[i], varR)){
+        // check if the string is variables
+        } else if (regex_match(strings[i], varR)) {
             // check if the variable in the symbol table
             if (this->symbolTable->existsInValueTableMap(strings[i])) {
-                tempEx = new Number(this->symbolTable->getSymbolTableValue(strings[i]));
+                tempEx = new Number(
+                        this->symbolTable->getSymbolTableValue(strings[i]));
                 stackEx.push(tempEx);
             } else {
                 // Release memory before throwing exception
-                Expression* tempFree;
+                Expression *tempFree;
                 while (!stackEx.empty()) {
                     tempFree = stackEx.top();
                     stackEx.pop();
                     delete (tempFree);
                 }
-                throw "The variable doesn't exist factoryCreateExpression failed";
+                throw "The variable doesn't exist factoryExpression failed";
             }
+            // else the string is an operator.
         } else {
             if (stackEx.size() < 2) {
                 throw "Something wrong with the expression syntax";
@@ -213,7 +237,7 @@ Expression* FactoryExpression::createExpressionFromStrings(vector<string> string
                 tempEx = new Mult(left, right);
             } else if (strings[i] == "+") {
                 tempEx = new Plus(left, right);
-            }  else if (strings[i] == "-") {
+            } else if (strings[i] == "-") {
                 tempEx = new Minus(left, right);
             }
             stackEx.push(tempEx);
@@ -231,12 +255,13 @@ Expression* FactoryExpression::createExpressionFromStrings(vector<string> string
 
 /**
  * Function name: create
- * The function operation: The function creates an expression from a given string, using all the functions
+ * The function operation: The function creates an expression from a given
+ * string, using all the functions
  * above.
  * @param exString a given string
  * @return Expression*
  */
-Expression* FactoryExpression::create(const string &exString) {
+Expression *FactoryExpression::create(const string &exString) {
     vector<string> splitEx;
     splitEx = splitExpression(exString);
     splitEx = shuntingYardAlgorithm(splitEx);

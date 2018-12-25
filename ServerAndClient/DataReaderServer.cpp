@@ -9,9 +9,8 @@
  * @param symbolTable given symbol table
  * @param shouldStop given boolean to know when to stop
  */
-void DataReaderServer::run(int port, int rate, SymbolTable *symbolTable,
+void DataReaderServer::run(int socket, int rate, SymbolTable *symbolTable,
                            bool *shouldStop) {
-    int socket = createSocket(port);
     ssize_t n;
     char buffer[1];
     string values;

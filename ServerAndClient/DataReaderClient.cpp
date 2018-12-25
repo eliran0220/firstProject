@@ -33,7 +33,6 @@ DataReaderClient::run(int givePort, string givenIp, SymbolTable *symbolTable,
           server->h_length);
     serv_addr.sin_port = htons(givePort);
     // Now connect to the server
-    int tries = 0;
     // Try to connect until the connect is made.
     while (connect(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) <
            0) {
@@ -41,7 +40,6 @@ DataReaderClient::run(int givePort, string givenIp, SymbolTable *symbolTable,
     // Update the server for changes
     vector<string> changes;
     vector<string>::iterator it;
-    string updateMessage = "set /controls/flight/rudder 1\r\n";
     // write the the server until the program not finish.
     while (!*shouldStop) {
         writeToServer(sockfd, symbolTable);

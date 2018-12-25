@@ -8,6 +8,8 @@
 #include "StoreVarValue.h"
 #include <mutex>
 
+using namespace std;
+
 #define ONE 1
 
 using namespace std;

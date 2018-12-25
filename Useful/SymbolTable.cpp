@@ -1,5 +1,7 @@
 #include "SymbolTable.h"
 
+mutex mtx;
+
 /**
  * Function name: addToTable
  * The function operation: The function adds the given string to the maps.
@@ -24,8 +26,7 @@ void SymbolTable::addToTable(string name) {
  * @param value given string
  */
 void SymbolTable::updateSymbolTableDest(string name, string value) {
-    mutex mtx;
-    unique_lock<mutex> lock(mtx);
+    lock_guard<mutex> lock(mtx);
     this->destTable[name]->setInitialize(true);
     this->valueTable[name]->setInitialize(true);
     this->destTable[name]->setValue(value);
@@ -49,8 +50,7 @@ void SymbolTable::updateSymbolTableDest(string name, string value) {
  * @param value the value we want to update
  */
 void SymbolTable::updateSymbolTableValue(string name, double value) {
-    mutex mtx;
-    unique_lock<mutex> lock(mtx);
+    lock_guard<mutex> lock(mtx);
     this->valueTable[name]->setInitialize(true);
     this->valueTable[name]->setValue(value);
 }
