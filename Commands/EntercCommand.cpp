@@ -15,7 +15,7 @@ EntercCommand::EntercCommand() {}
  * @return int
  */
 int EntercCommand::execute(vector<string> &parameters, int position) {
-    cout << "Please wait until connection established:";
+    cout << "Please wait until engine startup:";
     char temp[2];
     fgets(temp, sizeof(temp), stdin);
     return AMOUNT_ENTCRE_MOVEMENT;

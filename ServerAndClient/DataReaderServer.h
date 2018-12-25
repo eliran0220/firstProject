@@ -46,7 +46,7 @@
  */
 class DataReaderServer {
 public:
-    static void run(int socket, int rate, SymbolTable* symbolTable, bool *shouldStop);
+    static void run(int port, int rate, SymbolTable* symbolTable, bool *shouldStop);
 
     static int createSocket(int port);
 
