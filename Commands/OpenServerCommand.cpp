@@ -31,7 +31,7 @@ int OpenServerCommand::execute(vector<string> &parameters, int position) {
     delete (r);
     thread serverThread(DataReaderServer::run, socket, rate, this->symbolTable,
                         &this->shouldStop);
-    serverThread.join();
+    serverThread.detach();
     return AMOUNT_SERVER_MOVEMENT;
 }
 

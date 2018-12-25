@@ -30,7 +30,7 @@ ConditionParser::~ConditionParser() {
  * @return string
  */
 vector<Expression *> ConditionParser::splitCondition(string &condition, string opera) {
-    regex r("[0-9A-Za-z_]+(>||<||>=||<=||==||!=)[0-9A-Za-z_]+");
+    regex r(".+(>||<||>=||<=||==||!=).+");
     // check if the condition string is legal
     if (!regex_match(condition, r)) {
         throw "Syntax error invalid condition";
