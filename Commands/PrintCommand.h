@@ -11,6 +11,9 @@
 
 using namespace std;
 
+/**
+ * The PrintCommand class is in charger to print to the console.
+ */
 class PrintCommand : public Command {
 private:
     Factory *createExpression;
@@ -20,6 +23,5 @@ public:
     virtual int execute(vector<string> &parameters, int position);
 
 };
-
 
 #endif

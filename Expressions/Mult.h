@@ -20,7 +20,8 @@ public:
 
     /**
      * Function name: calculate
-     * The function operation: The function evaluates the result of the multipication between left expression
+     * The function operation: The function evaluates the result of the
+     * multipication between left expression
      * and right expression
      * @return double
      */

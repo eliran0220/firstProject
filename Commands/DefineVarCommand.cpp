@@ -2,8 +2,8 @@
 
 /**
  * Function name: execute
- * The function operation: creates the string of the var, and then adds the var to the tables.
- * Then, we move 2 positions in the lexer
+ * The function operation: creates the string of the var, and then adds
+ * the var to the tables.Then, we move 2 positions in the lexer
  * @param parameters vector<string>
  * @param position int
  * @return int

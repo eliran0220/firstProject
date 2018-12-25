@@ -3,7 +3,8 @@
 /**
  * Function name: execute
  * The function operation: The function checks if the condition is valid,if so
- * executes all the commands in the block, if not, finds where t he block ends and continues from there.
+ * executes all the commands in the block, if not, finds where t he block ends
+ * and continues from there.
  * @param parameters vector<string>
  * @param position int
  * @return int

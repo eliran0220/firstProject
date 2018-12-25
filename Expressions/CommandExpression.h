@@ -27,7 +27,8 @@ public:
 
     /**
      * Function name: calculate
-     * The function operation: The function calls the execute func of the initialized command, with
+     * The function operation: The function calls the execute func of the
+     * initialized command, with
      * the parameters and the position.
      * @return double
      */
@@ -37,7 +38,8 @@ public:
 
     /**
      * Function name: setLexerStringAndPosition
-     * The function operation: The function initialized the parameters and the position given in the
+     * The function operation: The function initialized the parameters and
+     * the position given in the
      * parameters (represent where we are right now at the vector)
      * @param parameters vector<string>
      * @param position int

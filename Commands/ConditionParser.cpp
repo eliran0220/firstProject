@@ -6,7 +6,8 @@
  * @param factoryCommand factoryCommand
  * @param factoryExpression factoryExpression
  */
-ConditionParser::ConditionParser(Factory *factoryCommand, Factory *factoryExpression) {
+ConditionParser::ConditionParser(Factory *factoryCommand,
+                                 Factory *factoryExpression) {
     this->factoryCommand = factoryCommand;
     this->factoryExpression = factoryExpression;
 }
@@ -23,13 +24,14 @@ ConditionParser::~ConditionParser() {
 
 /**
  * Function name: splitCondition
- * The function operation: The function splits the given string, by the given other string.
- * It finds
+ * The function operation: The function splits the given string, by the given
+ * other string.It finds
  * @param condition string
  * @param opera string
  * @return string
  */
-vector<Expression *> ConditionParser::splitCondition(string &condition, string opera) {
+vector<Expression *>
+ConditionParser::splitCondition(string &condition, string opera) {
     regex r(".+(>||<||>=||<=||==||!=).+");
     // check if the condition string is legal
     if (!regex_match(condition, r)) {
@@ -51,21 +53,23 @@ vector<Expression *> ConditionParser::splitCondition(string &condition, string o
 
 /**
  * Function name: parser
- * The function operation: The function creates, and "calculates" the commands in the commands vector,
- * as long as the command at the position is not " } "
+ * The function operation: The function creates, and "calculates" the commands
+ * in the commands vector,as long as the command at the position is not " } "
  * In the end, returns the position + 1, to move on to the next command
  * @param commands vector<string>
  * @param position int
  * @return int
  */
-vector<Expression*> ConditionParser::parser(vector<string> *commands, int position) {
-    vector<Expression*> listOfCommands;
+vector<Expression *>
+ConditionParser::parser(vector<string> *commands, int position) {
+    vector<Expression *> listOfCommands;
     int value;
     // while the block not ended
     while (commands->at(position) != "}") {
-        Expression *tempCommand = this->factoryCommand->create(commands->at(position));
+        Expression *tempCommand = this->factoryCommand->create(
+                commands->at(position));
         tempCommand->setLexerStringAndPosition(commands, position);
-        value = (int)tempCommand->calculate();
+        value = (int) tempCommand->calculate();
         position += value;
         // add to the command list for reuse
         listOfCommands.push_back(tempCommand);
@@ -81,8 +85,9 @@ vector<Expression*> ConditionParser::parser(vector<string> *commands, int positi
 /**
  * Function name: condition
 
- * The function operation: The function returns the result between operator of the expressions.
- * Depending on the given string, we do invoke the right operator to evaluate the expression, and
+ * The function operation: The function returns the result between operator of
+ * the expressions.Depending on the given string, we do invoke the right
+ * operator to evaluate the expression, and
  * return the result.
  * @param conditionString string
  * @return bool
@@ -120,8 +125,9 @@ bool ConditionParser::condition(string conditionString) {
 
 /**
  * Function name: findTheEndBlock
- * The function operation: The function goes thorugh the strings in the parameters vector:
- * First it recognizes where the first { is at, then iterates thouugh the vector and funds the last
+ * The function operation: The function goes thorugh the strings in the
+ * parameters vector:First it recognizes where the first { is at, then iterates
+ * thouugh the vector and funds the last
  * position of the } ,which is connected to the first { and returns it.
  * Used to know nested loops end (or nested if)
  * @param parameters vector<string>
@@ -142,8 +148,14 @@ int ConditionParser::findTheEndBlock(vector<string> *parameters, int position) {
     return position;
 }
 
+/**
+ * Function name: freeExpressionMemory
+ * The function operation: The function is in charger for free
+ * the runtime objects.
+ * @param expression list of object for free.
+ */
 void ConditionParser::freeExpressionMemory(vector<Expression *> expression) {
     for (int i = expression.size() - 1; i >= 0; --i) {
-        delete(expression[i]);
+        delete (expression[i]);
     }
 }

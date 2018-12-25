@@ -38,5 +38,4 @@ public:
     int findTheEndBlock(vector<string> *parameters, int position);
 };
 
-
 #endif

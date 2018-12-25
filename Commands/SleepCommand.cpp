@@ -11,9 +11,10 @@ SleepCommand::SleepCommand(Factory *castStringToExpression) {
 
 /**
  * Function name: execute
- * The function operation: The function creates an expression from parameters in position + 1
- * and then sleeps for the time, evaluated , and divided by 1000 (to turn into millieseconds)
- * Lastly, we return 2 to move to the next command in parser
+ * The function operation: The function creates an expression from parameters
+ * in position + 1 and then sleeps for the time, evaluated , and divided by
+ * 1000 (to turn into millieseconds)Lastly, we return 2 to move to the next
+ * command in parser
  * @param parameters vector<string>
  * @param position int
  * @return int

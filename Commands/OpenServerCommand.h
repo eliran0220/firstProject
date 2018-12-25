@@ -6,7 +6,6 @@
 #include "../ServerAndClient/DataReaderServer.h"
 #include <pthread.h>
 #include <thread>
-#include <mutex>
 
 #define AMOUNT_SERVER_MOVEMENT 3
 

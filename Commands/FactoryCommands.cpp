@@ -22,10 +22,11 @@ FactoryCommands::~FactoryCommands() {
 
 /**
  * Function name: create
- * The function operation: The function creates a new Command, given by the string, and returns it
- * We have 8 types of command : print, sleep, var , = , while, if, openDataServer and connect
- * if we don't have a match, we create a "new" command called increament, which just moves the
- * position on the lexer by 1 (example, if we are positioned on a variable, we need to move
+ * The function operation: The function creates a new Command, given by the
+ * string, and returns it We have 8 types of command : print, sleep, var , = ,
+ * while, if, openDataServer and connect if we don't have a match, we create a
+ * "new" command called increament, which just moves the position on the lexer
+ * by 1 (example, if we are positioned on a variable, we need to move
  * to the actual command)
  * @param exString string
  * @return Expression*
@@ -61,7 +62,7 @@ Expression *FactoryCommands::create(const string &exString) {
     //if exString == "while"
     if (exString == WHILE_COMMAND) {
         ConditionParser *whileCommand = new WhileCommand(this,
-                                                         this->createExpression);
+                                                        this->createExpression);
         Expression *expressionCommand = new CommandExpression(whileCommand);
         return expressionCommand;
     }
@@ -83,7 +84,7 @@ Expression *FactoryCommands::create(const string &exString) {
     //if exString == "connect"
     if (exString == CLIENT_COMMAND) {
         ClientCommand *clientCommand = new ClientCommand(this->symbolTable,
-                                                         this->createExpression);
+                                                        this->createExpression);
         Expression *expressionCommand = new CommandExpression(clientCommand);
         return expressionCommand;
     }
@@ -101,7 +102,8 @@ Expression *FactoryCommands::create(const string &exString) {
     }
     //The case we don't find any command matched to the string.
     if (this->symbolTable->existsInValueTableMap(exString)) {
-        IncreaseCounterCommand *increaseCounterCommand = new IncreaseCounterCommand();
+        IncreaseCounterCommand *increaseCounterCommand =
+                                                 new IncreaseCounterCommand();
         Expression *expressionCommand = new CommandExpression(
                 increaseCounterCommand);
         return expressionCommand;

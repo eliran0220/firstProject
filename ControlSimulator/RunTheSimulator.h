@@ -1,9 +1,5 @@
-//
-// Created by afik on 12/13/18.
-//
-
-#ifndef FIRSTPROJECT_RUNTHESIMULATOR_H
-#define FIRSTPROJECT_RUNTHESIMULATOR_H
+#ifndef RUNTHESIMULATOR_H
+#define RUNTHESIMULATOR_H
 
 
 #include <string>
@@ -24,6 +20,10 @@ using namespace std;
 
 enum {EQUAL, NO_ARGUMENTS, OME_ARGUMENTS, TWO_ARGUMENTS};
 
+/**
+ * The class RunTheSimulator is in charge of running the simulator.
+ *
+ */
 class RunTheSimulator {
     CollectionCommands* collectionCommands;
 
@@ -34,8 +34,6 @@ public:
     void parser(vector<string> commands);
 
     vector<string> lexer(string fileName);
-
 };
 
-
-#endif //FIRSTPROJECT_RUNTHESIMULATOR_H
+#endif

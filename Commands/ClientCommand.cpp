@@ -3,8 +3,9 @@
 /**
  * Function name: execute
  * The function operation: The function runs the client.
- * First it calculates the port and the ip (from the parameters, we know their positions)
- * then it checks if the ip is valid, if so, opens a thread and runs the server given the data above.
+ * First it calculates the port and the ip (from the parameters, we know their
+ * positions)then it checks if the ip is valid, if so, opens a thread and runs
+ * the server given the data above.
  * @param parameters vector<string>
  * @param position int
  * @return int

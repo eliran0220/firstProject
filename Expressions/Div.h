@@ -3,9 +3,7 @@
 
 #include "BinaryExpression.h"
 
-enum {
-    ZERO
-};
+enum {ZERO};
 
 /**
  * Div class: The Div class is supposed to make Divide expression, between
@@ -25,7 +23,8 @@ public:
 
     /**
      * Function name: calculate
-     * The function operation: The function evaluates the result of the division between left expression
+     * The function operation: The function evaluates the result of the
+     * division between left expression
      * and right expression
      * @return double
      */

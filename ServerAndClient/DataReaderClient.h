@@ -1,12 +1,11 @@
-//
-// Created by eliran on 12/21/18.
-//
-
-#ifndef FIRSTPROJECT_DATAREADERCLIENT_H
-#define FIRSTPROJECT_DATAREADERCLIENT_H
+#ifndef DATAREADERCLIENT_H
+#define DATAREADERCLIENT_H
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <sstream>
+#include <pthread.h>
+#include <thread>
 
 #include <netdb.h>
 #include <sys/socket.h>
@@ -20,17 +19,16 @@
 
 using namespace std;
 
+/**
+ * The class DataReaderClient create a client by given ip and port.
+ */
 class DataReaderClient {
 
 public:
     static void run(int givePort, string givenIp, SymbolTable *symbolTable,
                     bool *shouldStop);
-   // static void run2(int givePort, string givenIp, SymbolTable *symbolTable,
-     //                bool *shouldStop);
-    //static int createSocket(int port);
-
     static void writeToServer(int socket, SymbolTable* symbolTable);
 };
 
 
-#endif //FIRSTPROJECT_DATAREADERCLIENT_H
+#endif

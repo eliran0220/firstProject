@@ -1,7 +1,3 @@
-//
-// Created by eliran on 12/15/18.
-//
-
 #ifndef SLEEPCOMMAND_H
 #define SLEEPCOMMAND_H
 
@@ -29,8 +25,6 @@ public:
 
     virtual int execute(vector<string> &parameters, int position);
 
-
 };
-
 
 #endif
