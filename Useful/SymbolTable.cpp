@@ -104,7 +104,9 @@ bool SymbolTable::existsInDestMap(string var) {
     if (this->destTable.count(var) == ONE) {
         return true;
     }
+    int x = 5;
     return false;
+
 }
 
 /**
