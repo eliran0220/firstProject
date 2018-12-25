@@ -88,13 +88,11 @@ Expression *FactoryCommands::create(const string &exString) {
         Expression *expressionCommand = new CommandExpression(clientCommand);
         return expressionCommand;
     }
-    /*
     if (exString == ENTERC) {
         EntercCommand *entrecCommand = new EntercCommand();
         Expression *expressionCommand = new CommandExpression(entrecCommand);
         return expressionCommand;
     }
-     */
     if (exString == EXIT) {
         ExitCommand *exit = new ExitCommand();
         Expression *expressionCommand = new CommandExpression(exit);

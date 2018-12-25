@@ -17,11 +17,11 @@ int OpenServerCommand::execute(vector<string> &parameters, int position) {
     int port = (int) (p->calculate());
     int rate = (int) (r->calculate());
     // create socket and stop the program until the connection is made
-    int socket = DataReaderServer::createSocket(port);
+    //int socket = DataReaderServer::createSocket(port);
     delete (p);
     delete (r);
     // open a new thread for the server.
-    thread serverThread(DataReaderServer::run, socket, rate, this->symbolTable,
+    thread serverThread(DataReaderServer::run, port, rate, this->symbolTable,
                         &this->shouldStop);
     serverThread.detach();
     return AMOUNT_SERVER_MOVEMENT;
