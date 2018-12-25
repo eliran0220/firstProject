@@ -1,13 +1,12 @@
-//
-// Created by afik on 12/13/18.
-//
-
-#ifndef FIRSTPROJECT_BINARYEXPRESSION_H
-#define FIRSTPROJECT_BINARYEXPRESSION_H
+#ifndef BINARYEXPRESSION_H
+#define BINARYEXPRESSION_H
 
 #include "Expression.h"
 
-
+/**
+ * BinaryExpression class: The BinaryExpression is supposed to create a
+ * binary expression
+ */
 class BinaryExpression : public Expression {
 protected:
     Expression *left;
@@ -15,8 +14,6 @@ protected:
 public:
     /**
      * Function name: BinaryExpression
-     * The input: Expression*, Expression*
-     * The output: none (constructor)
      * The function operation: Constructs a binary expression
      * @param left expression
      * @param right expression
@@ -28,8 +25,6 @@ public:
 
     /**
      * Function name: calculate
-     * The input: none
-     * The output: double
      * The function operation: Calculates the value of an expression
      * @return double
      */
@@ -37,8 +32,6 @@ public:
 
     /**
      * Function name: ~BinaryExpression
-     * The input: none
-     * The output: none
      * The function operation: Destructs the binary expression
      */
     virtual ~BinaryExpression() {
@@ -49,4 +42,4 @@ public:
 };
 
 
-#endif //FIRSTPROJECT_BINARYEXPRESSION_H
+#endif

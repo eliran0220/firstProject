@@ -1,18 +1,17 @@
-//
-// Created by afik on 12/13/18.
-//
-
-#ifndef FIRSTPROJECT_MULT_H
-#define FIRSTPROJECT_MULT_H
+#ifndef MULT_H
+#define MULT_H
 
 #include "BinaryExpression.h"
 
+/**
+ * Mult class: The Mult class is supposed to make multipication expression,
+ * between two other expressions, also has the calculate method to evaluate the
+ * result
+ */
 class Mult : public BinaryExpression {
 public:
     /**
     * Function name: Mult
-    * The input: Expression*, Expression*
-    * The output: none
     * The function operation: Constructs a new Mult BinaryExpression
     * @param left expression
     * @param right expression
@@ -21,8 +20,6 @@ public:
 
     /**
      * Function name: calculate
-     * The input: none
-     * The output: double
      * The function operation: The function evaluates the result of the multipication between left expression
      * and right expression
      * @return double
@@ -32,4 +29,4 @@ public:
     }
 };
 
-#endif //FIRSTPROJECT_MULT_H
+#endif

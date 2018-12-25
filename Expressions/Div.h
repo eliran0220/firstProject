@@ -1,9 +1,5 @@
-//
-// Created by afik on 12/13/18.
-//
-
-#ifndef FIRSTPROJECT_DIV_H
-#define FIRSTPROJECT_DIV_H
+#ifndef DIV_H
+#define DIV_H
 
 #include "BinaryExpression.h"
 
@@ -11,12 +7,16 @@ enum {
     ZERO
 };
 
+/**
+ * Div class: The Div class is supposed to make Divide expression, between
+ * two other expressions, also has the calculate method to evaluate the
+ * result
+ */
+
 class Div : public BinaryExpression {
 public:
     /**
      * Function name: Div
-     * The input: Expression*, Expression*
-     * The output: none
      * The function operation: Constructs a new Div BinaryExpression
      * @param left expression
      * @param right expression
@@ -25,8 +25,6 @@ public:
 
     /**
      * Function name: calculate
-     * The input: none
-     * The output: double
      * The function operation: The function evaluates the result of the division between left expression
      * and right expression
      * @return double
@@ -39,4 +37,4 @@ public:
     }
 };
 
-#endif //FIRSTPROJECT_DIV_H
+#endif

@@ -1,19 +1,17 @@
-//
-// Created by afik on 12/13/18.
-//
-
-#ifndef FIRSTPROJECT_NUMBER_H
-#define FIRSTPROJECT_NUMBER_H
+#ifndef NUMBER_H
+#define NUMBER_H
 
 #include "Expression.h"
 
+/**
+ * Number class: The Number class is supposed to create a number from
+ * expression
+ */
 class Number : public Expression {
     double number;
 public:
     /**
      * Function name: Number
-     * The input: double
-     * The output: none
      * The function operation: Constructs a new Number Expression
      * @param number double
      */
@@ -23,8 +21,6 @@ public:
 
     /**
      * Function name: calculate
-     * The input: none
-     * The output: double
      * The function operation: The function returns the number
      * and right expression
      * @return double
@@ -32,4 +28,4 @@ public:
     virtual double calculate() { return this->number; }
 };
 
-#endif //FIRSTPROJECT_NUMBER_H
+#endif
