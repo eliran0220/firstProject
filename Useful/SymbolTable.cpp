@@ -57,8 +57,6 @@ void SymbolTable::updateSymbolTableValue(string name, double value) {
 
 /**
  * Function name: getSymbolTableDest
- * The input: string
- * The output: string
  * The function operation: The function returns the destination value of a given variable
  * If the variable doesn't exists, throws exception
  * @param name given var
@@ -73,8 +71,6 @@ string SymbolTable::getSymbolTableDest(string name) {
 
 /**
  * Function name: getSymbolTableValue
- * The input: string
- * The output: double
  * The function operation: The function returns the value of a variable
  * If it doesn't exists, throws exception
  * @param name given var
@@ -89,8 +85,6 @@ double SymbolTable::getSymbolTableValue(string name) {
 
 /**
  * Function name: getVariableForUpdate
- * The input: string
- * The output: vector<string>
  * The function operation: The function returns the variable (key), given the bind value
  * @param key string
  * @return vector<string>
@@ -111,8 +105,6 @@ bool SymbolTable::existsInDestMap(string var) {
 
 /**
  * Function name: existsInBindTableMap
- * The input: string
- * The output: none
  * The function operation: The function checks if var exists in the bindValue table
  * if yes, returns true, else returns false
  * @param var string
@@ -127,8 +119,6 @@ bool SymbolTable::existsInBindValueMap(string var) {
 
 /**
  * Function name: existsInValueTableMap
- * The input: string
- * The output: none
  * The function operation: The function checks if var exists in the value table
  * if yes, returns true, else returns false
  * @param var string
@@ -143,8 +133,6 @@ bool SymbolTable::existsInValueTableMap(string var) {
 
 /**
  * Function name: ~SymbolTable
- * The input: none
- * The output: none
  * The function operation: Destructs the SymbolTable
  */
 SymbolTable::~SymbolTable() {
@@ -160,6 +148,13 @@ SymbolTable::~SymbolTable() {
     }
 }
 
+/**
+ * Function name: getBindMap
+ * The function operation: The function returns a map which represents
+ * the strings as their key, and values are double (the destination to
+ * value map)
+ * @return map<string, vector<StoreVarValue<double>*>>
+ */
 map<string, vector<StoreVarValue<double>*>> SymbolTable::getBindMap() {
     return  this->bindValue;
 }
