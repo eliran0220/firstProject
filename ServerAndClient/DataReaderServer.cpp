@@ -1,6 +1,5 @@
 #include "DataReaderServer.h"
 
-<<<<<<< Updated upstream
 /**
  * Function name: DataReaderServer
  * The function operation: The function runs the server with the given
@@ -10,10 +9,7 @@
  * @param symbolTable given symbol table
  * @param shouldStop given boolean to know when to stop
  */
-void DataReaderServer::run(int socket, int rate, SymbolTable *symbolTable,
-=======
 void DataReaderServer::run(int port, int rate, SymbolTable *symbolTable,
->>>>>>> Stashed changes
                            bool *shouldStop) {
     int socket = createSocket(port);
     ssize_t n;
