@@ -130,8 +130,8 @@ vector<string> splitCommand(string &givenLine) {
     string item;
     getline(ss, item, ' ');
     getline(ss, item);
+    item.erase(std::remove(item.begin(), item.end(), ' '), item.end());
     if (item != "") {
-        item.erase(std::remove(item.begin(), item.end(), ' '), item.end());
         vec.push_back(item);
     }
     return vec;
