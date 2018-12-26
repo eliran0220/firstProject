@@ -35,7 +35,7 @@ int OpenServerCommand::execute(vector<string> &parameters, int position) {
     }
     // open a new thread for the server.
     this->serverThread = thread(DataReaderServer::run, socket, rate,
-            this->symbolTable,&this->shouldStop);
+                          this->symbolTable,&this->shouldStop);
     //serverThread.detach();
     return AMOUNT_SERVER_MOVEMENT;
 }

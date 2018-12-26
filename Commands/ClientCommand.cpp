@@ -21,11 +21,6 @@ int ClientCommand::execute(vector<string> &parameters, int position) {
     if (regex_match(ip, ipR)) {
         this->clientThread = thread(DataReaderClient::run, port, ip, this->symbolTable,
            this->dataReaderClient);
-        //thread clientThread(DataReaderClient::run, port, ip, this->symbolTable,
-                         //   this->dataReaderClient);
-
-        //this->threads.push_back(&clientThread);
-        //clientThread.detach();
     } else {
         throw "Syntax error invalid ip address";
     }

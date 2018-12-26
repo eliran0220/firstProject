@@ -45,7 +45,7 @@ DataReaderClient::run(int givePort, string givenIp, SymbolTable *symbolTable,
     while (!dataReaderClient->shouldStop()) {
         writeToServer(sockfd, symbolTable);
         // sleep the program for a while.
-        this_thread::sleep_for(std::chrono::milliseconds((unsigned int) 250));
+        //this_thread::sleep_for(std::chrono::milliseconds((unsigned int) 250));
     }
     cout<<"b"<<endl;
     close(sockfd);

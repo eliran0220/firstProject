@@ -2,14 +2,14 @@
 #include "ControlSimulator/RunTheSimulator.h"
 
 int main(int argc, char *argv[]) {
-    RunTheSimulator*  r =  new RunTheSimulator();
+    RunTheSimulator*  runTheSimulator =  new RunTheSimulator();
     try {
-        vector<string> s = r->lexer(argv[1]);
-        r->parser(s);
+        vector<string> split = runTheSimulator->lexer(argv[1]);
+        runTheSimulator->parser(split);
     } catch (const char *exception) {
         cout << exception<<endl;
     } catch (...) {}
-    delete (r);
+    delete (runTheSimulator);
     return 0;
 }
 
