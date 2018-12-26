@@ -19,7 +19,7 @@ private:
     SymbolTable *table;
 
 public:
-    InitializeCommand(Factory *expression, SymbolTable *table);
+    InitializeCommand(Factory *expression, SymbolTable * &table);
 
     virtual int execute(vector<string> &parameters, int position);
 };

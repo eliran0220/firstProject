@@ -27,8 +27,8 @@ InitializeCommand::execute(vector<string> &parameters, int position) {
         // If the expression is type of x = (y or var)
     } else {
         Expression *e = this->expression->create(parameters[position + 1]);
-        this->table->updateSymbolTableValue(parameters[position - 1],
-                                            e->calculate());
+        double value = e->calculate();
+        this->table->updateSymbolTableValue(parameters[position - 1], value);
         delete (e);
         return AMOUNT_MOVEMENT;
     }
@@ -41,7 +41,7 @@ InitializeCommand::execute(vector<string> &parameters, int position) {
  * @param table given table
  */
 InitializeCommand::InitializeCommand(Factory *expression,
-                                     SymbolTable *table) {
+                                     SymbolTable * &table) {
     this->expression = expression;
     this->table = table;
 }

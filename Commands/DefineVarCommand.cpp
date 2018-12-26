@@ -19,7 +19,7 @@ int DefineVarCommand::execute(vector<string> &parameters, int position) {
  * The function operation: Constructs a new ClientCommand
  * @param symbolTable symbolTable
  */
-DefineVarCommand::DefineVarCommand(SymbolTable *symbolTable) {
+DefineVarCommand::DefineVarCommand(SymbolTable * &symbolTable) {
     this->table = symbolTable;
 }
 

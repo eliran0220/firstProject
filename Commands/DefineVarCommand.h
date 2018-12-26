@@ -15,7 +15,7 @@ class DefineVarCommand : public Command {
 private:
     SymbolTable *table;
 public:
-    DefineVarCommand(SymbolTable *symbolTable);
+    DefineVarCommand(SymbolTable * &symbolTable);
 
     int execute(vector<string> &parameters, int position);
 

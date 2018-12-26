@@ -9,8 +9,36 @@
  * @param symbolTable given symbol table
  * @param shouldStop given boolean to know when to stop
  */
-void DataReaderServer::run(int socket, int rate, SymbolTable *symbolTable,
+void DataReaderServer::run(int socket, int rate, SymbolTable * symbolTable,
                            bool *shouldStop) {
+    /*
+    ssize_t n = 0;
+    char buffer[255];
+    bzero(buffer, 255);
+    char temp = '\n';
+    string values ="";
+    int i = 0;
+    int j = 0;
+    double arr[23];
+    while (!*shouldStop) {
+        n = read(socket, buffer, 255);
+        if (n < 0) {
+            perror("ERROR reading from socket");
+            exit(1);
+        }
+        temp = buffer[i];
+        while (temp != '\n') {
+            values += temp;
+            i++;
+            temp = buffer[i];
+        }
+        updateSymbolTable(values, symbolTable);
+        values = "";
+        sleep(rate / MILLI_SECONDS);
+        bzero(buffer, 255);
+    }
+    close(socket);
+    */
     ssize_t n;
     char buffer[1];
     string values;
@@ -25,6 +53,7 @@ void DataReaderServer::run(int socket, int rate, SymbolTable *symbolTable,
             }
         }
         updateSymbolTable(values, symbolTable);
+        cout<<values<<endl;
         values = "";
         sleep(rate / MILLI_SECONDS);
     }
@@ -61,7 +90,7 @@ int DataReaderServer::createSocket(int port) {
        * go in sleep mode and will wait for the incoming connection
     */
 
-    listen(sockfd, 1);
+    listen(sockfd, 5);
     clilen = sizeof(cli_addr);
     newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr,
                        (socklen_t *) &clilen);
@@ -82,7 +111,7 @@ int DataReaderServer::createSocket(int port) {
  * @param symbolTable given symbol table to update
  */
 void
-DataReaderServer::updateSymbolTable(string &values, SymbolTable *symbolTable) {
+DataReaderServer::updateSymbolTable(string &values, SymbolTable * &symbolTable) {
     string xmlPathsVec[XML_AMOUNT_VARIABLES] = {INDICATE_SPEED, INDICATE_ALT,
                                                 PRESSURE_ALT, PITCH_DEG,
                                                 ROLL_DEG, IN_PITCH_DEG,
@@ -94,20 +123,26 @@ DataReaderServer::updateSymbolTable(string &values, SymbolTable *symbolTable) {
                                                 SLIP_SKID, TURN_RATE, SPEED_FPM,
                                                 AILERON, ELEVATOR, RUDDER,
                                                 FLAPS, THROTTLE, RPM};
-    vector<StoreVarValue<double> *> vec;
-    StoreVarValue<double> *tempValues;
+    vector<string> vec;
+    //StoreVarValue<double> *tempValues;
     stringstream ss(values);
     string tempString;
     double value;
+    if (values != ""){
+    cout << values<<endl;
+    }
     for (int i = 0; i < XML_AMOUNT_VARIABLES; ++i) {
         if (getline(ss, tempString, ',') &&
             symbolTable->existsInBindValueMap(xmlPathsVec[i])) {
             value = stod(tempString);
             vec = symbolTable->getVariablesForUpdate(xmlPathsVec[i]);
             for (int j = 0; j < vec.size(); ++j) {
+                symbolTable->updateSymbolTableValue(vec[j], value);
+                /*
                 tempValues = vec[j];
                 tempValues->setInitialize(true);
                 tempValues->setValue(value);
+                 */
             }
         }
     }

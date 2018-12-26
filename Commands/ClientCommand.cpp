@@ -33,7 +33,7 @@ int ClientCommand::execute(vector<string> &parameters, int position) {
  * @param symbolTable table
  * @param factoryExpression factoryExpression
  */
-ClientCommand::ClientCommand(SymbolTable *symbolTable,
+ClientCommand::ClientCommand(SymbolTable * &symbolTable,
                              Factory *factoryExpression) {
     this->symbolTable = symbolTable;
     this->factoryExpression = factoryExpression;

@@ -21,7 +21,7 @@ class ClientCommand : public Command {
     thread clientThread;
 
 public:
-    ClientCommand(SymbolTable *symbolTable, Factory *factoryExpression);
+    ClientCommand(SymbolTable * &symbolTable, Factory *factoryExpression);
 
     ~ClientCommand();
 

@@ -12,13 +12,11 @@ using namespace std;
 
 #define ONE 1
 
-using namespace std;
-
 class SymbolTable {
 private:
-    map<string, vector<StoreVarValue<double> *>> bindValue;
-    map<string, StoreVarValue<double> *> valueTable;
-    map<string, StoreVarValue<string> *> destTable;
+    map<string, vector<string>> bindValue;
+    map<string, double > valueTable;
+    map<string, string> destTable;
 
 public:
     SymbolTable() {}
@@ -42,9 +40,9 @@ public:
 
     bool existsInValueTableMap(string var);
 
-    vector<StoreVarValue<double> *> getVariablesForUpdate(string &key);
+    vector<string> getVariablesForUpdate(string &key);
 
-    map<string, vector<StoreVarValue<double> *>> getBindMap();
+    map<string, vector<string>> getBindMap();
 };
 
 

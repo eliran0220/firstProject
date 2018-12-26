@@ -23,7 +23,7 @@ class FactoryExpression : public Factory {
 private:
     SymbolTable *symbolTable;
 public:
-    FactoryExpression(SymbolTable *symbolTable) {
+    FactoryExpression(SymbolTable * &symbolTable) {
         this->symbolTable = symbolTable;
     }
 

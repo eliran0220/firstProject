@@ -59,22 +59,22 @@ DataReaderClient::run(int givePort, string givenIp, SymbolTable *symbolTable,
  * @param socket the correct socket to write to the server
  * @param symbolTable the global variables
  */
-void DataReaderClient::writeToServer(int socket, SymbolTable *symbolTable) {
+void DataReaderClient::writeToServer(int socket, SymbolTable * &symbolTable) {
     ssize_t n = 0;
     string tempString;
     string stringValue;
     double value = 0;
-    map<string, vector<StoreVarValue<double> *>> bindsValues =
-            symbolTable->getBindMap();
-
-    map<string, vector<StoreVarValue<double> *>>::iterator it =
+    map<string, vector<string>> bindsValues = symbolTable->getBindMap();
+    map<string, vector<string>>::iterator it =
             bindsValues.begin();
     while (it != bindsValues.end()) {
         for (int i = 0; i < it->second.size(); ++i) {
-            value = it->second[i]->getValue();
+            value = symbolTable->getSymbolTableValue(it->second[i]);
+            //value = it->second[i]->getValue();
             stringValue = to_string(value);
             // setup the message
             tempString = "set " + it->first + " " + stringValue + "\r\n";
+            cout<<tempString<<endl;
             // send the message.
             n = write(socket, tempString.c_str(), tempString.size());
             if (n < 0) {

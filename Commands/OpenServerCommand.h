@@ -20,7 +20,7 @@ class OpenServerCommand : public Command {
     bool shouldStop;
 
 public:
-    OpenServerCommand(Factory *expression, SymbolTable *symbolTable);
+    OpenServerCommand(Factory *expression, SymbolTable * &symbolTable);
 
     ~OpenServerCommand();
 

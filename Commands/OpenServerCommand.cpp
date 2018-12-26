@@ -23,6 +23,7 @@ int OpenServerCommand::execute(vector<string> &parameters, int position) {
     ssize_t n;
     char buffer[1];
     string values;
+    /*
     n = read(socket, buffer, 1);
     for (int i = 0; i < 2; ++i) {
         while (strcmp(buffer, "\n") != 0) {
@@ -34,8 +35,9 @@ int OpenServerCommand::execute(vector<string> &parameters, int position) {
             }
 
         }
-        DataReaderServer::updateSymbolTable(values, this->symbolTable);
+       // DataReaderServer::updateSymbolTable(values, this->symbolTable);
     }
+     */
     // open a new thread for the server.
     this->serverThread = thread(DataReaderServer::run, socket, rate,
                                 this->symbolTable, &this->shouldStop);
@@ -49,7 +51,7 @@ int OpenServerCommand::execute(vector<string> &parameters, int position) {
  * @param symbolTable given symbol table
  */
 OpenServerCommand::OpenServerCommand(Factory *expression,
-                                     SymbolTable *symbolTable) {
+                                     SymbolTable * &symbolTable) {
     this->factoryExpression = expression;
     this->symbolTable = symbolTable;
     this->shouldStop = false;
