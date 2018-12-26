@@ -33,11 +33,10 @@ int OpenServerCommand::execute(vector<string> &parameters, int position) {
             exit(1);
         }
     }
-
     // open a new thread for the server.
-    thread serverThread(DataReaderServer::run, socket, rate, this->symbolTable,
-                        &this->shouldStop);
-    serverThread.detach();
+    this->serverThread = thread(DataReaderServer::run, socket, rate,
+            this->symbolTable,&this->shouldStop);
+    //serverThread.detach();
     return AMOUNT_SERVER_MOVEMENT;
 }
 
@@ -61,4 +60,5 @@ OpenServerCommand::OpenServerCommand(Factory *expression,
 OpenServerCommand::~OpenServerCommand() {
     // stop the threads.
     this->shouldStop = true;
+    this->serverThread.join();
 }

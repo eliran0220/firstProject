@@ -1,3 +1,4 @@
+#include <iostream>
 #include "ClientCommand.h"
 
 /**
@@ -18,9 +19,13 @@ int ClientCommand::execute(vector<string> &parameters, int position) {
     delete (e);
     // check if the ip address is legal
     if (regex_match(ip, ipR)) {
-        thread serverThread(DataReaderClient::run, port, ip, this->symbolTable,
-                            &this->shouldStop);
-        serverThread.detach();
+        this->clientThread = thread(DataReaderClient::run, port, ip, this->symbolTable,
+           this->dataReaderClient);
+        //thread clientThread(DataReaderClient::run, port, ip, this->symbolTable,
+                         //   this->dataReaderClient);
+
+        //this->threads.push_back(&clientThread);
+        //clientThread.detach();
     } else {
         throw "Syntax error invalid ip address";
     }
@@ -37,7 +42,7 @@ ClientCommand::ClientCommand(SymbolTable *symbolTable,
                              Factory *factoryExpression) {
     this->symbolTable = symbolTable;
     this->factoryExpression = factoryExpression;
-    this->shouldStop = false;
+    this->dataReaderClient = new DataReaderClient();
 }
 
 /**
@@ -45,5 +50,7 @@ ClientCommand::ClientCommand(SymbolTable *symbolTable,
  * The function operation: Destructs the ClientCommand
  */
 ClientCommand::~ClientCommand() {
-    this->shouldStop = true;
+    this->dataReaderClient->setStop();
+    this->clientThread.join();
+    delete (this->dataReaderClient);
 }

@@ -22,14 +22,18 @@ PrintCommand::PrintCommand(Factory *createExpression) {
  */
 int PrintCommand::execute(vector<string> &parameters, int position) {
     regex varR("[a-zA-Z0-9_]+");
-    if (regex_match(parameters[position + 1], varR)) {
-        Expression *e = this->createExpression->create(
-                parameters[position + 1]);
-        double value = e->calculate();
+    double value = 0;
+    string item = "";
+    Expression * e = nullptr;
+    bool flag = regex_match(parameters[position + 1], varR);
+    if (flag) {
+        item = parameters[position + 1];
+        e = this->createExpression->create(item);
+        value = e->calculate();
         cout << value << endl;
         delete (e);
     } else {
-        string item = parameters[position + 1];
+        item = parameters[position + 1];
         //delete brackets from the string
         item.erase(std::remove(item.begin(), item.end(), '"'), item.end());
         cout << item << endl;

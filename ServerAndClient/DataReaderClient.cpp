@@ -1,3 +1,4 @@
+#include <iostream>
 #include "DataReaderClient.h"
 
 /**
@@ -11,9 +12,9 @@
  */
 void
 DataReaderClient::run(int givePort, string givenIp, SymbolTable *symbolTable,
-                      bool *shouldStop) {
-    int sockfd;
-    int n;
+                      DataReaderClient *dataReaderClient) {
+    int sockfd = 0;
+    int n = 0;
     struct sockaddr_in serv_addr;
     struct hostent *server;
     // Create a socket point
@@ -41,16 +42,14 @@ DataReaderClient::run(int givePort, string givenIp, SymbolTable *symbolTable,
     vector<string> changes;
     vector<string>::iterator it;
     // write the the server until the program not finish.
-    while (!*shouldStop) {
+    while (!dataReaderClient->shouldStop()) {
         writeToServer(sockfd, symbolTable);
-        if (n < 0) {
-            perror("ERROR writing to socket");
-            exit(1);
-        }
         // sleep the program for a while.
         this_thread::sleep_for(std::chrono::milliseconds((unsigned int) 250));
     }
+    cout<<"b"<<endl;
     close(sockfd);
+    cout<<"a"<<endl;
 }
 
 /**
@@ -61,9 +60,10 @@ DataReaderClient::run(int givePort, string givenIp, SymbolTable *symbolTable,
  * @param symbolTable the global variables
  */
 void DataReaderClient::writeToServer(int socket, SymbolTable *symbolTable) {
-    ssize_t n;
+    ssize_t n = 0;
     string tempString;
-    char buffer[SIZE];
+    string stringValue;
+    double value = 0;
     map<string, vector<StoreVarValue<double> *>> bindsValues =
             symbolTable->getBindMap();
 
@@ -71,9 +71,10 @@ void DataReaderClient::writeToServer(int socket, SymbolTable *symbolTable) {
             bindsValues.begin();
     while (it != bindsValues.end()) {
         for (int i = 0; i < it->second.size(); ++i) {
+            value = it->second[i]->getValue();
+            stringValue = to_string(value);
             // setup the message
-            tempString = "set " + it->first + " " +
-                         to_string(it->second[i]->getValue()) + "\r\n";
+            tempString = "set " + it->first + " " + stringValue + "\r\n";
             // send the message.
             n = write(socket, tempString.c_str(), tempString.size());
             if (n < 0) {

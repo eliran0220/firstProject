@@ -9,8 +9,8 @@ mutex mtx;
  * @param name given string
  */
 void SymbolTable::addToTable(string name) {
-    StoreVarValue<string> *tempD = new StoreVarValue<string>();
-    StoreVarValue<double> *tempV = new StoreVarValue<double>();
+    StoreVarValue<string> *tempD = new StoreVarValue<string>("");
+    StoreVarValue<double> *tempV = new StoreVarValue<double>(0);
     this->valueTable[name] = tempV;
     this->destTable[name] = tempD;
 

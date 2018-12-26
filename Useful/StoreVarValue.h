@@ -14,8 +14,9 @@ public:
      * Function name: StoreVarValue
      * The function operation: The function initializes the value to false
      */
-    StoreVarValue() {
+    StoreVarValue(T value) {
         this->initialize = false;
+        this->value = value;
     }
 
     /**

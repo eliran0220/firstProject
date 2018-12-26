@@ -16,6 +16,7 @@
 class OpenServerCommand : public Command {
     Factory *factoryExpression;
     SymbolTable *symbolTable;
+    thread serverThread;
     bool shouldStop;
 
 public:

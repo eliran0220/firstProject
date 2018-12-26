@@ -17,7 +17,9 @@
 class ClientCommand : public Command {
     SymbolTable *symbolTable;
     Factory *factoryExpression;
-    bool shouldStop;
+    DataReaderClient* dataReaderClient;
+    thread clientThread;
+
 public:
     ClientCommand(SymbolTable *symbolTable, Factory *factoryExpression);
 

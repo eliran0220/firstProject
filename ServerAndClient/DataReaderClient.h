@@ -15,19 +15,21 @@
 #include <string.h>
 #include "../Useful/SymbolTable.h"
 
-#define SIZE 1023
-
 using namespace std;
 
 /**
  * The class DataReaderClient create a client by given ip and port.
  */
 class DataReaderClient {
-
+    bool stop;
 public:
+    DataReaderClient() {this->stop = false;}
     static void run(int givePort, string givenIp, SymbolTable *symbolTable,
-                    bool *shouldStop);
+                    DataReaderClient *dataReaderClient);
     static void writeToServer(int socket, SymbolTable* symbolTable);
+
+    bool shouldStop() { return this->stop;}
+    bool setStop(){this->stop = true;}
 };
 
 

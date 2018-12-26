@@ -2,7 +2,7 @@
 #include "ControlSimulator/RunTheSimulator.h"
 
 int main(int argc, char *argv[]) {
-    RunTheSimulator* r = new RunTheSimulator();
+    RunTheSimulator*  r =  new RunTheSimulator();
     try {
         vector<string> s = r->lexer(argv[1]);
         r->parser(s);
