@@ -94,6 +94,8 @@ DataReaderServer::updateSymbolTable(string &values, SymbolTable * &symbolTable) 
                                                 SLIP_SKID, TURN_RATE, SPEED_FPM,
                                                 AILERON, ELEVATOR, RUDDER,
                                                 FLAPS, THROTTLE, RPM};
+
+
     vector<string>* vec;
     stringstream ss(values);
     string tempString;
@@ -109,6 +111,5 @@ DataReaderServer::updateSymbolTable(string &values, SymbolTable * &symbolTable) 
         }
     }
 }
-
 
 
