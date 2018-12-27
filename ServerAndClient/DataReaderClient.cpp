@@ -14,7 +14,6 @@ void
 DataReaderClient::run(int givePort, string givenIp, SymbolTable *symbolTable,
                       DataReaderClient *dataReaderClient) {
     int sockfd = 0;
-    int n = 0;
     struct sockaddr_in serv_addr;
     struct hostent *server;
     // Create a socket point
@@ -86,7 +85,7 @@ void DataReaderClient::writeToServer(int socket, SymbolTable *&symbolTable) {
  * Function name: shouldStop
  * The function operation: The function returns a boolean symbolizing if the
  * given function should stop
- * @return
+ * @return bool
  */
 bool DataReaderClient::shouldStop() {
     return this->stop;
@@ -95,7 +94,7 @@ bool DataReaderClient::shouldStop() {
 /**
  * Function name: setStop
  * The function operation: The function sets the stop variable to true
- * @return
+ * @return bool
  */
 bool DataReaderClient::setStop() {
     this->stop = true;
