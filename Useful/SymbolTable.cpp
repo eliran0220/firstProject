@@ -1,6 +1,5 @@
 #include "SymbolTable.h"
 
-mutex mtx;
 
 /**
  * Function name: addToTable
@@ -10,10 +9,10 @@ mutex mtx;
  */
 void SymbolTable::addToTable(string name) {
     unique_lock<mutex> lock(mtx);
-    //StoreVarValue<string> *tempD = new StoreVarValue<string>("");
-    //StoreVarValue<double> *tempV = new StoreVarValue<double>(0);
-    this->valueTable[name] = 0;
-    this->destTable[name] = "";
+    StoreVarValue<string> *tempD = new StoreVarValue<string>("");
+    StoreVarValue<double> *tempV = new StoreVarValue<double>(0);
+    this->valueTable[name] = tempV;
+    this->destTable[name] = tempD;
 }
 
 /**
@@ -27,11 +26,8 @@ void SymbolTable::addToTable(string name) {
  */
 void SymbolTable::updateSymbolTableDest(string name, string value) {
     unique_lock<mutex> lock(mtx);
-    //this->destTable[name]->setInitialize(true);
-    //this->valueTable[name]->setInitialize(true);
-    //this->destTable[name]->setValue(value);
-    //StoreVarValue<double> *temp = this->valueTable[name];
-    // update map of simulator
+    this->destTable[name]->setInitialize(true);
+    this->destTable[name]->setValue(value);
     if (this->existsInBindValueMap(value)) {
         this->bindValue[value].push_back(name);
     } else {
@@ -51,8 +47,8 @@ void SymbolTable::updateSymbolTableDest(string name, string value) {
  */
 void SymbolTable::updateSymbolTableValue(string name, double value) {
     unique_lock<mutex> lock(mtx);
-    //this->valueTable[name]->setInitialize(true);
-    this->valueTable[name] = value;
+    this->valueTable[name]->setInitialize(true);
+    this->valueTable[name]->setValue(value);
 }
 
 /**
@@ -63,11 +59,7 @@ void SymbolTable::updateSymbolTableValue(string name, double value) {
  * @return string
  */
 string SymbolTable::getSymbolTableDest(string name) {
-    unique_lock<mutex> lock(mtx);
-    //if (this->destTable[name]->checkIfInitialize()) {
-        return this->destTable[name];
-    //}
-    throw "The variable does not Initialize";
+    return this->destTable[name]->getValue();
 }
 
 /**
@@ -78,12 +70,8 @@ string SymbolTable::getSymbolTableDest(string name) {
  * @return double
  */
 double SymbolTable::getSymbolTableValue(string name) {
-    unique_lock<mutex> lock(mtx);
-    //if (this->valueTable[name]->checkIfInitialize()) {
-        double x = this->valueTable[name];
-        return x;
-    //}
-    //throw "The variable does not Initialize";
+    double x = this->valueTable[name]->getValue();
+    return x;
 }
 
 /**
@@ -96,16 +84,7 @@ double SymbolTable::getSymbolTableValue(string name) {
 
 vector<string> SymbolTable::getVariablesForUpdate(
         string &key) {
-    unique_lock<mutex> lock(mtx);
     return this->bindValue[key];
-}
-
-bool SymbolTable::existsInDestMap(string var) {
-    if (this->destTable.count(var) == ONE) {
-        return true;
-    }
-    return false;
-
 }
 
 /**
@@ -141,7 +120,6 @@ bool SymbolTable::existsInValueTableMap(string var) {
  * The function operation: Destructs the SymbolTable
  */
 SymbolTable::~SymbolTable() {
-    /*
     map<string, StoreVarValue<string> *>::iterator itDe = this->destTable.begin();
     while (itDe != this->destTable.end()) {
         delete (itDe->second);
@@ -152,18 +130,24 @@ SymbolTable::~SymbolTable() {
         delete (itVa->second);
         itVa++;
     }
-     */
 }
 
 /**
- * Function name: getBindMap
- * The function operation: The function returns a map which represents
- * the strings as their key, and values are double (the destination to
- * value map)
- * @return map<string, vector<StoreVarValue<double>*>>
+ *
+ * @param name
+ * @param value
  */
-map<string, vector<string>> SymbolTable::getBindMap() {
-    unique_lock<mutex> lock(mtx);
-    return  this->bindValue;
+void SymbolTable::varsToUpdate(string name, double value) {
+    map<string, double> temp;
+    temp[name] = value;
+    this->needToUpdate.push(temp);
+    this->updateSymbolTableValue(name, value);
 }
 
+/**
+ *
+ * @return
+ */
+queue<map<string, double>> *SymbolTable::getQueueToUpdate() {
+    return &this->needToUpdate;
+}

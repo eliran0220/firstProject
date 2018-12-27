@@ -57,7 +57,6 @@ Expression *FactoryCommands::create(const string &exString) {
         Expression *expressionCommand = new CommandExpression(
                 initializeCommand);
         return expressionCommand;
-        // בדיקה האם זה משתנה שלא קיים כלומר משתנה בלי var לפני
     }
     //if exString == "while"
     if (exString == WHILE_COMMAND) {

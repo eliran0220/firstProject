@@ -4,6 +4,7 @@
 #include "Command.h"
 #include <algorithm>
 #include <cstring>
+#include <zconf.h>
 #include "../Useful/Factory.h"
 #include "../Useful/SymbolTable.h"
 

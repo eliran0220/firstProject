@@ -47,9 +47,7 @@ DataReaderClient::run(int givePort, string givenIp, SymbolTable *symbolTable,
         // sleep the program for a while.
         this_thread::sleep_for(std::chrono::milliseconds((unsigned int) 250));
     }
-    cout<<"b"<<endl;
     close(sockfd);
-    cout<<"a"<<endl;
 }
 
 /**
@@ -59,29 +57,37 @@ DataReaderClient::run(int givePort, string givenIp, SymbolTable *symbolTable,
  * @param socket the correct socket to write to the server
  * @param symbolTable the global variables
  */
-void DataReaderClient::writeToServer(int socket, SymbolTable * &symbolTable) {
+void DataReaderClient::writeToServer(int socket, SymbolTable *&symbolTable) {
+    queue<map<string, double>>* needToUpdate = symbolTable->getQueueToUpdate();
     ssize_t n = 0;
     string tempString;
     string stringValue;
     double value = 0;
-    map<string, vector<string>> bindsValues = symbolTable->getBindMap();
-    map<string, vector<string>>::iterator it =
-            bindsValues.begin();
-    while (it != bindsValues.end()) {
-        for (int i = 0; i < it->second.size(); ++i) {
-            value = symbolTable->getSymbolTableValue(it->second[i]);
-            //value = it->second[i]->getValue();
-            stringValue = to_string(value);
-            // setup the message
-            tempString = "set " + it->first + " " + stringValue + "\r\n";
-            cout<<tempString<<endl;
-            // send the message.
-            n = write(socket, tempString.c_str(), tempString.size());
-            if (n < 0) {
-                perror("ERROR writing to socket");
-                exit(1);
-            }
+    string dest;
+    map<string, double > temp;
+    while (!needToUpdate->empty()) {
+        temp = needToUpdate->front();
+        needToUpdate->pop();
+        value = temp.begin()->second;
+        stringValue = to_string(value);
+        dest = symbolTable->getSymbolTableDest(temp.begin()->first);
+        // setup the message
+        tempString = "set " + dest + " " + stringValue + "\r\n";
+        cout << tempString << endl;
+        // send the message.
+        n = write(socket, tempString.c_str(), tempString.size());
+        if (n < 0) {
+            perror("ERROR writing to socket");
+            exit(1);
         }
-        it++;
     }
+}
+
+bool DataReaderClient::shouldStop() {
+    return this->stop;
+}
+
+
+bool DataReaderClient::setStop(){
+    this->stop = true;
 }

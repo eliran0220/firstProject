@@ -7,16 +7,22 @@
 #include <vector>
 #include "StoreVarValue.h"
 #include <mutex>
+#include <queue>
+#include <zconf.h>
 
 using namespace std;
 
 #define ONE 1
 
+using namespace std;
+
 class SymbolTable {
 private:
     map<string, vector<string>> bindValue;
-    map<string, double > valueTable;
-    map<string, string> destTable;
+    map<string, StoreVarValue<double> *> valueTable;
+    map<string, StoreVarValue<string> *> destTable;
+    mutex mtx;
+    queue<map<string, double>> needToUpdate;
 
 public:
     SymbolTable() {}
@@ -34,7 +40,7 @@ public:
 
     string getSymbolTableDest(string name);
 
-    bool existsInDestMap(string var);
+    void varsToUpdate(string name, double value);
 
     bool existsInBindValueMap(string var);
 
@@ -42,7 +48,7 @@ public:
 
     vector<string> getVariablesForUpdate(string &key);
 
-    map<string, vector<string>> getBindMap();
+    queue<map<string, double>>* getQueueToUpdate();
 };
 
 

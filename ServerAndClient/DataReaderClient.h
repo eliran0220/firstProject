@@ -23,13 +23,16 @@ using namespace std;
 class DataReaderClient {
     bool stop;
 public:
-    DataReaderClient() {this->stop = false;}
-    static void run(int givePort, string givenIp, SymbolTable* symbolTable,
-                    DataReaderClient *dataReaderClient);
-    static void writeToServer(int socket, SymbolTable* &symbolTable);
+    DataReaderClient() { this->stop = false; }
 
-    bool shouldStop() { return this->stop;}
-    bool setStop(){this->stop = true;}
+    static void run(int givePort, string givenIp, SymbolTable *symbolTable,
+                    DataReaderClient *dataReaderClient);
+
+    static void writeToServer(int socket, SymbolTable *&symbolTable);
+
+    bool shouldStop();
+
+    bool setStop();
 };
 
 
