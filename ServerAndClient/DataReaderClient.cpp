@@ -73,7 +73,6 @@ void DataReaderClient::writeToServer(int socket, SymbolTable *&symbolTable) {
         dest = symbolTable->getSymbolTableDest(temp.begin()->first);
         // setup the message
         tempString = "set " + dest + " " + stringValue + "\r\n";
-        cout << tempString << endl;
         // send the message.
         n = write(socket, tempString.c_str(), tempString.size());
         if (n < 0) {
