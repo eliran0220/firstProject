@@ -133,9 +133,11 @@ SymbolTable::~SymbolTable() {
 }
 
 /**
- *
- * @param name
- * @param value
+ * Function name: varsToUpdate
+ * The function operation: The function pushes the vars that need to be
+ * updated to the needToUpdate map which inside a queue
+ * @param name a given string
+ * @param value a given value
  */
 void SymbolTable::varsToUpdate(string name, double value) {
     map<string, double> temp;
@@ -145,8 +147,9 @@ void SymbolTable::varsToUpdate(string name, double value) {
 }
 
 /**
- *
- * @return
+ * Function name: getQueueToUpdate
+ * The function operation: The function returns the queue
+ * @return queue<map<string,double>>*
  */
 queue<map<string, double>> *SymbolTable::getQueueToUpdate() {
     return &this->needToUpdate;

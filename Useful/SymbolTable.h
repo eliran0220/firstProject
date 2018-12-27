@@ -8,7 +8,6 @@
 #include "StoreVarValue.h"
 #include <mutex>
 #include <queue>
-#include <zconf.h>
 
 using namespace std;
 

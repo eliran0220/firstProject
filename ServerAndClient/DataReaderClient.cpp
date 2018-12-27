@@ -58,13 +58,13 @@ DataReaderClient::run(int givePort, string givenIp, SymbolTable *symbolTable,
  * @param symbolTable the global variables
  */
 void DataReaderClient::writeToServer(int socket, SymbolTable *&symbolTable) {
-    queue<map<string, double>>* needToUpdate = symbolTable->getQueueToUpdate();
+    queue<map<string, double>> *needToUpdate = symbolTable->getQueueToUpdate();
     ssize_t n = 0;
     string tempString;
     string stringValue;
     double value = 0;
     string dest;
-    map<string, double > temp;
+    map<string, double> temp;
     while (!needToUpdate->empty()) {
         temp = needToUpdate->front();
         needToUpdate->pop();
@@ -82,11 +82,21 @@ void DataReaderClient::writeToServer(int socket, SymbolTable *&symbolTable) {
     }
 }
 
+/**
+ * Function name: shouldStop
+ * The function operation: The function returns a boolean symbolizing if the
+ * given function should stop
+ * @return
+ */
 bool DataReaderClient::shouldStop() {
     return this->stop;
 }
 
-
-bool DataReaderClient::setStop(){
+/**
+ * Function name: setStop
+ * The function operation: The function sets the stop variable to true
+ * @return
+ */
+bool DataReaderClient::setStop() {
     this->stop = true;
 }
