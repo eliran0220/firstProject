@@ -32,7 +32,7 @@ public:
 
     bool shouldStop();
 
-    bool setStop();
+    void setStop();
 };
 
 

@@ -27,7 +27,7 @@ int WhileCommand::execute(vector<string> &parameters, int position) {
     }
     // do the command list again.
     while (this->condition(parameters[position + 1])) {
-        for (int i = 0; i < expressions.size(); ++i) {
+        for (int i = 0; i < (int)expressions.size(); ++i) {
             expressions[i]->calculate();
         }
     }

@@ -4,7 +4,7 @@
 int main(int argc, char *argv[]) {
     RunTheSimulator*  runTheSimulator =  new RunTheSimulator();
     try {
-        vector<string> split = runTheSimulator->lexer("test.txt");
+        vector<string> split = runTheSimulator->lexer(argv[1]);
         runTheSimulator->parser(split);
     } catch (const char *exception) {
         cout << exception<<endl;

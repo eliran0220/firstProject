@@ -1,3 +1,4 @@
+#include <zconf.h>
 #include "SymbolTable.h"
 
 
@@ -34,6 +35,10 @@ void SymbolTable::updateSymbolTableDest(string name, string value) {
         vector<string> vec;
         vec.push_back(name);
         this->bindValue[value] = vec;
+    }
+    // wait for the variable update from the server.
+    while (!this->valueTable[name]) {
+        sleep(1);
     }
 }
 

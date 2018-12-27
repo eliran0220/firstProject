@@ -50,7 +50,7 @@ void RunTheSimulator::parser(vector<string> commands) {
     Expression *command;
     int i = 0;
     int value;
-    while (i < commands.size()) {
+    while (i < (int)commands.size()) {
         command = this->collectionCommands->getExpressionCommand(commands[i]);
         command->setLexerStringAndPosition(&commands, i);
         value = (int) command->calculate();
@@ -76,7 +76,6 @@ vector<string> RunTheSimulator::lexer(string fileName) {
     vector<string> commands;
     vector<string> temp;
     string line;
-    bool check;
     if (!file) {
         cout << "file does not exists";
         return commands;
@@ -257,7 +256,7 @@ splitLineWithTwoArguments(string &givenLine, string command) {
         bool flagTopVector;
         bool flagTabOrSpace;
         bool stopToSeparate = false;
-        for (int i = 0; i < tempSubString.size(); ++i) {
+        for (int i = 0; i < (int)tempSubString.size(); ++i) {
             tempString = tempSubString[i];
             flagTabOrSpace = (tempSubString[i] == ' ' ||
                               tempSubString[i] == '\t');
@@ -290,7 +289,7 @@ splitLineWithTwoArguments(string &givenLine, string command) {
         }
         tempString = "";
         // merge the strings to two expressions
-        for (int j = 0; j < tempVector.size(); ++j) {
+        for (int j = 0; j < (int)tempVector.size(); ++j) {
             if (tempVector[j] != "&") {
                 tempString += tempVector[j];
             } else {
@@ -430,8 +429,8 @@ void eraseBrackets(vector<string> *strings, int indication, int endOfCheck) {
  */
 bool checkPrefix(string fullString, string prefix) {
     int counter = 0;
-    for (int i = 0; i < fullString.size(); ++i) {
-        if (counter == prefix.size()) {
+    for (int i = 0; i < (int)fullString.size(); ++i) {
+        if (counter == (int)prefix.size()) {
             return true;
         }
         if (fullString[i] != ' ' && fullString[i] != '\t') {

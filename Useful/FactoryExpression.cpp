@@ -20,7 +20,7 @@ vector<string> FactoryExpression::splitExpression(string stringExpression) {
     if (stringExpression[0] == '-' || stringExpression[0] == '+') {
         split.push_back("0");
     }
-    for (int i = 0; i < stringExpression.size(); ++i) {
+    for (int i = 0; i < (int)stringExpression.size(); ++i) {
         temp = stringExpression[i];
         while (regex_match(temp, letterR) || regex_match(temp, numberR) ||
                temp == ".") {
@@ -82,7 +82,7 @@ string decorateBrackets(string stringToDecorate, int start) {
     string s;
     regex letter("[0-9a-zA-Z_]");
     // count the first bracket
-    if (start < stringToDecorate.size() && stringToDecorate[start] == '(') {
+    if (start < (int)stringToDecorate.size() && stringToDecorate[start] == '(') {
         amountBrackets = 1;
     }
     // concatenate the string
@@ -90,7 +90,7 @@ string decorateBrackets(string stringToDecorate, int start) {
         s += stringToDecorate[i];
     }
     // find the end expression to decorate.
-    while (counter < amountBrackets && start < stringToDecorate.size()) {
+    while (counter < amountBrackets && start < (int)stringToDecorate.size()) {
         if (stringToDecorate[start] == '(') {
             amountBrackets++;
         }
@@ -101,7 +101,7 @@ string decorateBrackets(string stringToDecorate, int start) {
         start++;
     }
     // if the expression not have brackets
-    while (amountBrackets == 0 && start < stringToDecorate.size()) {
+    while (amountBrackets == 0 && start < (int)stringToDecorate.size()) {
         string temp;
         temp += stringToDecorate[start];
         if (!regex_match(temp.c_str(), letter)) {
@@ -113,7 +113,7 @@ string decorateBrackets(string stringToDecorate, int start) {
     }
     s += ')';
     // concatenate the end string
-    for (int j = start; j < stringToDecorate.size(); ++j) {
+    for (int j = start; j < (int)stringToDecorate.size(); ++j) {
         s += stringToDecorate[j];
     }
     return s;
@@ -139,7 +139,7 @@ vector<string> shuntingYardAlgorithm(vector<string> strings) {
     stack<string> s;
     queue<string> q;
     //iterate through the vector
-    for (int i = 0; i < prefix.size(); ++i) {
+    for (int i = 0; i < (int)prefix.size(); ++i) {
         //if we have a variable, or number
         if (regex_match(prefix[i], numberR) || regex_match(prefix[i], varR)) {
             //push to the queue
@@ -200,7 +200,7 @@ FactoryExpression::createExpressionFromStrings(vector<string> strings) {
     Expression *left;
     Expression *right;
     double tempNum;
-    for (int i = 0; i < strings.size(); ++i) {
+    for (int i = 0; i < (int)strings.size(); ++i) {
         if (regex_match(strings[i], numberR)) {
             tempNum = stod(strings[i].c_str());
             tempEx = new Number(tempNum);

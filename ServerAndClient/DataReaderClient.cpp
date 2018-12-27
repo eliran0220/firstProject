@@ -96,6 +96,6 @@ bool DataReaderClient::shouldStop() {
  * The function operation: The function sets the stop variable to true
  * @return bool
  */
-bool DataReaderClient::setStop() {
+void DataReaderClient::setStop() {
     this->stop = true;
 }

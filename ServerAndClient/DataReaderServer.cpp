@@ -97,10 +97,6 @@ DataReaderServer::updateSymbolTable(string &values, SymbolTable * &symbolTable) 
     vector<string>* vec;
     stringstream ss(values);
     string tempString;
-    if (values != "") {
-        cout<<values<<endl;
-    }
-
     double value;
     for (int i = 0; i < XML_AMOUNT_VARIABLES; ++i) {
         if (getline(ss, tempString, ',') &&
@@ -109,6 +105,9 @@ DataReaderServer::updateSymbolTable(string &values, SymbolTable * &symbolTable) 
             vec = symbolTable->getVariablesForUpdate(xmlPathsVec[i]);
             for (unsigned long j = 0; j < vec->size(); ++j) {
                 symbolTable->updateSymbolTableValue(vec->at(j), value);
+            }
+            if (i == 12) {
+                cout<<value<<endl;
             }
         }
     }

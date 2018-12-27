@@ -20,24 +20,6 @@ int OpenServerCommand::execute(vector<string> &parameters, int position) {
     int socket = DataReaderServer::createSocket(port);
     delete (p);
     delete (r);
-    ssize_t n;
-    char buffer[1];
-    string values;
-    /*
-    n = read(socket, buffer, 1);
-    for (int i = 0; i < 2; ++i) {
-        while (strcmp(buffer, "\n") != 0) {
-            values += buffer;
-            n = read(socket, buffer, 1);
-            if (n < 0) {
-                perror("ERROR reading from socket");
-                exit(1);
-            }
-
-        }
-       // DataReaderServer::updateSymbolTable(values, this->symbolTable);
-    }
-     */
     // open a new thread for the server.
     this->serverThread = thread(DataReaderServer::run, socket, rate,
                                 this->symbolTable, &this->shouldStop);
