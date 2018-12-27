@@ -94,7 +94,7 @@ DataReaderServer::updateSymbolTable(string &values, SymbolTable * &symbolTable) 
                                                 SLIP_SKID, TURN_RATE, SPEED_FPM,
                                                 AILERON, ELEVATOR, RUDDER,
                                                 FLAPS, THROTTLE, RPM};
-    vector<string> vec;
+    vector<string>* vec;
     stringstream ss(values);
     string tempString;
     if (values != "") {
@@ -107,8 +107,8 @@ DataReaderServer::updateSymbolTable(string &values, SymbolTable * &symbolTable) 
             symbolTable->existsInBindValueMap(xmlPathsVec[i])) {
             value = stod(tempString);
             vec = symbolTable->getVariablesForUpdate(xmlPathsVec[i]);
-            for (int j = 0; j < vec.size(); ++j) {
-                symbolTable->updateSymbolTableValue(vec[j], value);
+            for (unsigned long j = 0; j < vec->size(); ++j) {
+                symbolTable->updateSymbolTableValue(vec->at(j), value);
             }
         }
     }

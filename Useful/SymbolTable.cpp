@@ -8,7 +8,7 @@
  * @param name given string
  */
 void SymbolTable::addToTable(string name) {
-    unique_lock<mutex> lock(mtx);
+    lock_guard<mutex> lock(mtx);
     StoreVarValue<string> *tempD = new StoreVarValue<string>("");
     StoreVarValue<double> *tempV = new StoreVarValue<double>(0);
     this->valueTable[name] = tempV;
@@ -25,7 +25,7 @@ void SymbolTable::addToTable(string name) {
  * @param value given string
  */
 void SymbolTable::updateSymbolTableDest(string name, string value) {
-    unique_lock<mutex> lock(mtx);
+    lock_guard<mutex> lock(mtx);
     this->destTable[name]->setInitialize(true);
     this->destTable[name]->setValue(value);
     if (this->existsInBindValueMap(value)) {
@@ -46,7 +46,7 @@ void SymbolTable::updateSymbolTableDest(string name, string value) {
  * @param value the value we want to update
  */
 void SymbolTable::updateSymbolTableValue(string name, double value) {
-    unique_lock<mutex> lock(mtx);
+    lock_guard<mutex> lock(mtx);
     this->valueTable[name]->setInitialize(true);
     this->valueTable[name]->setValue(value);
 }
@@ -82,9 +82,9 @@ double SymbolTable::getSymbolTableValue(string name) {
  */
 
 
-vector<string> SymbolTable::getVariablesForUpdate(
+vector<string>* SymbolTable::getVariablesForUpdate(
         string &key) {
-    return this->bindValue[key];
+    return &this->bindValue[key];
 }
 
 /**
@@ -95,7 +95,7 @@ vector<string> SymbolTable::getVariablesForUpdate(
  * @return bool
  */
 bool SymbolTable::existsInBindValueMap(string var) {
-    if (this->bindValue.count(var) == ONE) {
+    if ((int)this->bindValue.count(var) == ONE) {
         return true;
     }
     return false;

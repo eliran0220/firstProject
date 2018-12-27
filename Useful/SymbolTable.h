@@ -28,7 +28,6 @@ public:
 
     ~SymbolTable();
 
-
     void addToTable(string name);
 
     void updateSymbolTableValue(string name, double value);
@@ -45,7 +44,7 @@ public:
 
     bool existsInValueTableMap(string var);
 
-    vector<string> getVariablesForUpdate(string &key);
+    vector<string>* getVariablesForUpdate(string &key);
 
     queue<map<string, double>>* getQueueToUpdate();
 };
