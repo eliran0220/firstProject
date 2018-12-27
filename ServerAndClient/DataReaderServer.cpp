@@ -106,9 +106,6 @@ DataReaderServer::updateSymbolTable(string &values, SymbolTable * &symbolTable) 
             for (unsigned long j = 0; j < vec->size(); ++j) {
                 symbolTable->updateSymbolTableValue(vec->at(j), value);
             }
-            if (i == 12) {
-                cout<<value<<endl;
-            }
         }
     }
 }
